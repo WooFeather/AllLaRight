@@ -11,15 +11,15 @@ import SnapKit
 final class MarketView: BaseView {
     private let headerView = UIView()
     private let coinNameLabel = UILabel()
-    let currentPriceButton = MarketSortingView(title: "현재가")
-    let compareToPreviousDayButton = MarketSortingView(title: "전일대비")
-    let transactionPriceButton = MarketSortingView(title: "거래대금")
+    let currentPriceView = MarketSortingView(title: "현재가")
+    let compareToPreviousDayView = MarketSortingView(title: "전일대비")
+    let tradePriceView = MarketSortingView(title: "거래대금")
     let marketTableView = UITableView()
     
     override func configureHierarchy() {
         addSubview(marketTableView)
         addSubview(headerView)
-        [coinNameLabel, currentPriceButton, compareToPreviousDayButton, transactionPriceButton].forEach {
+        [coinNameLabel, currentPriceView, compareToPreviousDayView, tradePriceView].forEach {
             headerView.addSubview($0)
         }
     }
@@ -37,21 +37,21 @@ final class MarketView: BaseView {
             make.height.equalTo(17)
         }
         
-        transactionPriceButton.snp.makeConstraints { make in
+        tradePriceView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(17)
         }
         
-        compareToPreviousDayButton.snp.makeConstraints { make in
+        compareToPreviousDayView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(transactionPriceButton.snp.leading).offset(-30)
+            make.trailing.equalTo(tradePriceView.snp.leading).offset(-30)
             make.height.equalTo(17)
         }
         
-        currentPriceButton.snp.makeConstraints { make in
+        currentPriceView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(compareToPreviousDayButton.snp.leading).offset(-24)
+            make.trailing.equalTo(compareToPreviousDayView.snp.leading).offset(-24)
             make.height.equalTo(17)
         }
         

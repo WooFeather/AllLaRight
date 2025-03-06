@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class MarketViewController: BaseViewController {
 
     private let marketView = MarketView()
     private let navigationView = NavigationTitleView(title: "거래소")
+    private let viewModel = MarketViewModel()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
     deinit {
@@ -19,24 +23,33 @@ final class MarketViewController: BaseViewController {
     
     // MARK: - Functions
     override func bind() {
+        let input = MarketViewModel.Input()
+        let output = viewModel.transform(input: input)
         
+        // TODO: TableViewCell 만들기
+        // TODO: 테이블뷰에 표시
+        output.marketList
+            .drive(with: self) { owner, marketList in
+                dump(marketList)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Actions
     
     // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경 및 정렬
     @objc
-    private func currentPriceButtonTapped() {
+    private func currentPriceViewTapped() {
         print("현재가")
     }
     
     @objc
-    private func compareToPreviousDayButtonTapped() {
+    private func compareToPreviousDayViewTapped() {
         print("전일대비")
     }
     
     @objc
-    private func transactionPriceButtonTapped() {
+    private func tradePriceViewTapped() {
         print("거래대금")
     }
     
@@ -51,13 +64,13 @@ final class MarketViewController: BaseViewController {
     
     override func configureAction() {
         // TODO: RxGesture 알아보기
-        let currentPriceButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(currentPriceButtonTapped))
-        marketView.currentPriceButton.addGestureRecognizer(currentPriceButtonTapGesture)
+        let currentPriceViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(currentPriceViewTapped))
+        marketView.currentPriceView.addGestureRecognizer(currentPriceViewTapGesture)
         
-        let compareToPreviousDayButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(compareToPreviousDayButtonTapped))
-        marketView.compareToPreviousDayButton.addGestureRecognizer(compareToPreviousDayButtonTapGesture)
+        let compareToPreviousDayViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(compareToPreviousDayViewTapped))
+        marketView.compareToPreviousDayView.addGestureRecognizer(compareToPreviousDayViewTapGesture)
         
-        let transactionPriceButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(transactionPriceButtonTapped))
-        marketView.transactionPriceButton.addGestureRecognizer(transactionPriceButtonTapGesture)
+        let tradePriceViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(tradePriceViewTapped))
+        marketView.tradePriceView.addGestureRecognizer(tradePriceViewTapGesture)
     }
 }

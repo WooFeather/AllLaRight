@@ -49,11 +49,11 @@ final class MarketSortingView: BaseView {
         titleLabel.font = .boldSystemFont(ofSize: 15)
         
         upperImageView.image = UIImage(systemName: "arrowtriangle.up.fill")
-        upperImageView.tintColor = .themePrimary
+        upperImageView.tintColor = .themeSecondary
         upperImageView.contentMode = .scaleAspectFill
         
         lowerImageView.image = UIImage(systemName: "arrowtriangle.down.fill")
-        lowerImageView.tintColor = .themePrimary
+        lowerImageView.tintColor = .themeSecondary
         lowerImageView.contentMode = .scaleAspectFill
     }
 }

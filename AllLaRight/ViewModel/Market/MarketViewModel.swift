@@ -12,16 +12,25 @@ import RxCocoa
 final class MarketViewModel: BaseViewModel {
     var disposBag = DisposeBag()
     
+    private let marketList = PublishRelay<[UpbitMarket]>()
+    
     struct Input {
         
     }
     
     struct Output {
-        
+        let marketList: Driver<[UpbitMarket]>
     }
     
     func transform(input: Input) -> Output {
         
-        return Output()
+        // TODO: Input에 flatmap으로 수정
+        NetworkManager.shared.callUpbitMarketAPI(api: .upbitMarket)
+            .subscribe(with: self) { owner, data in
+                owner.marketList.accept(data)
+            }
+            .disposed(by: disposBag)
+        
+        return Output(marketList: marketList.asDriver(onErrorJustReturn: []))
     }
 }
