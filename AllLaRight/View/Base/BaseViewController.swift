@@ -14,6 +14,7 @@ class BaseViewController: UIViewController {
         
         configureView()
         configureData()
+        configureAction()
         bind()
     }
     
@@ -22,6 +23,8 @@ class BaseViewController: UIViewController {
     }
     
     func configureData() { }
+    
+    func configureAction() { }
     
     func bind() { }
 }

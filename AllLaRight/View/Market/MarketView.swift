@@ -11,9 +11,9 @@ import SnapKit
 final class MarketView: BaseView {
     private let headerView = UIView()
     private let coinNameLabel = UILabel()
-    let currentPriceButton = UIButton()
-    let compareToPreviousDayButton = UIButton()
-    let transactionPriceButton = UIButton()
+    let currentPriceButton = MarketSortingView(title: "현재가")
+    let compareToPreviousDayButton = MarketSortingView(title: "전일대비")
+    let transactionPriceButton = MarketSortingView(title: "거래대금")
     let marketTableView = UITableView()
     
     override func configureHierarchy() {
@@ -28,31 +28,31 @@ final class MarketView: BaseView {
         headerView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(40)
+            make.height.equalTo(36)
         }
         
         coinNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
-            make.height.equalTo(21)
+            make.leading.equalToSuperview().offset(20)
+            make.height.equalTo(17)
         }
         
         transactionPriceButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(21)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.equalTo(17)
         }
         
         compareToPreviousDayButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(transactionPriceButton.snp.leading).offset(-20)
-            make.height.equalTo(21)
+            make.trailing.equalTo(transactionPriceButton.snp.leading).offset(-30)
+            make.height.equalTo(17)
         }
         
         currentPriceButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(compareToPreviousDayButton.snp.leading).offset(-20)
-            make.height.equalTo(21)
+            make.trailing.equalTo(compareToPreviousDayButton.snp.leading).offset(-24)
+            make.height.equalTo(17)
         }
         
         marketTableView.snp.makeConstraints { make in
@@ -65,24 +65,8 @@ final class MarketView: BaseView {
         headerView.backgroundColor = .themeTertiary
         
         coinNameLabel.text = "코인"
-        coinNameLabel.font = .boldSystemFont(ofSize: 17)
+        coinNameLabel.font = .boldSystemFont(ofSize: 15)
         coinNameLabel.textColor = .themePrimary
-        
-        // TODO: 아래 버튼들 커스텀 및 configuration으로 이미지 설정 및 사이즈 조정
-        currentPriceButton.setTitle("현재가", for: .normal)
-        currentPriceButton.setImage(UIImage(systemName: "arrowtriangle.up.fill"), for: .normal)
-        currentPriceButton.setTitleColor(.themePrimary, for: .normal)
-        currentPriceButton.tintColor = .themePrimary
-        
-        compareToPreviousDayButton.setTitle("전일대비", for: .normal)
-        compareToPreviousDayButton.setImage(UIImage(systemName: "arrowtriangle.up.fill"), for: .normal)
-        compareToPreviousDayButton.setTitleColor(.themePrimary, for: .normal)
-        compareToPreviousDayButton.tintColor = .themePrimary
-        
-        transactionPriceButton.setTitle("거래대금", for: .normal)
-        transactionPriceButton.setImage(UIImage(systemName: "arrowtriangle.up.fill"), for: .normal)
-        transactionPriceButton.setTitleColor(.themePrimary, for: .normal)
-        transactionPriceButton.tintColor = .themePrimary
         
         marketTableView.backgroundColor = .lightGray
     }
