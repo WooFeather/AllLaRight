@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		79AD449F2D79796200C9905B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 79AD449E2D79796200C9905B /* .gitignore */; };
+		79AD45912D7986FC00C9905B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45902D7986FC00C9905B /* RxCocoa */; };
+		79AD45932D7986FC00C9905B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45922D7986FC00C9905B /* RxSwift */; };
+		79AD45962D79870600C9905B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45952D79870600C9905B /* Toast */; };
+		79AD45992D79872B00C9905B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45982D79872B00C9905B /* RealmSwift */; };
+		79AD459C2D79875300C9905B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD459B2D79875300C9905B /* SnapKit */; };
+		79AD459F2D79876800C9905B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD459E2D79876800C9905B /* Kingfisher */; };
+		79AD45A22D79877C00C9905B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45A12D79877C00C9905B /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,7 +23,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		79AD43E62D79743C00C9905B /* Exceptions for "AllLaRight" folder in "AllLaRight" target */ = {
+		79AD465A2D798A7A00C9905B /* Exceptions for "AllLaRight" folder in "AllLaRight" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -26,10 +33,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		79AD43D62D79743B00C9905B /* AllLaRight */ = {
+		79AD464D2D798A7A00C9905B /* AllLaRight */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				79AD43E62D79743C00C9905B /* Exceptions for "AllLaRight" folder in "AllLaRight" target */,
+				79AD465A2D798A7A00C9905B /* Exceptions for "AllLaRight" folder in "AllLaRight" target */,
 			);
 			path = AllLaRight;
 			sourceTree = "<group>";
@@ -41,6 +48,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79AD459F2D79876800C9905B /* Kingfisher in Frameworks */,
+				79AD45A22D79877C00C9905B /* Alamofire in Frameworks */,
+				79AD45992D79872B00C9905B /* RealmSwift in Frameworks */,
+				79AD45962D79870600C9905B /* Toast in Frameworks */,
+				79AD45932D7986FC00C9905B /* RxSwift in Frameworks */,
+				79AD45912D7986FC00C9905B /* RxCocoa in Frameworks */,
+				79AD459C2D79875300C9905B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				79AD449E2D79796200C9905B /* .gitignore */,
-				79AD43D62D79743B00C9905B /* AllLaRight */,
+				79AD464D2D798A7A00C9905B /* AllLaRight */,
 				79AD43D52D79743B00C9905B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,10 +94,17 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				79AD43D62D79743B00C9905B /* AllLaRight */,
+				79AD464D2D798A7A00C9905B /* AllLaRight */,
 			);
 			name = AllLaRight;
 			packageProductDependencies = (
+				79AD45902D7986FC00C9905B /* RxCocoa */,
+				79AD45922D7986FC00C9905B /* RxSwift */,
+				79AD45952D79870600C9905B /* Toast */,
+				79AD45982D79872B00C9905B /* RealmSwift */,
+				79AD459B2D79875300C9905B /* SnapKit */,
+				79AD459E2D79876800C9905B /* Kingfisher */,
+				79AD45A12D79877C00C9905B /* Alamofire */,
 			);
 			productName = AllLaRight;
 			productReference = 79AD43D42D79743B00C9905B /* AllLaRight.app */;
@@ -113,6 +134,14 @@
 			);
 			mainGroup = 79AD43CB2D79743B00C9905B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				79AD458F2D7986FC00C9905B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				79AD45942D79870600C9905B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				79AD45972D79872B00C9905B /* XCRemoteSwiftPackageReference "realm-swift" */,
+				79AD459A2D79875300C9905B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				79AD459D2D79876800C9905B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				79AD45A02D79877C00C9905B /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 79AD43D52D79743B00C9905B /* Products */;
 			projectDirPath = "";
@@ -354,6 +383,95 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		79AD458F2D7986FC00C9905B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.9.0;
+			};
+		};
+		79AD45942D79870600C9905B /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		79AD45972D79872B00C9905B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 20.0.1;
+			};
+		};
+		79AD459A2D79875300C9905B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		79AD459D2D79876800C9905B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.0;
+			};
+		};
+		79AD45A02D79877C00C9905B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		79AD45902D7986FC00C9905B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD458F2D7986FC00C9905B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		79AD45922D7986FC00C9905B /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD458F2D7986FC00C9905B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		79AD45952D79870600C9905B /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD45942D79870600C9905B /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		79AD45982D79872B00C9905B /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD45972D79872B00C9905B /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		79AD459B2D79875300C9905B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD459A2D79875300C9905B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		79AD459E2D79876800C9905B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD459D2D79876800C9905B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		79AD45A12D79877C00C9905B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD45A02D79877C00C9905B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 79AD43CC2D79743B00C9905B /* Project object */;
 }

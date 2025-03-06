@@ -7,12 +7,8 @@
 
 import UIKit
 
-final class MarketViewController: UIViewController {
+final class MarketViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .themePrimary
-    }
+
 }
 
