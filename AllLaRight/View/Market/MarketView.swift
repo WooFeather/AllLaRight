@@ -7,6 +7,6 @@
 
 import UIKit
 
-class MarketView: BaseView {
+final class MarketView: BaseView {
     
 }
