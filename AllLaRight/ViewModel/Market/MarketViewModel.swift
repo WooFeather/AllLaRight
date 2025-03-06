@@ -22,6 +22,10 @@ final class MarketViewModel: BaseViewModel {
         let marketList: Driver<[UpbitMarket]>
     }
     
+    deinit {
+        print("MarketViewModel Deinit")
+    }
+    
     func transform(input: Input) -> Output {
         
         // TODO: Input에 flatmap으로 수정

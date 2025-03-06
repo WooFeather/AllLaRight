@@ -26,11 +26,9 @@ final class MarketViewController: BaseViewController {
         let input = MarketViewModel.Input()
         let output = viewModel.transform(input: input)
         
-        // TODO: TableViewCell 만들기
-        // TODO: 테이블뷰에 표시
         output.marketList
-            .drive(with: self) { owner, marketList in
-                dump(marketList)
+            .drive(marketView.marketTableView.rx.items(cellIdentifier: MarketTableViewCell.id, cellType: MarketTableViewCell.self)) { row, element, cell in
+                cell.configureData(data: element)
             }
             .disposed(by: disposeBag)
     }
@@ -60,6 +58,10 @@ final class MarketViewController: BaseViewController {
     
     override func configureView() {
         navigationItem.titleView = navigationView
+    }
+    
+    override func configureData() {
+        marketView.marketTableView.register(MarketTableViewCell.self, forCellReuseIdentifier: MarketTableViewCell.id)
     }
     
     override func configureAction() {

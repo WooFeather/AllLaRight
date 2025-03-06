@@ -29,6 +29,7 @@ final class NetworkManager {
     func callUpbitMarketAPI(api: APIRequest) -> Single<[UpbitMarket]> {
         return Single.create { value in
             
+            // TODO: 오류코드 대응
             AF.request(api.endpoint, method: api.method)
                 .validate(statusCode: 200..<299)
                 .responseDecodable(of: [UpbitMarket].self) { response in

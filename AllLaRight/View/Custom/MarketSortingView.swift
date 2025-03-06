@@ -29,24 +29,26 @@ final class MarketSortingView: BaseView {
     
     override func configureLayout() {
         upperImageView.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
-            make.size.equalTo(8)
+            make.top.equalToSuperview().offset(1)
+            make.trailing.equalToSuperview()
+            make.size.equalTo(6)
         }
         
         lowerImageView.snp.makeConstraints { make in
-            make.bottom.trailing.equalToSuperview()
-            make.size.equalTo(8)
+            make.bottom.equalToSuperview().offset(-1)
+            make.trailing.equalToSuperview()
+            make.size.equalTo(6)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.leading.equalToSuperview()
-            make.trailing.equalTo(lowerImageView.snp.leading)
+            make.trailing.equalTo(lowerImageView.snp.leading).offset(-1)
         }
     }
     
     override func configureView() {
         titleLabel.textColor = .themePrimary
-        titleLabel.font = .boldSystemFont(ofSize: 15)
+        titleLabel.font = ALRFont.headlineBold.font
         
         upperImageView.image = UIImage(systemName: "arrowtriangle.up.fill")
         upperImageView.tintColor = .themeSecondary
