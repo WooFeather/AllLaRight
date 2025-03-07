@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 final class CoinInfoViewController: BaseViewController {
     private let coinInfoView = CoinInfoView()
@@ -22,10 +23,16 @@ final class CoinInfoViewController: BaseViewController {
 
     // MARK: - Functions
     override func bind() {
+        let input = CoinInfoViewModel.Input()
+        let output = viewModel.transform(input: input)
         
+        // TODO: 2개의 cell과 2개의 section으로 구성된 rxDataSource 구성하기
+//        let dataSource = RxCollectionViewSectionedReloadDataSource<> { <#UICollectionView#>, <#IndexPath#>, <#SectionModelType.Item#> in
+//            <#code#>
+//        }
     }
     
-    // MARK: - ConfigureView
+    // MARK: - ConfigureView
     override func loadView() {
         view = coinInfoView
     }
@@ -35,6 +42,9 @@ final class CoinInfoViewController: BaseViewController {
     }
     
     override func configureData() {
-        // TODO: cell과 headerView 등록
+        // TODO: headerView 등록
+        coinInfoView.infoCollectionView.register(TrendingKeywordCollectionViewCell.self, forCellWithReuseIdentifier: TrendingKeywordCollectionViewCell.id)
+        
+        coinInfoView.infoCollectionView.register(TrendingNFTCollectionViewCell.self, forCellWithReuseIdentifier: TrendingNFTCollectionViewCell.id)
     }
 }

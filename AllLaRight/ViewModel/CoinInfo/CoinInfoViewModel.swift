@@ -12,6 +12,9 @@ import RxCocoa
 final class CoinInfoViewModel: BaseViewModel {
     var disposBag = DisposeBag()
     
+    let mockTrendingCoinData: [MockTrendingCoinItem] = mockTrendingCoins
+    let mockTrendingNFTData: [MockTrendingNFTItem] = mockTrendingNFTs
+    
     struct Input {
         
     }

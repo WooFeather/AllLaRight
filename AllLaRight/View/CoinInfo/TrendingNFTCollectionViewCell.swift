@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class HotNFTCollectionViewCell: BaseCollectionViewCell {
+final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
     let symbolImageView = UIImageView()
     let nameLabel = UILabel()
     let priceLabel = UILabel()

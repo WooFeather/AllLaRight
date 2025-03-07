@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class HotKeywordCollectionViewCell: BaseCollectionViewCell {
+final class TrendingKeywordCollectionViewCell: BaseCollectionViewCell {
     let rankScoreLabel = UILabel()
     let symbolImageView = UIImageView()
     let nameLabel = UILabel()
