@@ -11,19 +11,69 @@ import SnapKit
 final class CoinInfoView: BaseView {
     
     let searchTextField = RoundedTextField()
+    lazy var infoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     override func configureHierarchy() {
         addSubview(searchTextField)
+        addSubview(infoCollectionView)
     }
     
     override func configureLayout() {
         searchTextField.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(16)
             make.height.equalTo(44)
+        }
+        
+        infoCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchTextField.snp.bottom).offset(20)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
     }
     
     override func configureView() {
+        infoCollectionView.backgroundColor = .lightGray
+    }
+    
+    // TODO: 레이아웃 수정
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
+            if sectionIndex == 0 {
+                // 내부 외부 그룹
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/3))
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+                
+                let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
+                
+                let innerGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitems: [item])
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(300), heightDimension: .absolute(100))
+                
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [innerGroup])
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPaging
+                
+                return section
+            } else {
+                // 수평스크롤
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(300), heightDimension: .absolute(500))
+                
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPagingCentered
+                
+                return section
+            }
+        }
         
+        return layout
     }
 }

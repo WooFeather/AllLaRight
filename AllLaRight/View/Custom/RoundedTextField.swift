@@ -39,12 +39,8 @@ final class RoundedTextField: BaseView {
     }
     
     override func configureView() {
-        // TODO: CornerRadius 안먹는 문제 해결
-        DispatchQueue.main.async { [weak self] in
-            self?.roundedBackground.layer.cornerRadius = (self?.roundedBackground.frame.width ?? 0) / 2
-        }
-        roundedBackground.clipsToBounds = true
-        roundedBackground.layer.borderWidth = 2
+        roundedBackground.layer.cornerRadius = 22
+        roundedBackground.layer.borderWidth = 1
         roundedBackground.layer.borderColor = UIColor.themeSecondary.cgColor
         
         magnifyingGlassImageView.image = UIImage(systemName: "magnifyingglass")
