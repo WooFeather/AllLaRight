@@ -57,7 +57,7 @@ final class NetworkManager {
                 }
             
             return Disposables.create {
-                print("🗑️ Disposed")
+                print("🗑️ Network Disposed")
             }
         }
     }
