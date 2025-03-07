@@ -52,6 +52,7 @@ final class MarketTableViewCell: BaseTableViewCell {
         currentPriceLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.trailing.equalTo(changeRateLabel.snp.leading).offset(-24)
+            make.leading.equalTo(coinNameLabel.snp.trailing)
             make.height.equalTo(15)
         }
     }
@@ -59,36 +60,42 @@ final class MarketTableViewCell: BaseTableViewCell {
     override func configureView() {
         coinNameLabel.font = ALRFont.headlineBold.font
         coinNameLabel.textColor = .themePrimary
+        coinNameLabel.textAlignment = .left
         
         tradePriceLabel.font = ALRFont.headline.font
         tradePriceLabel.textColor = .themePrimary
-        tradePriceLabel.textAlignment = .right
         
-        // TODO: 값에 따라 textColor 분기처리
         changeRateLabel.font = ALRFont.headline.font
-        changeRateLabel.textColor = .chartRise
-        changeRateLabel.textAlignment = .right
         
         changePriceLabel.font = ALRFont.body.font
-        changePriceLabel.textColor = .chartRise
-        changePriceLabel.textAlignment = .right
         
         currentPriceLabel.font = ALRFont.headline.font
         currentPriceLabel.textColor = .themePrimary
+        
+        [tradePriceLabel, changeRateLabel, changePriceLabel, currentPriceLabel].forEach {
+            $0.textAlignment = .right
+        }
     }
     
     func configureData(data: MarketData) {
-        
-        // TODO: 반올림하는 코드 extension으로 빼기
-        let digit: Double = pow(10, 2)
-        let changeRate = round(data.changeRate * digit) / digit
         
         // TODO: 코인 이름 명세에 나와있는 이름으로 변경
         coinNameLabel.text = data.coinName
         // TODO: 현재가 표기방식도 변경(명세 참고)
         currentPriceLabel.text = data.currentPrice.formatted()
-        changeRateLabel.text = String(format: "%.2f", changeRate) + "%"
+        
+        changeRateLabel.text = data.changeRate.toFormattedString() + "%"
         changePriceLabel.text = data.changePrice.formatted()
+        
+        [changeRateLabel, changePriceLabel].forEach {
+            if data.change == "EVEN" {
+                $0.textColor = .themePrimary
+            } else if data.change == "RISE" {
+                $0.textColor = .chartRise
+            } else {
+                $0.textColor = .chartFall
+            }
+        }
         
         // TODO: 금액에 따른 표기방법 변경
         tradePriceLabel.text = data.tradePrice.formatted()
