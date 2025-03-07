@@ -38,7 +38,10 @@ final class MarketViewController: BaseViewController {
     
     // MARK: - Functions
     override func bind() {
-        let input = MarketViewModel.Input()
+        let input = MarketViewModel.Input(
+            viewWillAppear: rx.viewWillAppear,
+            viewWillDisappear: rx.viewWillDisappear
+        )
         let output = viewModel.transform(input: input)
         
         output.marketList
@@ -46,6 +49,10 @@ final class MarketViewController: BaseViewController {
                 cell.configureData(data: element)
             }
             .disposed(by: disposeBag)
+        
+        // TODO: Error반환시 AlertView 띄우기
+        // output.errorMessage
+        
     }
     
     // MARK: - Actions
