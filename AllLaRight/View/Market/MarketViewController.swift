@@ -16,6 +16,21 @@ final class MarketViewController: BaseViewController {
     private let viewModel = MarketViewModel()
     private let disposeBag = DisposeBag()
     
+    // TODO: 네트워크 시점 조정
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#function)
+        
+        // 5초마다 새로고침 통신
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(#function)
+        
+        // 5초 타이머 dispose
+    }
+    
     // MARK: - Initializer
     deinit {
         print("MarketViewController Deinit")

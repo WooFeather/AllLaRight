@@ -77,15 +77,17 @@ final class MarketTableViewCell: BaseTableViewCell {
         currentPriceLabel.textColor = .themePrimary
     }
     
-    func configureData(data: UpbitMarket) {
+    func configureData(data: MarketData) {
         
         // TODO: 반올림하는 코드 extension으로 빼기
         let digit: Double = pow(10, 2)
         let changeRate = round(data.changeRate * digit) / digit
         
+        // TODO: 코인 이름 명세에 나와있는 이름으로 변경
         coinNameLabel.text = data.coinName
+        // TODO: 현재가 표기방식도 변경(명세 참고)
         currentPriceLabel.text = data.currentPrice.formatted()
-        changeRateLabel.text = "\(changeRate)%"
+        changeRateLabel.text = String(format: "%.2f", changeRate) + "%"
         changePriceLabel.text = data.changePrice.formatted()
         
         // TODO: 금액에 따른 표기방법 변경
