@@ -11,6 +11,7 @@ import RxCocoa
 
 final class MarketViewModel: BaseViewModel {
     var disposBag = DisposeBag()
+    var timerDisposeBag = DisposeBag()
     
     private let marketList = PublishRelay<[MarketData]>()
     
@@ -31,9 +32,9 @@ final class MarketViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let errorMessage = PublishRelay<String>()
+        let timer = Observable<Int>.timer(.seconds(0), period: .seconds(5), scheduler: MainScheduler.instance)
         
-        // TODO: 5초간격으로 방출할 수 있도록 intervar로 수정
-        input.viewWillAppear
+        let apiTimer = timer
             .flatMap { _ in
                 NetworkManager.shared.callAPI(api: .upbitMarket, type: [MarketData].self)
                     .retry(3)
@@ -68,8 +69,22 @@ final class MarketViewModel: BaseViewModel {
                         return Single.just([])
                     }
             }
-            .bind(with: self) { owner, data in
-                owner.marketList.accept(data)
+        
+        input.viewWillAppear
+            .bind(with: self) { owner, _ in
+                print("viewWillAppear")
+                apiTimer
+                    .bind(with: self) { owner, data in
+                        owner.marketList.accept(data)
+                    }
+                    .disposed(by: owner.timerDisposeBag)
+            }
+            .disposed(by: disposBag)
+        
+        input.viewWillDisappear
+            .bind(with: self) { owner, _ in
+                print("viewWillDisappear")
+                owner.timerDisposeBag = DisposeBag()
             }
             .disposed(by: disposBag)
         
