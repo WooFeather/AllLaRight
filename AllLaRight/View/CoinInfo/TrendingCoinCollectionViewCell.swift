@@ -26,7 +26,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         rankScoreLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(8)
-            make.height.equalTo(15)
+            make.size.equalTo(15)
         }
         
         symbolImageView.snp.makeConstraints { make in
@@ -39,44 +39,48 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
             make.top.equalToSuperview().offset(8)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(15)
+            make.trailing.equalTo(changePercentageView.snp.leading)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(symbolLabel.snp.bottom)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(12)
+            make.trailing.equalTo(changePercentageView.snp.leading)
         }
         
         changePercentageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-8)
             make.height.equalTo(12)
-            make.width.equalTo(20)
+            make.width.equalTo(40)
         }
     }
     
     override func configureView() {
-        rankScoreLabel.text = "14"
         rankScoreLabel.font = ALRFont.headline.font
         rankScoreLabel.textColor = .themePrimary
+        rankScoreLabel.textAlignment = .right
         
-        symbolImageView.backgroundColor = .orange
+        DispatchQueue.main.async { [weak self] in
+            self?.symbolImageView.layer.cornerRadius = (self?.symbolImageView.frame.height ?? 0) / 2
+        }
         symbolImageView.contentMode = .scaleAspectFill
         symbolImageView.clipsToBounds = true
         
-        symbolLabel.text = "BROCCOLI"
         symbolLabel.font = ALRFont.headlineBold.font
         symbolLabel.textColor = .themePrimary
+        symbolLabel.textAlignment = .left
         
-        nameLabel.text = "This is Test"
         nameLabel.font = ALRFont.body.font
         nameLabel.textColor = .themeSecondary
+        nameLabel.textAlignment = .left
         
         changePercentageView.backgroundColor = .blue
     }
     
     func configureData(data: MockTrendingCoinDetails) {
-        rankScoreLabel.text = "\(data.score)"
+        rankScoreLabel.text = "\(data.score + 1)"
         
         let urlString = data.thumb
         symbolImageView.kf.setImage(with: URL(string: urlString))

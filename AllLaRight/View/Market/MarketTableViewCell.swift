@@ -84,7 +84,7 @@ final class MarketTableViewCell: BaseTableViewCell {
         // TODO: 현재가 표기방식도 변경(명세 참고)
         currentPriceLabel.text = data.currentPrice.formatted()
         
-        changeRateLabel.text = data.changeRate.toFormattedString() + "%"
+        changeRateLabel.text = (data.changeRate * 100).toFormattedString() + "%"
         changePriceLabel.text = data.changePrice.formatted()
         
         [changeRateLabel, changePriceLabel].forEach {

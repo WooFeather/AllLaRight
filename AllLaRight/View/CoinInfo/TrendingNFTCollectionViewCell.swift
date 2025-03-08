@@ -32,34 +32,36 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
             make.top.equalTo(symbolImageView.snp.bottom).offset(4)
             make.height.equalTo(12)
+            make.width.equalToSuperview()
         }
         
         priceLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.height.equalTo(12)
+            make.width.equalToSuperview()
         }
         
         changePercentageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(priceLabel.snp.bottom).offset(4)
             make.height.equalTo(12)
-//            make.bottom.equalToSuperview().offset(-8)
+            make.width.equalTo(40)
         }
     }
     
     override func configureView() {
-        symbolImageView.backgroundColor = .cyan
+        symbolImageView.layer.cornerRadius = 24
         symbolImageView.contentMode = .scaleAspectFill
         symbolImageView.clipsToBounds = true
         
-        nameLabel.text = "Special NFT"
         nameLabel.font = ALRFont.bodyBold.font
         nameLabel.textColor = .themePrimary
+        nameLabel.textAlignment = .center
         
-        priceLabel.text = "9.99 ETH"
         priceLabel.font = ALRFont.body.font
         priceLabel.textColor = .themeSecondary
+        priceLabel.textAlignment = .center
         
         changePercentageView.backgroundColor = .blue
     }

@@ -28,12 +28,16 @@ final class CoinInfoViewController: BaseViewController {
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<MultipleSectionModel> { dataSource, collectionView, indexPath, item in
             switch item {
-            case .trendingCoin(trendingCoin: _):
+            case let .trendingCoin(trendingCoin):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCoinCollectionViewCell.id, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
                 
+                cell.configureData(data: trendingCoin.item)
+                
                 return cell
-            case .trendingNFT(trendingNFT: _):
+            case let .trendingNFT(trendingNFT):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingNFTCollectionViewCell.id, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
+                
+                cell.configureData(data: trendingNFT)
                 
                 return cell
             }
