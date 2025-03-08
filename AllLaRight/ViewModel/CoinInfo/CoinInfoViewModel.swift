@@ -15,7 +15,7 @@ final class CoinInfoViewModel: BaseViewModel {
     
     private let mockTrendingCoinData = BehaviorRelay(value: mockTrendingCoins)
     private let mockTrendingNFTData = BehaviorRelay(value: mockTrendingNFTs)
-    private var layout: Observable<[MultipleSectionModel]> {
+    private var infoData: Observable<[MultipleSectionModel]> {
         return Observable.combineLatest(mockTrendingCoinData, mockTrendingNFTData)
             .map { coin, nft in
                 var sections: [MultipleSectionModel] = []
@@ -37,13 +37,13 @@ final class CoinInfoViewModel: BaseViewModel {
     }
     
     struct Output {
-        let layout: Driver<[MultipleSectionModel]>
+        let infoData: Driver<[MultipleSectionModel]>
     }
     
     func transform(input: Input) -> Output {
         
         return Output(
-            layout: layout.asDriver(onErrorJustReturn: [])
+            infoData: infoData.asDriver(onErrorJustReturn: [])
         )
     }
 }
@@ -66,9 +66,9 @@ extension MultipleSectionModel: SectionModelType {
     var items: [SectionItem] {
         switch self {
         case .trendingCoin(let items):
-            return items.map {$0}
+            return items.map { $0 }
         case .trendingNFT(let items):
-            return items.map {$0}
+            return items.map { $0 }
         }
     }
     

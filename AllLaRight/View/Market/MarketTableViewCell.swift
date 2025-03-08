@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 final class MarketTableViewCell: BaseTableViewCell {
-    let coinNameLabel = UILabel()
-    let currentPriceLabel = UILabel()
-    let changeRateLabel = UILabel()
-    let changePriceLabel = UILabel()
-    let tradePriceLabel = UILabel()
+    private let coinNameLabel = UILabel()
+    private let currentPriceLabel = UILabel()
+    private let changeRateLabel = UILabel()
+    private let changePriceLabel = UILabel()
+    private let tradePriceLabel = UILabel()
     
     override func configureHierarchy() {
         [coinNameLabel, currentPriceLabel, changeRateLabel, changePriceLabel, tradePriceLabel].forEach {

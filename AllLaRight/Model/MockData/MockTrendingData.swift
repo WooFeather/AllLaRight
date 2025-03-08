@@ -105,7 +105,7 @@ let mockTrendingCoins: [MockTrendingCoinItem] = [
         "usd": 13.801022654320825,
         "btc": 14.926801240807364,
         "eth": 13.452002437792393,
-        "krw": 13.976150617807855
+        "krw": 0.0
       ],
       marketCap: "$439,280,817",
       marketCapBtc: "8491.70064930356",
@@ -591,7 +591,7 @@ let mockTrendingNFTs: [MockTrendingNFTItem] = [
     nftContractId: 939,
     nativeCurrencySymbol: "eth",
     floorPriceInNativeCurrency: 9.6,
-    floorPrice24hPercentageChange: 55.4038877005999,
+    floorPrice24hPercentageChange: -55.4038877005999,
     data: MockTrendingNFTData(
       floorPrice: "9.60 ETH",
       floorPriceInUsd24hPercentageChange: "55.4038877005999",
@@ -611,7 +611,7 @@ let mockTrendingNFTs: [MockTrendingNFTItem] = [
     nftContractId: 3440,
     nativeCurrencySymbol: "eth",
     floorPriceInNativeCurrency: 11.11,
-    floorPrice24hPercentageChange: 49.7015001867071,
+    floorPrice24hPercentageChange: 0.0,
     data: MockTrendingNFTData(
       floorPrice: "11.11 ETH",
       floorPriceInUsd24hPercentageChange: "49.7015001867071",

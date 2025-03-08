@@ -10,11 +10,11 @@ import SnapKit
 import Kingfisher
 
 final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
-    let rankScoreLabel = UILabel()
-    let symbolImageView = UIImageView()
-    let symbolLabel = UILabel()
-    let nameLabel = UILabel()
-    let changePercentageView = UIView() // TODO: 커스텀뷰로 만들기
+    private let rankScoreLabel = UILabel()
+    private let symbolImageView = UIImageView()
+    private let symbolLabel = UILabel()
+    private let nameLabel = UILabel()
+    private let changePercentageView = ChangePercentageView()
     
     override func configureHierarchy() {
         [rankScoreLabel, symbolImageView, symbolLabel, nameLabel, changePercentageView].forEach {
@@ -51,9 +51,8 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         
         changePercentageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-8)
             make.height.equalTo(12)
-            make.width.equalTo(40)
+            make.trailing.equalToSuperview()
         }
     }
     
@@ -75,8 +74,6 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         nameLabel.font = ALRFont.body.font
         nameLabel.textColor = .themeSecondary
         nameLabel.textAlignment = .left
-        
-        changePercentageView.backgroundColor = .blue
     }
     
     func configureData(data: MockTrendingCoinDetails) {
@@ -88,6 +85,27 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         symbolLabel.text = data.symbol
         nameLabel.text = data.name
         
-        // TODO: changePercentageView에 change반영
+        // 등락뷰 세팅
+        guard let changeRate = data.data.priceChangePercentage24h["krw"] else { return }
+        
+        let riseIcon = UIImage(systemName: "arrowtriangle.up.fill")
+        
+        let fallIcon = UIImage(systemName: "arrowtriangle.down.fill")
+        
+        changePercentageView.changeRateLabel.text = (abs(changeRate).toFormattedString()) + "%"
+        
+        if changeRate > 0 {
+            changePercentageView.iconImageView.image = riseIcon
+            changePercentageView.iconImageView.tintColor = .chartRise
+            changePercentageView.changeRateLabel.textColor = .chartRise
+        } else if changeRate < 0 {
+            changePercentageView.iconImageView.image = fallIcon
+            changePercentageView.iconImageView.tintColor = .chartFall
+            changePercentageView.changeRateLabel.textColor = .chartFall
+        } else {
+            changePercentageView.iconImageView.image = UIImage()
+            changePercentageView.iconImageView.tintColor = .themePrimary
+            changePercentageView.changeRateLabel.textColor = .themePrimary
+        }
     }
 }
