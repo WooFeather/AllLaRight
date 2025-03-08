@@ -35,6 +35,8 @@ final class MarketViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        // TODO: 통신이 되기 전에는 인디케이터 표시
+        
         // TODO: Error반환시 AlertView 띄우기
         // output.errorMessage
         

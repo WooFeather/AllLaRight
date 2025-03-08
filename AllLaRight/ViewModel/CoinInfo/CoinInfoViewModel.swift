@@ -13,10 +13,11 @@ import RxDataSources
 final class CoinInfoViewModel: BaseViewModel {
     var disposBag = DisposeBag()
     
-    private let mockTrendingCoinData = BehaviorRelay(value: mockTrendingCoins)
-    private let mockTrendingNFTData = BehaviorRelay(value: mockTrendingNFTs)
-    private var infoData: Observable<[MultipleSectionModel]> {
-        return Observable.combineLatest(mockTrendingCoinData, mockTrendingNFTData)
+    private let trendingCoinData = PublishRelay<[TrendingCoinItem]>()
+    private let trendingNFTData = PublishRelay<[TrendingNFTItem]>()
+    
+    private var trendingData: Observable<[MultipleSectionModel]> {
+        return Observable.combineLatest(trendingCoinData, trendingNFTData)
             .map { coin, nft in
                 var sections: [MultipleSectionModel] = []
                 
@@ -37,13 +38,67 @@ final class CoinInfoViewModel: BaseViewModel {
     }
     
     struct Output {
-        let infoData: Driver<[MultipleSectionModel]>
+        let trendingData: Driver<[MultipleSectionModel]>
+        let errorMessage: Driver<String>
+    }
+    
+    deinit {
+        print("CoinInfoViewModel Deinit")
     }
     
     func transform(input: Input) -> Output {
         
+        let errorMessage = PublishRelay<String>()
+        let timer = Observable<Int>.timer(.seconds(0), period: .seconds(600), scheduler: MainScheduler.instance)
+        let networkTime = BehaviorRelay(value: Date())
+        
+        let apiTimer = timer
+            .flatMap { _ in
+                NetworkManager.shared.callAPI(api: .coingeckoTrending, type: TrendingData.self)
+                    .retry(3)
+                    .catch { error in
+                        switch error as? APIError {
+                        case .disconnection:
+                            errorMessage.accept(APIError.disconnection.errorMessage)
+                        case .badRequest:
+                            errorMessage.accept(APIError.badRequest.errorMessage)
+                        case .unauthorized:
+                            errorMessage.accept(APIError.unauthorized.errorMessage)
+                        case .forbidden:
+                            errorMessage.accept(APIError.forbidden.errorMessage)
+                        case .tooManyRequests:
+                            errorMessage.accept(APIError.tooManyRequests.errorMessage)
+                        case .internalServerError:
+                            errorMessage.accept(APIError.internalServerError.errorMessage)
+                        case .serviceUnavailable:
+                            errorMessage.accept(APIError.serviceUnavailable.errorMessage)
+                        case .accessDenied:
+                            errorMessage.accept(APIError.accessDenied.errorMessage)
+                        case .apiKeyMissing:
+                            errorMessage.accept(APIError.apiKeyMissing.errorMessage)
+                        case .planError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        case .corsError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        default:
+                            errorMessage.accept(APIError.unknownError.errorMessage)
+                        }
+                        
+                        return Single.just(TrendingData(coins: [], nfts: []))
+                    }
+            }
+        
+        apiTimer
+            .bind(with: self) { owner, data in
+                owner.trendingCoinData.accept(data.coins.filter{ $0.item.score < 14 })
+                owner.trendingNFTData.accept(data.nfts)
+                networkTime.accept(Date())
+            }
+            .disposed(by: disposBag)
+        
         return Output(
-            infoData: infoData.asDriver(onErrorJustReturn: [])
+            trendingData: trendingData.asDriver(onErrorJustReturn: []),
+            errorMessage: errorMessage.asDriver(onErrorJustReturn: "")
         )
     }
 }
@@ -56,8 +111,8 @@ enum MultipleSectionModel {
 }
 
 enum SectionItem {
-    case trendingCoin(trendingCoin: MockTrendingCoinItem)
-    case trendingNFT(trendingNFT: MockTrendingNFTItem)
+    case trendingCoin(trendingCoin: TrendingCoinItem)
+    case trendingNFT(trendingNFT: TrendingNFTItem)
 }
 
 extension MultipleSectionModel: SectionModelType {

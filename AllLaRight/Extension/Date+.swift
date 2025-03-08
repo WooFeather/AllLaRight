@@ -11,7 +11,7 @@ extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "MM.dd HH:MM 기준"
+        dateFormatter.dateFormat = "MM.dd HH:mm 기준"
         return dateFormatter.string(from: self)
     }
 }

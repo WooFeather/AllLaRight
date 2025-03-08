@@ -46,7 +46,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
             make.top.equalTo(symbolLabel.snp.bottom)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(12)
-            make.trailing.equalTo(changePercentageView.snp.leading)
+            make.width.equalTo(60)
         }
         
         changePercentageView.snp.makeConstraints { make in
@@ -76,7 +76,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         nameLabel.textAlignment = .left
     }
     
-    func configureData(data: MockTrendingCoinDetails) {
+    func configureData(data: TrendingCoinDetails) {
         rankScoreLabel.text = "\(data.score + 1)"
         
         let urlString = data.thumb
@@ -89,7 +89,6 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         guard let changeRate = data.data.priceChangePercentage24h["krw"] else { return }
         
         let riseIcon = UIImage(systemName: "arrowtriangle.up.fill")
-        
         let fallIcon = UIImage(systemName: "arrowtriangle.down.fill")
         
         changePercentageView.changeRateLabel.text = (abs(changeRate).toFormattedString()) + "%"

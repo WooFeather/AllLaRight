@@ -64,7 +64,7 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
         priceLabel.textAlignment = .center
     }
     
-    func configureData(data: MockTrendingNFTItem) {
+    func configureData(data: TrendingNFTItem) {
         let urlString = data.thumb
         symbolImageView.kf.setImage(with: URL(string: urlString))
         

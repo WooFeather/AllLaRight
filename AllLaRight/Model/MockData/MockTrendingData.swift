@@ -13,31 +13,30 @@ struct MockTrendingCoinItem {
 }
 
 struct MockTrendingCoinDetails {
-  let id: String
+  let id: String // ✅
   let coinId: Int
-  let name: String
-  let symbol: String
+  let name: String // ✅
+  let symbol: String // ✅
   let marketCapRank: Int
-  let thumb: String
+  let thumb: String // ✅
   let small: String
   let large: String
   let slug: String
   let priceBtc: Double
-  let score: Int
+  let score: Int // ✅
   let data: MockTrendingCoinData
 }
 
 struct MockTrendingCoinData {
   let price: String
   let priceBtc: String
-  let priceChangePercentage24h: [String: Double]
+  let priceChangePercentage24h: [String: Double] // ✅
   let marketCap: String
   let marketCapBtc: String
   let totalVolume: String
   let totalVolumeBtc: String
   let sparkline: String
   let content: MockTrendingContentInfo?
-
 }
 
 struct MockTrendingContentInfo  {
@@ -47,18 +46,18 @@ struct MockTrendingContentInfo  {
 
 struct MockTrendingNFTItem {
   let id: String
-  let name: String
+  let name: String // ✅
   let symbol: String
-  let thumb: String
+  let thumb: String // ✅
   let nftContractId: Int
   let nativeCurrencySymbol: String
   let floorPriceInNativeCurrency: Double
-  let floorPrice24hPercentageChange: Double
+  let floorPrice24hPercentageChange: Double // ✅
   let data: MockTrendingNFTData
 }
 
 struct MockTrendingNFTData {
-  let floorPrice: String
+  let floorPrice: String // ✅
   let floorPriceInUsd24hPercentageChange: String
   let h24Volume: String
   let h24AverageSalePrice: String

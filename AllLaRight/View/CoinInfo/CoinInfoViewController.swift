@@ -48,7 +48,6 @@ final class CoinInfoViewController: BaseViewController {
                         
                         switch dataSource[indexPath.section] {
                         case .trendingCoin(items: _):
-                            // TODO: 날짜데이터 네트워크 요청시각으로 변경(output데이터에 바인딩)
                             header.configureData(sectionTitle: "인기 검색어", dateString: Date().toString())
                         case .trendingNFT(items: _):
                             header.configureData(sectionTitle: "인기 NFT", dateString: "")
@@ -59,9 +58,14 @@ final class CoinInfoViewController: BaseViewController {
             }
         }
         
-        output.infoData
+        output.trendingData
             .drive(coinInfoView.infoCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        // TODO: 통신이 되기 전에는 인디케이터 표시
+        
+        // TODO: Error반환시 AlertView 띄우기
+        // output.errorMessage
         
         // TODO: modelSelected 어떻게 처리할까
         coinInfoView.infoCollectionView.rx.itemSelected

@@ -7,11 +7,10 @@
 
 import UIKit
 
-final class PortfolioViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .themeTertiary
+final class PortfolioViewController: BaseViewController {
+    private let navigationView = NavigationTitleView(title: "포트폴리오")
+    
+    override func configureView() {
+        navigationItem.titleView = navigationView
     }
 }
