@@ -26,10 +26,23 @@ final class CoinInfoViewController: BaseViewController {
         let input = CoinInfoViewModel.Input()
         let output = viewModel.transform(input: input)
         
-        // TODO: 2개의 cell과 2개의 section으로 구성된 rxDataSource 구성하기
-//        let dataSource = RxCollectionViewSectionedReloadDataSource<> { <#UICollectionView#>, <#IndexPath#>, <#SectionModelType.Item#> in
-//            <#code#>
-//        }
+        let dataSource = RxCollectionViewSectionedReloadDataSource<MultipleSectionModel> { dataSource, collectionView, indexPath, item in
+            switch item {
+            case .trendingCoin(trendingCoin: _):
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCoinCollectionViewCell.id, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
+                
+                
+                return cell
+            case .trendingNFT(trendingNFT: _):
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingNFTCollectionViewCell.id, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
+                
+                return cell
+            }
+        }
+        
+        output.layout
+            .drive(coinInfoView.infoCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView
@@ -43,7 +56,7 @@ final class CoinInfoViewController: BaseViewController {
     
     override func configureData() {
         // TODO: headerView 등록
-        coinInfoView.infoCollectionView.register(TrendingKeywordCollectionViewCell.self, forCellWithReuseIdentifier: TrendingKeywordCollectionViewCell.id)
+        coinInfoView.infoCollectionView.register(TrendingCoinCollectionViewCell.self, forCellWithReuseIdentifier: TrendingCoinCollectionViewCell.id)
         
         coinInfoView.infoCollectionView.register(TrendingNFTCollectionViewCell.self, forCellWithReuseIdentifier: TrendingNFTCollectionViewCell.id)
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension TrendingKeywordCollectionViewCell {
+extension TrendingCoinCollectionViewCell {
     static var id: String {
         return String(describing: self)
     }

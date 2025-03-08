@@ -7,16 +7,17 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
-final class TrendingKeywordCollectionViewCell: BaseCollectionViewCell {
+final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
     let rankScoreLabel = UILabel()
     let symbolImageView = UIImageView()
+    let symbolLabel = UILabel()
     let nameLabel = UILabel()
-    let descriptionLabel = UILabel()
     let changePercentageView = UIView() // TODO: 커스텀뷰로 만들기
     
     override func configureHierarchy() {
-        [rankScoreLabel, symbolImageView, nameLabel, descriptionLabel, changePercentageView].forEach {
+        [rankScoreLabel, symbolImageView, symbolLabel, nameLabel, changePercentageView].forEach {
             addSubview($0)
         }
     }
@@ -34,14 +35,14 @@ final class TrendingKeywordCollectionViewCell: BaseCollectionViewCell {
             make.size.equalTo(26)
         }
         
-        nameLabel.snp.makeConstraints { make in
+        symbolLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(15)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(symbolLabel.snp.bottom)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(12)
         }
@@ -63,18 +64,26 @@ final class TrendingKeywordCollectionViewCell: BaseCollectionViewCell {
         symbolImageView.contentMode = .scaleAspectFill
         symbolImageView.clipsToBounds = true
         
-        nameLabel.text = "BROCCOLI"
-        nameLabel.font = ALRFont.headlineBold.font
-        nameLabel.textColor = .themePrimary
+        symbolLabel.text = "BROCCOLI"
+        symbolLabel.font = ALRFont.headlineBold.font
+        symbolLabel.textColor = .themePrimary
         
-        descriptionLabel.text = "This is Test"
-        descriptionLabel.font = ALRFont.body.font
-        descriptionLabel.textColor = .themeSecondary
+        nameLabel.text = "This is Test"
+        nameLabel.font = ALRFont.body.font
+        nameLabel.textColor = .themeSecondary
         
         changePercentageView.backgroundColor = .blue
     }
     
-    func configureData() {
-        // TODO: 실제 데이터와 연결
+    func configureData(data: MockTrendingCoinDetails) {
+        rankScoreLabel.text = "\(data.score)"
+        
+        let urlString = data.thumb
+        symbolImageView.kf.setImage(with: URL(string: urlString))
+        
+        symbolLabel.text = data.symbol
+        nameLabel.text = data.name
+        
+        // TODO: changePercentageView에 change반영
     }
 }

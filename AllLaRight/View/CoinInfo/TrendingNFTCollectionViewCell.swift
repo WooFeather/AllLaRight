@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
     let symbolImageView = UIImageView()
@@ -63,7 +64,13 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
         changePercentageView.backgroundColor = .red
     }
     
-    func configureData() {
-        // TODO: 실제 데이터와 연결
+    func configureData(data: MockTrendingNFTItem) {
+        let urlString = data.thumb
+        symbolImageView.kf.setImage(with: URL(string: urlString))
+        
+        nameLabel.text = data.name
+        priceLabel.text = data.data.floorPrice
+        
+        // TODO: changePercentageView에 change반영
     }
 }
