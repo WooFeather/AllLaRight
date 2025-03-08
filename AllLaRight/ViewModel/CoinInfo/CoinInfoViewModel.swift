@@ -34,12 +34,13 @@ final class CoinInfoViewModel: BaseViewModel {
     }
     
     struct Input {
-        
+        let modelSelected: ControlEvent<SectionItem>
     }
     
     struct Output {
         let trendingData: Driver<[MultipleSectionModel]>
         let errorMessage: Driver<String>
+        let modelSelected: Driver<SectionItem>
     }
     
     deinit {
@@ -98,7 +99,8 @@ final class CoinInfoViewModel: BaseViewModel {
         
         return Output(
             trendingData: trendingData.asDriver(onErrorJustReturn: []),
-            errorMessage: errorMessage.asDriver(onErrorJustReturn: "")
+            errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
+            modelSelected: input.modelSelected.asDriver()
         )
     }
 }

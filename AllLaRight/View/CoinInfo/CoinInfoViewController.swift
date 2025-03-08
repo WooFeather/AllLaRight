@@ -23,7 +23,9 @@ final class CoinInfoViewController: BaseViewController {
 
     // MARK: - Functions
     override func bind() {
-        let input = CoinInfoViewModel.Input()
+        let input = CoinInfoViewModel.Input(
+            modelSelected: coinInfoView.infoCollectionView.rx.modelSelected(SectionItem.self)
+        )
         let output = viewModel.transform(input: input)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<MultipleSectionModel> { dataSource, collectionView, indexPath, item in
@@ -67,28 +69,19 @@ final class CoinInfoViewController: BaseViewController {
         // TODO: Error반환시 AlertView 띄우기
         // output.errorMessage
         
-        // TODO: modelSelected 어떻게 처리할까
-        coinInfoView.infoCollectionView.rx.itemSelected
-            .bind(with: self) { owner, index in
-                if index.section == 0 {
-                    print(index.row)
+        output.modelSelected
+            .drive(with: self) { owner, data in
+                switch data {
+                case .trendingCoin(trendingCoin: let trendingCoin):
+                    print(trendingCoin.item.id)
+                    
+                    let vc = CoinDetailViewController()
+                    owner.navigationController?.pushViewController(vc, animated: true)
+                case .trendingNFT(trendingNFT: _):
+                    break
                 }
             }
             .disposed(by: disposeBag)
-        
-//        Observable.zip(coinInfoView.infoCollectionView.rx.modelSelected(MockTrendingCoinItem.self), coinInfoView.infoCollectionView.rx.itemSelected)
-//            .bind(with: self) { owner, value in
-//                if value.1.section == 0 {
-//                    print(value.0)
-//                }
-//            }
-//            .disposed(by: disposeBag)
-        
-//        coinInfoView.infoCollectionView.rx.modelSelected(MockTrendingCoinDetails.self)
-//            .bind(with: self) { owner, data in
-//                print(data.coinId)
-//            }
-//            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView

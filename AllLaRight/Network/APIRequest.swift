@@ -10,7 +10,7 @@ import Alamofire
 
 enum APIRequest {
     case upbitMarket
-    case coingeckoMarket
+    case coingeckoMarket(id: String)
     case coingeckoTrending
     case coingeckoSearch(query: String)
     
@@ -26,8 +26,8 @@ enum APIRequest {
         switch self {
         case .upbitMarket:
             return URL(string: upbitBaseURL + "ticker/all?quote_currencies=KRW")!
-        case .coingeckoMarket:
-            return URL(string: coingeckoBaseURL + "coins/markets?vs_currency=krw&sparkline=true")!
+        case .coingeckoMarket(let id):
+            return URL(string: coingeckoBaseURL + "coins/markets?vs_currency=krw&sparkline=true&ids=\(id)")!
         case .coingeckoTrending:
             return URL(string: coingeckoBaseURL + "search/trending")!
         case .coingeckoSearch(let query):
