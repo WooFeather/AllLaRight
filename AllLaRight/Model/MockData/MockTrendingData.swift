@@ -529,35 +529,35 @@ let mockTrendingCoins: [MockTrendingCoinItem] = [
   )),
 
   // Sei (SEI)
-  MockTrendingCoinItem(item: MockTrendingCoinDetails(
-    id: "sei-network",
-    coinId: 28205,
-    name: "Sei",
-    symbol: "SEI",
-    marketCapRank: 47,
-    thumb: "https://assets.coingecko.com/coins/images/28205/thumb/Sei_Logo_-_Transparent.png?1696527207",
-    small: "https://assets.coingecko.com/coins/images/28205/small/Sei_Logo_-_Transparent.png?1696527207",
-    large: "https://assets.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207",
-    slug: "sei",
-    priceBtc: 0.000017393466135210818,
-    score: 14,
-    data: MockTrendingCoinData(
-      price: "$0.9002",
-      priceBtc: "0.0000173934661352108",
-      priceChangePercentage24h: [
-        "usd": -5.207005145348561,
-        "btc": -4.4799657870415475,
-        "eth": -6.111893088165058,
-        "krw": -5.015587588651448
-      ],
-      marketCap: "$2,293,078,862",
-      marketCapBtc: "44327.3152687686",
-      totalVolume: "$236,475,825",
-      totalVolumeBtc: "4568.95542643334",
-      sparkline: "https://www.coingecko.com/coins/28205/sparkline.svg",
-      content: nil
-    )
-  ))
+//  MockTrendingCoinItem(item: MockTrendingCoinDetails(
+//    id: "sei-network",
+//    coinId: 28205,
+//    name: "Sei",
+//    symbol: "SEI",
+//    marketCapRank: 47,
+//    thumb: "https://assets.coingecko.com/coins/images/28205/thumb/Sei_Logo_-_Transparent.png?1696527207",
+//    small: "https://assets.coingecko.com/coins/images/28205/small/Sei_Logo_-_Transparent.png?1696527207",
+//    large: "https://assets.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207",
+//    slug: "sei",
+//    priceBtc: 0.000017393466135210818,
+//    score: 14,
+//    data: MockTrendingCoinData(
+//      price: "$0.9002",
+//      priceBtc: "0.0000173934661352108",
+//      priceChangePercentage24h: [
+//        "usd": -5.207005145348561,
+//        "btc": -4.4799657870415475,
+//        "eth": -6.111893088165058,
+//        "krw": -5.015587588651448
+//      ],
+//      marketCap: "$2,293,078,862",
+//      marketCapBtc: "44327.3152687686",
+//      totalVolume: "$236,475,825",
+//      totalVolumeBtc: "4568.95542643334",
+//      sparkline: "https://www.coingecko.com/coins/28205/sparkline.svg",
+//      content: nil
+//    )
+//  ))
 ]
 
 // 인기 NFT 목데이터

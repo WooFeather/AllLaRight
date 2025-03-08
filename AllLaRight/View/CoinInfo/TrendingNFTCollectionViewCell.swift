@@ -44,7 +44,7 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
             make.top.equalTo(priceLabel.snp.bottom).offset(4)
             make.height.equalTo(12)
-            make.bottom.equalToSuperview().offset(-8)
+//            make.bottom.equalToSuperview().offset(-8)
         }
     }
     
@@ -61,7 +61,7 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
         priceLabel.font = ALRFont.body.font
         priceLabel.textColor = .themeSecondary
         
-        changePercentageView.backgroundColor = .red
+        changePercentageView.backgroundColor = .blue
     }
     
     func configureData(data: MockTrendingNFTItem) {

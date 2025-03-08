@@ -31,7 +31,6 @@ final class CoinInfoViewController: BaseViewController {
             case .trendingCoin(trendingCoin: _):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCoinCollectionViewCell.id, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
                 
-                
                 return cell
             case .trendingNFT(trendingNFT: _):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingNFTCollectionViewCell.id, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
