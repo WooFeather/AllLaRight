@@ -35,6 +35,8 @@ final class CoinInfoView: BaseView {
     }
     
     private func createLayout() -> UICollectionViewLayout {
+        let header = makeHeaderView()
+        
         let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
             if sectionIndex == 0 {
                 // 내부 외부 그룹
@@ -53,6 +55,7 @@ final class CoinInfoView: BaseView {
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+                section.boundarySupplementaryItems = [header]
                 
                 return section
             } else {
@@ -68,11 +71,24 @@ final class CoinInfoView: BaseView {
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
+                section.boundarySupplementaryItems = [header]
                 section.orthogonalScrollingBehavior = .continuous
                 
                 return section
             }
         }
         return layout
+    }
+    
+    private func makeHeaderView() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(20))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: SectionHeader.elementKind,
+            alignment: .top)
+        
+        return header
     }
 }
