@@ -35,12 +35,16 @@ final class CoinInfoViewModel: BaseViewModel {
     
     struct Input {
         let modelSelected: ControlEvent<SectionItem>
+        let textFieldReturnTapped: ControlEvent<()>
+        let textFieldText: ControlProperty<String>
     }
     
     struct Output {
         let trendingData: Driver<[MultipleSectionModel]>
         let errorMessage: Driver<String>
         let modelSelected: Driver<SectionItem>
+        let queryText: Driver<String>
+        let isTextValidate: Driver<Bool>
     }
     
     deinit {
@@ -52,6 +56,7 @@ final class CoinInfoViewModel: BaseViewModel {
         let errorMessage = PublishRelay<String>()
         let timer = Observable<Int>.timer(.seconds(0), period: .seconds(600), scheduler: MainScheduler.instance)
         let networkTime = BehaviorRelay(value: Date())
+        let queryText = PublishRelay<String>()
         
         let apiTimer = timer
             .flatMap { _ in
@@ -97,10 +102,25 @@ final class CoinInfoViewModel: BaseViewModel {
             }
             .disposed(by: disposBag)
         
+        let isTextValidate = input.textFieldReturnTapped
+            .withLatestFrom(input.textFieldText)
+            .map {
+                let trimmingText = $0.trimmingCharacters(in: .whitespaces)
+                if trimmingText.count < 1 {
+                    queryText.accept(trimmingText)
+                    return false
+                } else {
+                    queryText.accept(trimmingText)
+                    return true
+                }
+            }
+        
         return Output(
             trendingData: trendingData.asDriver(onErrorJustReturn: []),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
-            modelSelected: input.modelSelected.asDriver()
+            modelSelected: input.modelSelected.asDriver(),
+            queryText: queryText.asDriver(onErrorJustReturn: ""),
+            isTextValidate: isTextValidate.asDriver(onErrorJustReturn: false)
         )
     }
 }

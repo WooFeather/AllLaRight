@@ -27,7 +27,6 @@ final class NavigationTitleView: BaseView {
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
-            make.height.equalTo(44)
         }
         
         separatorView.snp.makeConstraints { make in

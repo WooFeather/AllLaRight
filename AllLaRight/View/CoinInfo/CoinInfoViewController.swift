@@ -23,7 +23,9 @@ final class CoinInfoViewController: BaseViewController {
     // MARK: - Functions
     override func bind() {
         let input = CoinInfoViewModel.Input(
-            modelSelected: coinInfoView.infoCollectionView.rx.modelSelected(SectionItem.self)
+            modelSelected: coinInfoView.infoCollectionView.rx.modelSelected(SectionItem.self),
+            textFieldReturnTapped: coinInfoView.searchTextField.textField.rx.controlEvent(.editingDidEndOnExit),
+            textFieldText: coinInfoView.searchTextField.textField.rx.text.orEmpty
         )
         let output = viewModel.transform(input: input)
         
@@ -78,6 +80,18 @@ final class CoinInfoViewController: BaseViewController {
                     owner.navigationController?.pushViewController(vc, animated: true)
                 case .trendingNFT(trendingNFT: _):
                     break
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        Driver.zip(output.isTextValidate, output.queryText)
+            .drive(with: self) { owner, value in
+                if value.0 {
+                    print(value.1)
+                    owner.coinInfoView.searchTextField.textField.text = ""
+                } else {
+                    owner.coinInfoView.searchTextField.textField.text = ""
+                    return
                 }
             }
             .disposed(by: disposeBag)
