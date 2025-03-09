@@ -79,8 +79,7 @@ final class MarketTableViewCell: BaseTableViewCell {
     
     func configureData(data: MarketData) {
         
-        // TODO: 코인 이름 명세에 나와있는 이름으로 변경
-        coinNameLabel.text = data.coinName
+        coinNameLabel.text = data.coinName.reversedJoin()
         currentPriceLabel.text = data.currentPrice.toPriceString()
 
         changeRateLabel.text = data.changeRate.toPercentString()

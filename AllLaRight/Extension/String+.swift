@@ -15,4 +15,8 @@ extension String {
         let result = index(startIndex, offsetBy: idx)
         return String(self[result])
     }
+    
+    func reversedJoin() -> String {
+        return self.components(separatedBy: "-").reversed().joined(separator: "/")
+    }
 }
