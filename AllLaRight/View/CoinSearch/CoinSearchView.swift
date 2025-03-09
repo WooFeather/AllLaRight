@@ -10,9 +10,11 @@ import SnapKit
 
 final class CoinSearchView: BaseView {
     let navigationView = NavigationSearchView()
+    let searchTableView = UITableView()
     
     override func configureHierarchy() {
         addSubview(navigationView)
+        addSubview(searchTableView)
     }
     
     override func configureLayout() {
@@ -21,5 +23,14 @@ final class CoinSearchView: BaseView {
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(44)
         }
+        
+        searchTableView.snp.makeConstraints { make in
+            make.top.equalTo(navigationView.snp.bottom).offset(12)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+    }
+    
+    override func configureView() {
+        searchTableView.backgroundColor = .lightGray
     }
 }

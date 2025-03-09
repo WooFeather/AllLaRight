@@ -88,6 +88,10 @@ final class CoinInfoViewController: BaseViewController {
             .drive(with: self) { owner, value in
                 if value.0 {
                     print(value.1)
+                    let vc = CoinSearchViewController()
+                    vc.viewModel.queryText.accept(value.1)
+                    owner.navigationController?.pushViewController(vc, animated: true)
+                    
                     owner.coinInfoView.searchTextField.textField.text = ""
                 } else {
                     owner.coinInfoView.searchTextField.textField.text = ""

@@ -12,23 +12,31 @@ final class NavigationSearchView: BaseView {
 
     let backButton = UIButton()
     let searchTextField = UITextField()
+    private let separatorView = UIView()
     
     override func configureHierarchy() {
         addSubview(backButton)
         addSubview(searchTextField)
+        addSubview(separatorView)
     }
     
     override func configureLayout() {
         backButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(searchTextField.snp.centerY)
             make.size.equalTo(26)
         }
         
         searchTextField.snp.makeConstraints { make in
             make.leading.equalTo(backButton.snp.trailing).offset(12)
-            make.verticalEdges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalTo(44)
             make.trailing.equalToSuperview().offset(-16)
+        }
+        
+        separatorView.snp.makeConstraints { make in
+            make.bottom.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
         }
     }
     
@@ -39,5 +47,7 @@ final class NavigationSearchView: BaseView {
         
         searchTextField.tintColor = .themeSecondary
         searchTextField.textColor = .themePrimary
+        
+        separatorView.backgroundColor = .themeTertiary
     }
 }

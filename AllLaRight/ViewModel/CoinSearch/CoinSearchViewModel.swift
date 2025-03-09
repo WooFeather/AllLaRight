@@ -12,17 +12,18 @@ import RxCocoa
 final class CoinSearchViewModel: BaseViewModel {
     
     var disposBag = DisposeBag()
+    var queryText = BehaviorRelay(value: "")
     
     struct Input {
         
     }
     
     struct Output {
-        
+        let queryText: Driver<String>
     }
     
     func transform(input: Input) -> Output {
         
-        return Output()
+        return Output(queryText: queryText.asDriver())
     }
 }

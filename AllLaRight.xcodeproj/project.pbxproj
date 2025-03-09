@@ -18,7 +18,22 @@
 		79AD48072D7B3E2E00C9905B /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD48062D7B3E2E00C9905B /* Differentiator */; };
 		79AD48092D7B3E2E00C9905B /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD48082D7B3E2E00C9905B /* RxDataSources */; };
 		79AD481F2D7D4A9C00C9905B /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD481E2D7D4A9C00C9905B /* RxGesture */; };
+		79AD49A82D7DB11A00C9905B /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45982D79872B00C9905B /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		79AD49A92D7DB11A00C9905B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				79AD49A82D7DB11A00C9905B /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		79AD43D42D79743B00C9905B /* AllLaRight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllLaRight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +109,7 @@
 				79AD43D02D79743B00C9905B /* Sources */,
 				79AD43D12D79743B00C9905B /* Frameworks */,
 				79AD43D22D79743B00C9905B /* Resources */,
+				79AD49A92D7DB11A00C9905B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
