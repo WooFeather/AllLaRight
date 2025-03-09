@@ -81,10 +81,9 @@ final class MarketTableViewCell: BaseTableViewCell {
         
         // TODO: 코인 이름 명세에 나와있는 이름으로 변경
         coinNameLabel.text = data.coinName
-        // TODO: 현재가 표기방식도 변경(명세 참고)
-        currentPriceLabel.text = data.currentPrice.formatted()
-        
-        changeRateLabel.text = (data.changeRate * 100).toFormattedString() + "%"
+        currentPriceLabel.text = data.currentPrice.toPriceString()
+
+        changeRateLabel.text = data.changeRate.toPercentString()
         changePriceLabel.text = data.changePrice.formatted()
         
         [changeRateLabel, changePriceLabel].forEach {
@@ -97,7 +96,10 @@ final class MarketTableViewCell: BaseTableViewCell {
             }
         }
         
-        // TODO: 금액에 따른 표기방법 변경
-        tradePriceLabel.text = data.tradePrice.formatted()
+        if (data.tradePrice24) > 1000000 {
+            tradePriceLabel.text = data.tradePrice24.toMillionString()
+        } else {
+            tradePriceLabel.text = data.tradePrice24.formatted()
+        }
     }
 }

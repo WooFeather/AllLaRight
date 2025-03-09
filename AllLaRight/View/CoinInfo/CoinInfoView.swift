@@ -65,12 +65,12 @@ final class CoinInfoView: BaseView {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
                 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(300), heightDimension: .absolute(200))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(80), heightDimension: .absolute(200))
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
                 section.boundarySupplementaryItems = [header]
                 section.orthogonalScrollingBehavior = .continuous
                 

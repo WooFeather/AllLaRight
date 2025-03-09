@@ -91,7 +91,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         let riseIcon = UIImage(systemName: "arrowtriangle.up.fill")
         let fallIcon = UIImage(systemName: "arrowtriangle.down.fill")
         
-        changePercentageView.changeRateLabel.text = (abs(changeRate).toFormattedString()) + "%"
+        changePercentageView.changeRateLabel.text = changeRate.toABSString()
         
         if changeRate > 0 {
             changePercentageView.iconImageView.image = riseIcon
