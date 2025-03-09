@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class MarketViewModel: BaseViewModel {
     var disposBag = DisposeBag()
@@ -18,6 +19,9 @@ final class MarketViewModel: BaseViewModel {
     struct Input {
         let viewWillAppear: Observable<Bool>
         let viewWillDisappear: Observable<Bool>
+        let currentPriceViewTapped: TapControlEvent
+        let compareToPreviousDayViewTapped: TapControlEvent
+        let tradePriceViewTapped: TapControlEvent
     }
     
     struct Output {
@@ -70,21 +74,60 @@ final class MarketViewModel: BaseViewModel {
                     }
             }
         
-        input.viewWillAppear
-            .bind(with: self) { owner, _ in
-                print("viewWillAppear")
+//        input.viewWillAppear
+//            .bind(with: self) { owner, _ in
+//                print("viewWillAppear")
                 apiTimer
                     .bind(with: self) { owner, data in
                         owner.marketList.accept(data)
+                    }
+                    .disposed(by: timerDisposeBag)
+//            }
+//            .disposed(by: disposBag)
+        
+//        input.viewWillDisappear
+//            .bind(with: self) { owner, _ in
+//                print("viewWillDisappear")
+//                owner.timerDisposeBag = DisposeBag()
+//            }
+//            .disposed(by: disposBag)
+        
+        input.currentPriceViewTapped
+            .when(.recognized)
+            .bind(with: self) { owner, _ in
+                owner.timerDisposeBag = DisposeBag()
+                apiTimer
+                    .bind(with: self) { owner, data in
+                       let sortedData = data.sorted { $0.currentPrice > $1.currentPrice }
+                        owner.marketList.accept(sortedData)
                     }
                     .disposed(by: owner.timerDisposeBag)
             }
             .disposed(by: disposBag)
         
-        input.viewWillDisappear
+        input.compareToPreviousDayViewTapped
+            .when(.recognized)
             .bind(with: self) { owner, _ in
-                print("viewWillDisappear")
                 owner.timerDisposeBag = DisposeBag()
+                apiTimer
+                    .bind(with: self) { owner, data in
+                        let sortedData = data.sorted { $0.changeRate > $1.changeRate }
+                        owner.marketList.accept(sortedData)
+                    }
+                    .disposed(by: owner.timerDisposeBag)
+            }
+            .disposed(by: disposBag)
+        
+        input.tradePriceViewTapped
+            .when(.recognized)
+            .bind(with: self) { owner, _ in
+                owner.timerDisposeBag = DisposeBag()
+                apiTimer
+                    .bind(with: self) { owner, data in
+                        let sortedData = data.sorted { $0.tradePrice24 > $1.tradePrice24 }
+                        owner.marketList.accept(sortedData)
+                    }
+                    .disposed(by: owner.timerDisposeBag)
             }
             .disposed(by: disposBag)
         

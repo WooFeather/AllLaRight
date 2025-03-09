@@ -17,6 +17,7 @@
 		79AD45A22D79877C00C9905B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45A12D79877C00C9905B /* Alamofire */; };
 		79AD48072D7B3E2E00C9905B /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD48062D7B3E2E00C9905B /* Differentiator */; };
 		79AD48092D7B3E2E00C9905B /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD48082D7B3E2E00C9905B /* RxDataSources */; };
+		79AD481F2D7D4A9C00C9905B /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD481E2D7D4A9C00C9905B /* RxGesture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 			files = (
 				79AD459F2D79876800C9905B /* Kingfisher in Frameworks */,
 				79AD45A22D79877C00C9905B /* Alamofire in Frameworks */,
+				79AD481F2D7D4A9C00C9905B /* RxGesture in Frameworks */,
 				79AD45992D79872B00C9905B /* RealmSwift in Frameworks */,
 				79AD45962D79870600C9905B /* Toast in Frameworks */,
 				79AD48072D7B3E2E00C9905B /* Differentiator in Frameworks */,
@@ -111,6 +113,7 @@
 				79AD45A12D79877C00C9905B /* Alamofire */,
 				79AD48062D7B3E2E00C9905B /* Differentiator */,
 				79AD48082D7B3E2E00C9905B /* RxDataSources */,
+				79AD481E2D7D4A9C00C9905B /* RxGesture */,
 			);
 			productName = AllLaRight;
 			productReference = 79AD43D42D79743B00C9905B /* AllLaRight.app */;
@@ -148,6 +151,7 @@
 				79AD459D2D79876800C9905B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				79AD45A02D79877C00C9905B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				79AD48052D7B3E2E00C9905B /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				79AD481D2D7D4A9C00C9905B /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 79AD43D52D79743B00C9905B /* Products */;
@@ -448,6 +452,14 @@
 				minimumVersion = 5.0.2;
 			};
 		};
+		79AD481D2D7D4A9C00C9905B /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -495,6 +507,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 79AD48052D7B3E2E00C9905B /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		79AD481E2D7D4A9C00C9905B /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AD481D2D7D4A9C00C9905B /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

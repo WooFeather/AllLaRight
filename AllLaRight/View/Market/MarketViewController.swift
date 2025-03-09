@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class MarketViewController: BaseViewController {
 
@@ -25,7 +26,10 @@ final class MarketViewController: BaseViewController {
     override func bind() {
         let input = MarketViewModel.Input(
             viewWillAppear: rx.viewWillAppear,
-            viewWillDisappear: rx.viewWillDisappear
+            viewWillDisappear: rx.viewWillDisappear,
+            currentPriceViewTapped: marketView.currentPriceView.rx.tapGesture(),
+            compareToPreviousDayViewTapped: marketView.compareToPreviousDayView.rx.tapGesture(),
+            tradePriceViewTapped: marketView.tradePriceView.rx.tapGesture()
         )
         let output = viewModel.transform(input: input)
         
@@ -35,29 +39,33 @@ final class MarketViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경 및 정렬(인아웃으로)
+//        marketView.currentPriceView.rx.tapGesture()
+//            .when(.recognized)
+//            .bind { _ in
+//                print("현재가")
+//            }
+//            .disposed(by: disposeBag)
+//        
+//        marketView.compareToPreviousDayView.rx.tapGesture()
+//            .when(.recognized)
+//            .bind { _ in
+//                print("전일대비")
+//            }
+//            .disposed(by: disposeBag)
+//        
+//        marketView.tradePriceView.rx.tapGesture()
+//            .when(.recognized)
+//            .bind { _ in
+//                print("거래대금")
+//            }
+//            .disposed(by: disposeBag)
+        
         // TODO: 통신이 되기 전에는 인디케이터 표시
         
         // TODO: Error반환시 AlertView 띄우기
         // output.errorMessage
         
-    }
-    
-    // MARK: - Actions
-    
-    // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경 및 정렬
-    @objc
-    private func currentPriceViewTapped() {
-        print("현재가")
-    }
-    
-    @objc
-    private func compareToPreviousDayViewTapped() {
-        print("전일대비")
-    }
-    
-    @objc
-    private func tradePriceViewTapped() {
-        print("거래대금")
     }
     
     // MARK: - ConfigureView
@@ -71,17 +79,5 @@ final class MarketViewController: BaseViewController {
     
     override func configureData() {
         marketView.marketTableView.register(MarketTableViewCell.self, forCellReuseIdentifier: MarketTableViewCell.id)
-    }
-    
-    override func configureAction() {
-        // TODO: RxGesture 알아보기
-        let currentPriceViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(currentPriceViewTapped))
-        marketView.currentPriceView.addGestureRecognizer(currentPriceViewTapGesture)
-        
-        let compareToPreviousDayViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(compareToPreviousDayViewTapped))
-        marketView.compareToPreviousDayView.addGestureRecognizer(compareToPreviousDayViewTapGesture)
-        
-        let tradePriceViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(tradePriceViewTapped))
-        marketView.tradePriceView.addGestureRecognizer(tradePriceViewTapGesture)
     }
 }
