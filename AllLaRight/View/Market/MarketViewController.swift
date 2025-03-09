@@ -39,7 +39,7 @@ final class MarketViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경 및 정렬(인아웃으로)
+        // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경
 //        marketView.currentPriceView.rx.tapGesture()
 //            .when(.recognized)
 //            .bind { _ in
