@@ -27,8 +27,6 @@ final class MarketViewModel: BaseViewModel {
     private let tradePriceState = BehaviorRelay<SortState>(value: .none)
     
     struct Input {
-        let viewWillAppear: Observable<Bool>
-        let viewWillDisappear: Observable<Bool>
         let currentPriceViewTapped: TapControlEvent
         let compareToPreviousDayViewTapped: TapControlEvent
         let tradePriceViewTapped: TapControlEvent
@@ -37,6 +35,9 @@ final class MarketViewModel: BaseViewModel {
     struct Output {
         let marketList: Driver<[MarketData]>
         let errorMessage: Driver<String>
+        let currentPriceViewState: Driver<SortState>
+        let compareToPreviousDayViewState: Driver<SortState>
+        let tradePriceViewState: Driver<SortState>
     }
     
     deinit {
@@ -227,7 +228,10 @@ final class MarketViewModel: BaseViewModel {
         
         return Output(
             marketList: marketList.asDriver(onErrorJustReturn: []),
-            errorMessage: errorMessage.asDriver(onErrorJustReturn: "")
+            errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
+            currentPriceViewState: currentPriceState.asDriver(),
+            compareToPreviousDayViewState: compareToPreviousDayState.asDriver(),
+            tradePriceViewState: tradePriceState.asDriver()
         )
     }
 }

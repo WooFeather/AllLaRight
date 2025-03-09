@@ -25,8 +25,6 @@ final class MarketViewController: BaseViewController {
     // MARK: - Functions
     override func bind() {
         let input = MarketViewModel.Input(
-            viewWillAppear: rx.viewWillAppear,
-            viewWillDisappear: rx.viewWillDisappear,
             currentPriceViewTapped: marketView.currentPriceView.rx.tapGesture(),
             compareToPreviousDayViewTapped: marketView.compareToPreviousDayView.rx.tapGesture(),
             tradePriceViewTapped: marketView.tradePriceView.rx.tapGesture()
@@ -39,27 +37,53 @@ final class MarketViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: 각 버튼을 탭했을 때 이미지의 색상 변경
-//        marketView.currentPriceView.rx.tapGesture()
-//            .when(.recognized)
-//            .bind { _ in
-//                print("현재가")
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        marketView.compareToPreviousDayView.rx.tapGesture()
-//            .when(.recognized)
-//            .bind { _ in
-//                print("전일대비")
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        marketView.tradePriceView.rx.tapGesture()
-//            .when(.recognized)
-//            .bind { _ in
-//                print("거래대금")
-//            }
-//            .disposed(by: disposeBag)
+        output.currentPriceViewState
+            .drive(with: self) { owner, state in
+                switch state {
+                case .desc:
+                    owner.marketView.currentPriceView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.currentPriceView.lowerImageView.tintColor = .themePrimary
+                case .asc:
+                    owner.marketView.currentPriceView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.currentPriceView.lowerImageView.tintColor = .themeSecondary
+                case .none:
+                    owner.marketView.currentPriceView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.currentPriceView.lowerImageView.tintColor = .themeSecondary
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.compareToPreviousDayViewState
+            .drive(with: self) { owner, state in
+                switch state {
+                case .desc:
+                    owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .themePrimary
+                case .asc:
+                    owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .themeSecondary
+                case .none:
+                    owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .themeSecondary
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.tradePriceViewState
+            .drive(with: self) { owner, state in
+                switch state {
+                case .desc:
+                    owner.marketView.tradePriceView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.tradePriceView.lowerImageView.tintColor = .themePrimary
+                case .asc:
+                    owner.marketView.tradePriceView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.tradePriceView.lowerImageView.tintColor = .themeSecondary
+                case .none:
+                    owner.marketView.tradePriceView.upperImageView.tintColor = .themeSecondary
+                    owner.marketView.tradePriceView.lowerImageView.tintColor = .themeSecondary
+                }
+            }
+            .disposed(by: disposeBag)
         
         // TODO: 통신이 되기 전에는 인디케이터 표시
         

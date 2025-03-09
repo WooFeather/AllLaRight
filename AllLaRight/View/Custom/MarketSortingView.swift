@@ -11,8 +11,8 @@ import SnapKit
 final class MarketSortingView: BaseView {
 
     private let titleLabel = UILabel()
-    private let upperImageView = UIImageView()
-    private let lowerImageView = UIImageView()
+    let upperImageView = UIImageView()
+    let lowerImageView = UIImageView()
 
     init(title: String) {
         super.init(frame: .zero)
@@ -51,11 +51,9 @@ final class MarketSortingView: BaseView {
         titleLabel.font = ALRFont.headlineBold.font
         
         upperImageView.image = UIImage(systemName: "arrowtriangle.up.fill")
-        upperImageView.tintColor = .themeSecondary
         upperImageView.contentMode = .scaleAspectFill
         
         lowerImageView.image = UIImage(systemName: "arrowtriangle.down.fill")
-        lowerImageView.tintColor = .themeSecondary
         lowerImageView.contentMode = .scaleAspectFill
     }
 }
