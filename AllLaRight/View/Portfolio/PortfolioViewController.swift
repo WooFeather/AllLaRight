@@ -8,9 +8,9 @@
 import UIKit
 
 final class PortfolioViewController: BaseViewController {
-    private let navigationView = NavigationTitleView(title: "포트폴리오")
+    private let portfolioView = PortfolioView()
     
-    override func configureView() {
-        navigationItem.titleView = navigationView
+    override func loadView() {
+        view = portfolioView
     }
 }

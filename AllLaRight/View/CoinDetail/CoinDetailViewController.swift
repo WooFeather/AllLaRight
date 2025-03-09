@@ -8,7 +8,14 @@
 import UIKit
 
 final class CoinDetailViewController: BaseViewController {
+    
+    private let coinDetailView = CoinDetailView()
+    // TODO: 별도의 navigationView 만들어서 CoinDetailView에서 적용
     private let navigationView = NavigationTitleView(title: "테스트")
+    
+    override func loadView() {
+        view = coinDetailView
+    }
     
     @objc
     private func backButtonTapped() {
@@ -22,9 +29,6 @@ final class CoinDetailViewController: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        
-        navigationItem.titleView = navigationView
-        navigationController?.navigationBar.tintColor = .themePrimary
         
         let arrowImage = UIImage(systemName: "arrow.left")
         let backButton = UIBarButtonItem(image: arrowImage, style: .plain, target: self, action: #selector(backButtonTapped))

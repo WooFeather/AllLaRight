@@ -11,6 +11,7 @@ import SnapKit
 final class NavigationTitleView: BaseView {
     
     private let titleLabel = UILabel()
+    private let separatorView = UIView()
     
     init(title: String) {
         super.init(frame: .zero)
@@ -19,17 +20,26 @@ final class NavigationTitleView: BaseView {
     
     override func configureHierarchy() {
         addSubview(titleLabel)
+        addSubview(separatorView)
     }
     
     override func configureLayout() {
         titleLabel.snp.makeConstraints { make in
-            make.verticalEdges.leading.equalToSuperview()
+            make.verticalEdges.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
             make.height.equalTo(44)
+        }
+        
+        separatorView.snp.makeConstraints { make in
+            make.bottom.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
         }
     }
     
     override func configureView() {
         titleLabel.textColor = .themePrimary
         titleLabel.font = .boldSystemFont(ofSize: 21)
+        
+        separatorView.backgroundColor = .themeTertiary
     }
 }

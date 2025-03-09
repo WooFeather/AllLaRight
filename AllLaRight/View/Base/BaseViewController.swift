@@ -20,6 +20,7 @@ class BaseViewController: UIViewController {
     
     func configureView() {
         view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func configureData() { }

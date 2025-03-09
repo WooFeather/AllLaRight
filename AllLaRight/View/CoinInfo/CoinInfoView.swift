@@ -10,17 +10,26 @@ import SnapKit
 
 final class CoinInfoView: BaseView {
     
+    private let navigationView = NavigationTitleView(title: "가상자산 / 심볼 검색")
     let searchTextField = RoundedTextField()
     lazy var infoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     override func configureHierarchy() {
+        addSubview(navigationView)
         addSubview(searchTextField)
         addSubview(infoCollectionView)
     }
     
     override func configureLayout() {
+        navigationView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(44)
+        }
+        
         searchTextField.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(navigationView.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(44)
         }
         

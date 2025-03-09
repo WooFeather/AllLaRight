@@ -12,7 +12,6 @@ import RxDataSources
 
 final class CoinInfoViewController: BaseViewController {
     private let coinInfoView = CoinInfoView()
-    private let navigationView = NavigationTitleView(title: "가상자산 / 심볼 검색")
     private let viewModel = CoinInfoViewModel()
     private let disposeBag = DisposeBag()
     
@@ -87,10 +86,6 @@ final class CoinInfoViewController: BaseViewController {
     // MARK: - ConfigureView
     override func loadView() {
         view = coinInfoView
-    }
-    
-    override func configureView() {
-        navigationItem.titleView = navigationView
     }
     
     override func configureData() {
