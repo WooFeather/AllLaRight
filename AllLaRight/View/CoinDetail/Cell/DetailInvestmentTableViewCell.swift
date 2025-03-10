@@ -7,13 +7,21 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class DetailInvestmentTableViewCell: BaseTableViewCell {
+    var disposeBag = DisposeBag()
     let headerView = DetailSectionHeader(title: "투자지표")
     private let roundedBackgroundView = UIView()
     private let marketCapView = InfoTwoLineView()
     private let fdvView = InfoTwoLineView()
     private let totalVolumeView = InfoTwoLineView()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     override func configureHierarchy() {
         contentView.addSubview(headerView)

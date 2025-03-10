@@ -10,6 +10,7 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 import RxDataSources
+import Toast
 
 final class CoinDetailViewController: BaseViewController {
     
@@ -37,12 +38,24 @@ final class CoinDetailViewController: BaseViewController {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailPriceTableViewCell.rawValue, for: indexPath) as? DetailPriceTableViewCell else { return UITableViewCell() }
                 
                 cell.configureData(data: item)
+                cell.headerView.moreButton.rx.tap
+                    .asDriver()
+                    .drive(with: self) { owner, _ in
+                        owner.view.makeToast("준비 중입니다", duration: 1.0)
+                    }
+                    .disposed(by: cell.disposeBag)
                 
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailInvestmentTableViewCell.rawValue, for: indexPath) as? DetailInvestmentTableViewCell else { return UITableViewCell() }
                 
                 cell.configureData(data: item)
+                cell.headerView.moreButton.rx.tap
+                    .asDriver()
+                    .drive(with: self) { owner, _ in
+                        owner.view.makeToast("준비 중입니다", duration: 1.0)
+                    }
+                    .disposed(by: cell.disposeBag)
                 
                 return cell
             default:

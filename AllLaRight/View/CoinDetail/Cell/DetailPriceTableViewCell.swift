@@ -6,15 +6,24 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class DetailPriceTableViewCell: BaseTableViewCell {
+    var disposeBag = DisposeBag()
     let headerView = DetailSectionHeader(title: "종목정보")
     private let roundedBackgroundView = UIView()
     private let high24hView = InfoTwoLineView()
     private let low24hView = InfoTwoLineView()
     private let athView = InfoThreeLineView()
     private let atlView = InfoThreeLineView()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
     
     override func configureHierarchy() {
         contentView.addSubview(headerView)
