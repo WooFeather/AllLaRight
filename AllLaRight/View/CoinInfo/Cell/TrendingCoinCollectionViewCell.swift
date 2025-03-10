@@ -39,7 +39,6 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
             make.top.equalToSuperview().offset(8)
             make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
             make.height.equalTo(15)
-            make.trailing.equalTo(changePercentageView.snp.leading)
         }
         
         nameLabel.snp.makeConstraints { make in

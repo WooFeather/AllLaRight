@@ -53,7 +53,7 @@ final class MarketView: BaseView {
         
         compareToPreviousDayView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(tradePriceView.snp.leading).offset(-60)
+            make.trailing.equalTo(tradePriceView.snp.leading).offset(-50)
             make.height.equalTo(15)
         }
         

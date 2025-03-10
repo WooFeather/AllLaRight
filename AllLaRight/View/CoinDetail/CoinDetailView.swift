@@ -25,13 +25,12 @@ final class CoinDetailView: BaseView {
         }
         
         detailTableView.snp.makeConstraints { make in
-            make.top.equalTo(navigationView.snp.bottom).offset(20)
+            make.top.equalTo(navigationView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }
     
     override func configureView() {
-        detailTableView.backgroundColor = .lightGray
         detailTableView.separatorStyle = .none
     }
 }

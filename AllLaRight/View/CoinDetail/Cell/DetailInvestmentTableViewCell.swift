@@ -23,33 +23,35 @@ final class DetailInvestmentTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         roundedBackgroundView.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(20)
             make.edges.equalToSuperview().inset(16)
         }
         
         marketCapView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().offset(16)
-            make.height.equalTo(30)
-            make.width.greaterThanOrEqualTo(20)
+            make.height.equalTo(40)
+            make.width.equalTo(200)
         }
         
         fdvView.snp.makeConstraints { make in
             make.top.equalTo(marketCapView.snp.bottom).offset(16)
             make.leading.equalTo(marketCapView.snp.leading)
-            make.height.equalTo(30)
-            make.width.greaterThanOrEqualTo(20)
+            make.height.equalTo(40)
+            make.width.equalTo(200)
         }
         
         totalVolumeView.snp.makeConstraints { make in
             make.top.equalTo(fdvView.snp.bottom).offset(16)
             make.leading.equalTo(fdvView.snp.leading)
-            make.height.equalTo(30)
-            make.width.greaterThanOrEqualTo(20)
+            make.height.equalTo(40)
+            make.width.equalTo(200)
+            make.bottom.equalToSuperview().offset(-16)
         }
     }
     
     override func configureView() {
         roundedBackgroundView.backgroundColor = .themeTertiary
-        roundedBackgroundView.layer.cornerRadius = 8
+        roundedBackgroundView.layer.cornerRadius = 10
         roundedBackgroundView.clipsToBounds = true
         
         marketCapView.upperLabel.text = "시가총액"

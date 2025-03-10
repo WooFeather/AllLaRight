@@ -30,19 +30,20 @@ final class DetailChartTableViewCell: BaseTableViewCell {
             make.top.equalTo(currentPriceLabel.snp.bottom).offset(4)
             make.leading.equalTo(currentPriceLabel.snp.leading)
             make.height.equalTo(12)
-            make.width.greaterThanOrEqualTo(20)
+            make.trailing.equalTo(currentPriceLabel.snp.trailing)
         }
         
         chartView.snp.makeConstraints { make in
             make.top.equalTo(changePercentageView.snp.bottom).offset(12)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalTo(updateLabel.snp.top).offset(-4)
+            make.height.equalTo(260)
         }
         
         updateLabel.snp.makeConstraints { make in
+            make.top.equalTo(chartView.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.height.equalTo(12)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
         }
     }
     
@@ -52,6 +53,7 @@ final class DetailChartTableViewCell: BaseTableViewCell {
         
         chartView.backgroundColor = .chartFall
         
+//        updateLabel.text = "dsdasdsadadasad"
         updateLabel.font = ALRFont.body.font
         updateLabel.textColor = .themeSecondary
     }

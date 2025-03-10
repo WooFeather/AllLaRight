@@ -25,7 +25,7 @@ final class CoinSearchView: BaseView {
         }
         
         searchTableView.snp.makeConstraints { make in
-            make.top.equalTo(navigationView.snp.bottom).offset(12)
+            make.top.equalTo(navigationView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }

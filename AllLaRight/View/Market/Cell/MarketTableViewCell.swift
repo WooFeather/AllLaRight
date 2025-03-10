@@ -37,7 +37,7 @@ final class MarketTableViewCell: BaseTableViewCell {
         
         changeRateLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.trailing.equalTo(tradePriceLabel.snp.leading).offset(-30)
+            make.trailing.equalTo(tradePriceLabel.snp.leading).offset(-20)
             make.height.equalTo(15)
             make.width.equalTo(50)
         }
@@ -52,7 +52,6 @@ final class MarketTableViewCell: BaseTableViewCell {
         currentPriceLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.trailing.equalTo(changeRateLabel.snp.leading).offset(-24)
-            make.leading.equalTo(coinNameLabel.snp.trailing)
             make.height.equalTo(15)
         }
     }

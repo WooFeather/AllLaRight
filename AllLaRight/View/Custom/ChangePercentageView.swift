@@ -19,6 +19,7 @@ final class ChangePercentageView: BaseView {
     
     override func configureLayout() {
         iconImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
             make.trailing.equalTo(changeRateLabel.snp.leading).offset(-4)
             make.centerY.equalToSuperview()
             make.size.equalTo(9)

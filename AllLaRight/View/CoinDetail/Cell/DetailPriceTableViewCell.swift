@@ -24,40 +24,43 @@ final class DetailPriceTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         roundedBackgroundView.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(20)
             make.edges.equalToSuperview().inset(16)
         }
         
         high24hView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().offset(16)
             make.height.greaterThanOrEqualTo(20)
-            make.width.equalTo(55)
+            make.width.equalTo(120)
         }
         
         low24hView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.leading.equalTo(high24hView.snp.trailing).offset(55)
             make.height.greaterThanOrEqualTo(20)
-            make.width.equalTo(55)
+            make.width.equalTo(120)
+            make.trailing.equalToSuperview().offset(-60)
         }
         
         athView.snp.makeConstraints { make in
+            make.top.equalTo(high24hView.snp.bottom).offset(44)
             make.leading.equalTo(high24hView.snp.leading)
             make.height.greaterThanOrEqualTo(20)
-            make.width.equalTo(55)
-            make.bottom.equalToSuperview().offset(-16)
+            make.width.equalTo(120)
+            make.bottom.equalToSuperview().offset(-50)
         }
         
         atlView.snp.makeConstraints { make in
-            make.leading.equalTo(low24hView.snp.leading)
+            make.top.equalTo(low24hView.snp.bottom).offset(44)
             make.height.greaterThanOrEqualTo(20)
-            make.width.equalTo(55)
-            make.bottom.equalToSuperview().offset(-16)
+            make.width.equalTo(120)
+            make.trailing.equalToSuperview().offset(-60)
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
     
     override func configureView() {
         roundedBackgroundView.backgroundColor = .themeTertiary
-        roundedBackgroundView.layer.cornerRadius = 8
+        roundedBackgroundView.layer.cornerRadius = 10
         roundedBackgroundView.clipsToBounds = true
         
         high24hView.upperLabel.text = "24시간 고가"
