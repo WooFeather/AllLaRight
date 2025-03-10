@@ -24,7 +24,8 @@ final class DetailInvestmentTableViewCell: BaseTableViewCell {
     override func configureLayout() {
         roundedBackgroundView.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(20)
-            make.edges.equalToSuperview().inset(16)
+            make.horizontalEdges.bottom.equalToSuperview().inset(16)
+            make.top.equalToSuperview()
         }
         
         marketCapView.snp.makeConstraints { make in

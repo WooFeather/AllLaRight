@@ -43,7 +43,7 @@ final class DetailChartTableViewCell: BaseTableViewCell {
             make.top.equalTo(chartView.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.height.equalTo(12)
-            make.bottom.equalToSuperview().offset(-12)
+            make.bottom.equalToSuperview()
         }
     }
     

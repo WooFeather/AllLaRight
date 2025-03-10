@@ -25,7 +25,8 @@ final class DetailPriceTableViewCell: BaseTableViewCell {
     override func configureLayout() {
         roundedBackgroundView.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(20)
-            make.edges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview()
         }
         
         high24hView.snp.makeConstraints { make in

@@ -23,11 +23,11 @@ final class CoinDetailViewModel: BaseViewModel {
             .map{
                 var sections: [CoinDetailSectionModel] = []
                 
-                let chartSection = CoinDetailSectionModel.detailChart(items: $0)
+                let chartSection = CoinDetailSectionModel.detailChart(header: nil, items: $0)
                 
-                let priceSection = CoinDetailSectionModel.detailChart(items: $0)
+                let priceSection = CoinDetailSectionModel.detailChart(header: "두 번째 섹션", items: $0)
                 
-                let investmentSection = CoinDetailSectionModel.detailChart(items: $0)
+                let investmentSection = CoinDetailSectionModel.detailChart(header: "세 번째 섹션", items: $0)
                 
                 sections.append(contentsOf: [chartSection, priceSection, investmentSection])
                 
@@ -107,9 +107,9 @@ final class CoinDetailViewModel: BaseViewModel {
 // MARK: - RxDataSource Setting
 
 enum CoinDetailSectionModel {
-    case detailChart(items: [Item])
-    case detailPrice(items: [Item])
-    case detailInvestment(items: [Item])
+    case detailChart(header: String?, items: [Item])
+    case detailPrice(header: String?, items: [Item])
+    case detailInvestment(header: String?, items: [Item])
 }
 
 extension CoinDetailSectionModel: SectionModelType {
@@ -117,23 +117,23 @@ extension CoinDetailSectionModel: SectionModelType {
     
     var items: [DetailData] {
         switch self {
-        case .detailChart(let items):
+        case .detailChart(_, let items):
             return items.map{ $0 }
-        case .detailPrice(let items):
+        case .detailPrice(_, let items):
             return items.map{ $0 }
-        case .detailInvestment(let items):
+        case .detailInvestment(_, let items):
             return items.map{ $0 }
         }
     }
     
     init(original: CoinDetailSectionModel, items: [DetailData]) {
         switch original {
-        case .detailChart(let items):
-            self = .detailChart(items: items)
-        case .detailPrice(let items):
-            self = .detailPrice(items: items)
-        case .detailInvestment(let items):
-            self = .detailInvestment(items: items)
+        case .detailChart(let header, let items):
+            self = .detailChart(header: header, items: items)
+        case .detailPrice(let header, let items):
+            self = .detailPrice(header: header, items: items)
+        case .detailInvestment(let header, let items):
+            self = .detailInvestment(header: header, items: items)
         }
     }
 }
