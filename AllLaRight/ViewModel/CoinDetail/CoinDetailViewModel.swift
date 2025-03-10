@@ -16,6 +16,8 @@ final class CoinDetailViewModel: BaseViewModel {
     var imageUrl = BehaviorRelay(value: "")
     var symbolText = BehaviorRelay(value: "")
     
+    private let detailData = PublishRelay<[CoinDetail]>()
+    
     struct Input {
         let backButtonTapped: ControlEvent<Void>
         let starButtonTapped: ControlEvent<Void>
@@ -26,15 +28,61 @@ final class CoinDetailViewModel: BaseViewModel {
         let symbolText: Driver<String>
         let backButtonTapped: Driver<Void>
         let starButtonTapped: Driver<Void>
+        let errorMessage: Driver<String>
+        let detailData: Driver<[CoinDetail]>
     }
     
     func transform(input: Input) -> Output {
+        
+        let errorMessage = PublishRelay<String>()
+        
+        id
+            .flatMap {
+                NetworkManager.shared.callAPI(api: .coingeckoMarket(id: $0), type: [CoinDetail].self)
+                    .retry(3)
+                    .catch { error in
+                        switch error as? APIError {
+                        case .disconnection:
+                            errorMessage.accept(APIError.disconnection.errorMessage)
+                        case .badRequest:
+                            errorMessage.accept(APIError.badRequest.errorMessage)
+                        case .unauthorized:
+                            errorMessage.accept(APIError.unauthorized.errorMessage)
+                        case .forbidden:
+                            errorMessage.accept(APIError.forbidden.errorMessage)
+                        case .tooManyRequests:
+                            errorMessage.accept(APIError.tooManyRequests.errorMessage)
+                        case .internalServerError:
+                            errorMessage.accept(APIError.internalServerError.errorMessage)
+                        case .serviceUnavailable:
+                            errorMessage.accept(APIError.serviceUnavailable.errorMessage)
+                        case .accessDenied:
+                            errorMessage.accept(APIError.accessDenied.errorMessage)
+                        case .apiKeyMissing:
+                            errorMessage.accept(APIError.apiKeyMissing.errorMessage)
+                        case .planError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        case .corsError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        default:
+                            errorMessage.accept(APIError.unknownError.errorMessage)
+                        }
+                        
+                        return Single.just([])
+                    }
+            }
+            .bind(with: self) { owner, data in
+                owner.detailData.accept(data)
+            }
+            .disposed(by: disposBag)
         
         return Output(
             imageUrl: imageUrl.asDriver(),
             symbolText: symbolText.asDriver(),
             backButtonTapped: input.backButtonTapped.asDriver(),
-            starButtonTapped: input.starButtonTapped.asDriver()
+            starButtonTapped: input.starButtonTapped.asDriver(),
+            errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
+            detailData: detailData.asDriver(onErrorJustReturn: [])
         )
     }
 }

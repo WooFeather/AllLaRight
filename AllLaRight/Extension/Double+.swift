@@ -28,7 +28,13 @@ extension Double {
         let afterDotString = (String(format: "%.2f", self)[dotIndex + 2] ?? "")
         
         if afterDotString == "0" {
-            return Double(String(format: "%.1f", self))?.formatted() ?? "0.0"
+            guard let formattedString = Double(String(format: "%.1f", self))?.formatted() else { return "?" }
+            
+            if formattedString == "0" {
+                return formattedString + ".0"
+            } else {
+                return formattedString
+            }
         } else {
             return Double(String(format: "%.2f", self))?.formatted() ?? "0.0"
         }

@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// TODO: TapPageController 구현
 final class CoinSearchViewController: BaseViewController {
     private let coinSearchView = CoinSearchView()
     private let disposeBag = DisposeBag()

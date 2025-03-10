@@ -44,6 +44,13 @@ final class CoinDetailViewController: BaseViewController {
                 print(owner.viewModel.id.value, "starButtonTapped")
             }
             .disposed(by: disposeBag)
+        
+        // TODO: TableView에 표시
+        output.detailData
+            .drive(with: self) { owner, data in
+                dump(data)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView

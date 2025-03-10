@@ -55,7 +55,6 @@ final class CoinInfoViewModel: BaseViewModel {
         
         let errorMessage = PublishRelay<String>()
         let timer = Observable<Int>.timer(.seconds(0), period: .seconds(600), scheduler: MainScheduler.instance)
-        let networkTime = BehaviorRelay(value: Date())
         let queryText = PublishRelay<String>()
         
         let apiTimer = timer
@@ -98,7 +97,6 @@ final class CoinInfoViewModel: BaseViewModel {
             .bind(with: self) { owner, data in
                 owner.trendingCoinData.accept(data.coins.filter{ $0.item.score < 14 })
                 owner.trendingNFTData.accept(data.nfts)
-                networkTime.accept(Date())
             }
             .disposed(by: disposBag)
         
