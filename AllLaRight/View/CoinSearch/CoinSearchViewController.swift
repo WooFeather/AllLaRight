@@ -19,7 +19,11 @@ final class CoinSearchViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = CoinSearchViewModel.Input()
+        let input = CoinSearchViewModel.Input(
+            backButtonTapped: coinSearchView.navigationView.backButton.rx.tap,
+            textFieldReturnTapped: coinSearchView.navigationView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
+            textFieldText: coinSearchView.navigationView.searchTextField.rx.text.orEmpty
+        )
         let output = viewModel.transform(input: input)
         
         output.queryText
@@ -37,16 +41,12 @@ final class CoinSearchViewController: BaseViewController {
         
         // TODO: Error반환시 AlertView 띄우기
         // output.errorMessage
-    }
-    
-    // TODO: ViewModel로 이동
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    override func configureAction() {
-        coinSearchView.navigationView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        output.backButtonTapped
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureData() {

@@ -17,13 +17,16 @@ final class CoinSearchViewModel: BaseViewModel {
     private let searchData = PublishRelay<[CoinData]>()
     
     struct Input {
-        
+        let backButtonTapped: ControlEvent<Void>
+        let textFieldReturnTapped: ControlEvent<Void>
+        let textFieldText: ControlProperty<String>
     }
     
     struct Output {
         let queryText: Driver<String>
         let errorMessage: Driver<String>
         let searchData: Driver<[CoinData]>
+        let backButtonTapped: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -71,10 +74,32 @@ final class CoinSearchViewModel: BaseViewModel {
             }
             .disposed(by: disposBag)
         
+        let validation = input.textFieldReturnTapped
+            .withLatestFrom(input.textFieldText)
+            .map { text in
+                let trimmingText = text.trimmingCharacters(in: .whitespaces)
+                if trimmingText.count < 1 {
+                    return (false, trimmingText)
+                } else {
+                    return (true, trimmingText)
+                }
+            }
+        
+        validation
+            .bind(with: self) { owner, value in
+                if value.0 {
+                    owner.queryText.accept(value.1)
+                } else {
+                    return
+                }
+            }
+            .disposed(by: disposBag)
+        
         return Output(
             queryText: queryText.asDriver(),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
-            searchData: searchData.asDriver(onErrorJustReturn: [])
+            searchData: searchData.asDriver(onErrorJustReturn: []),
+            backButtonTapped: input.backButtonTapped.asDriver()
         )
     }
 }

@@ -35,7 +35,7 @@ final class CoinInfoViewModel: BaseViewModel {
     
     struct Input {
         let modelSelected: ControlEvent<SectionItem>
-        let textFieldReturnTapped: ControlEvent<()>
+        let textFieldReturnTapped: ControlEvent<Void>
         let textFieldText: ControlProperty<String>
     }
     
