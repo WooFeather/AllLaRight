@@ -19,6 +19,7 @@
 		79AD48092D7B3E2E00C9905B /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD48082D7B3E2E00C9905B /* RxDataSources */; };
 		79AD481F2D7D4A9C00C9905B /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 79AD481E2D7D4A9C00C9905B /* RxGesture */; };
 		79AD49A82D7DB11A00C9905B /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 79AD45982D79872B00C9905B /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		79C9159C2D7F7F8900B527B4 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 79C9159B2D7F7F8900B527B4 /* DGCharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +76,7 @@
 				79AD45932D7986FC00C9905B /* RxSwift in Frameworks */,
 				79AD48092D7B3E2E00C9905B /* RxDataSources in Frameworks */,
 				79AD45912D7986FC00C9905B /* RxCocoa in Frameworks */,
+				79C9159C2D7F7F8900B527B4 /* DGCharts in Frameworks */,
 				79AD459C2D79875300C9905B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +132,7 @@
 				79AD48062D7B3E2E00C9905B /* Differentiator */,
 				79AD48082D7B3E2E00C9905B /* RxDataSources */,
 				79AD481E2D7D4A9C00C9905B /* RxGesture */,
+				79C9159B2D7F7F8900B527B4 /* DGCharts */,
 			);
 			productName = AllLaRight;
 			productReference = 79AD43D42D79743B00C9905B /* AllLaRight.app */;
@@ -168,6 +171,7 @@
 				79AD45A02D79877C00C9905B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				79AD48052D7B3E2E00C9905B /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				79AD481D2D7D4A9C00C9905B /* XCRemoteSwiftPackageReference "RxGesture" */,
+				79C9159A2D7F7F8900B527B4 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 79AD43D52D79743B00C9905B /* Products */;
@@ -476,6 +480,14 @@
 				minimumVersion = 4.0.4;
 			};
 		};
+		79C9159A2D7F7F8900B527B4 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -528,6 +540,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 79AD481D2D7D4A9C00C9905B /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		79C9159B2D7F7F8900B527B4 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79C9159A2D7F7F8900B527B4 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

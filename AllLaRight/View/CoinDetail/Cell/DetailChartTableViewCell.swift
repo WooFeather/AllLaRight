@@ -11,7 +11,7 @@ import SnapKit
 final class DetailChartTableViewCell: BaseTableViewCell {
     private let currentPriceLabel = UILabel()
     private let changePercentageView = ChangePercentageView()
-    private let chartView = UIView() // TODO: Chart작업
+    private let chartView = ChartView() // TODO: Chart작업
     private let updateLabel = UILabel()
     
     override func configureHierarchy() {
@@ -51,14 +51,13 @@ final class DetailChartTableViewCell: BaseTableViewCell {
         currentPriceLabel.font = .boldSystemFont(ofSize: 21)
         currentPriceLabel.textColor = .themePrimary
         
-        chartView.backgroundColor = .chartFall
-        
-//        updateLabel.text = "dsdasdsadadasad"
         updateLabel.font = ALRFont.body.font
         updateLabel.textColor = .themeSecondary
     }
     
     func configureData(data: DetailData) {
+//        chartView.priceData = data.sparklineIn7d?.price ?? []
+        
         currentPriceLabel.text = data.currentPrice.toWonString()
         
         updateLabel.text = data.lastUpdated.toDate()?.toString(dateFormat: "M/d HH:mm:ss 업데이트")
