@@ -60,6 +60,8 @@ class SearchTableViewCell: BaseTableViewCell {
         DispatchQueue.main.async { [weak self] in
             self?.iconImageView.layer.cornerRadius = (self?.iconImageView.frame.height ?? 0) / 2
         }
+        iconImageView.clipsToBounds = true
+        iconImageView.contentMode = .scaleAspectFill
         
         symbolLabel.font = ALRFont.headlineBold.font
         symbolLabel.textColor = .themePrimary
@@ -67,7 +69,7 @@ class SearchTableViewCell: BaseTableViewCell {
         nameLabel.font = ALRFont.headline.font
         nameLabel.textColor = .themeSecondary
         
-        rankView.backgroundColor = .themeSecondary
+        rankView.backgroundColor = .themeTertiary
         
         // TODO: configureData에서 분기처리
         let starIcon = UIImage(systemName: "star")
@@ -76,7 +78,7 @@ class SearchTableViewCell: BaseTableViewCell {
     }
     
     func configureData(data: CoinData) {
-        let urlString = data.thumb
+        let urlString = data.large
         iconImageView.kf.setImage(with: URL(string: urlString))
         
         symbolLabel.text = data.symbol

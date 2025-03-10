@@ -32,7 +32,7 @@ final class MarketTableViewCell: BaseTableViewCell {
             make.top.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(15)
-            make.width.equalTo(70)
+            make.width.equalTo(80)
         }
         
         changeRateLabel.snp.makeConstraints { make in
