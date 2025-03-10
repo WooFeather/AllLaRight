@@ -13,7 +13,7 @@ class SearchTableViewCell: BaseTableViewCell {
     private let iconImageView = UIImageView()
     private let symbolLabel = UILabel()
     private let nameLabel = UILabel()
-    private let rankView = UIView() // TODO: 커스텀뷰로 제작
+    private let rankView = RankView()
     private let starButton = UIButton()
     
     override func configureHierarchy() {
@@ -44,9 +44,9 @@ class SearchTableViewCell: BaseTableViewCell {
         
         rankView.snp.makeConstraints { make in
             make.centerY.equalTo(symbolLabel.snp.centerY)
-            make.leading.equalTo(symbolLabel.snp.trailing).offset(4)
-            make.height.equalTo(12)
-            make.width.equalTo(20)
+            make.leading.equalTo(symbolLabel.snp.trailing).offset(8)
+            make.height.equalTo(15)
+            make.width.greaterThanOrEqualTo(10)
         }
         
         starButton.snp.makeConstraints { make in
@@ -69,8 +69,6 @@ class SearchTableViewCell: BaseTableViewCell {
         nameLabel.font = ALRFont.headline.font
         nameLabel.textColor = .themeSecondary
         
-        rankView.backgroundColor = .themeTertiary
-        
         // TODO: configureData에서 분기처리
         let starIcon = UIImage(systemName: "star")
         starButton.setImage(starIcon, for: .normal)
@@ -84,5 +82,12 @@ class SearchTableViewCell: BaseTableViewCell {
         symbolLabel.text = data.symbol
         
         nameLabel.text = data.name
+        
+        if let rank = data.marketCapRank {
+            rankView.rankLabel.isHidden = false
+            rankView.rankLabel.text = "#\(rank)"
+        } else {
+            rankView.isHidden = true
+        }
     }
 }
