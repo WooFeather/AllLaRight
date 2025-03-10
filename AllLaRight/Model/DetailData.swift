@@ -13,8 +13,8 @@ struct DetailData: Decodable {
     let marketCap: Double // 시가총액
     let fullyDilutedValuation: Double? // 완전희석가치
     let totalVolume: Double // 총 거래량
-    let high24h: Double? // 24시간 저가
-    let low24h: Double? // 24시간 고가
+    let high24h: Double? // 24시간 고가
+    let low24h: Double? // 24시간 저가
     let priceChangePercentage24h: Double? // 24시간 변동폭
     let ath: Double // 사상 최고가(신고점)
     let athDate: String // 신고점 일자
