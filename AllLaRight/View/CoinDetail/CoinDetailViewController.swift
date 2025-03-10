@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 final class CoinDetailViewController: BaseViewController {
     
@@ -22,6 +23,36 @@ final class CoinDetailViewController: BaseViewController {
             starButtonTapped: coinDetailView.navigationView.starButton.rx.tap
         )
         let output = viewModel.transform(input: input)
+        
+        let dataSource = RxTableViewSectionedReloadDataSource<CoinDetailSectionModel> { dataSource, tableView, indexPath, item in
+            
+            switch indexPath.section {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailChartTableViewCell.rawValue, for: indexPath) as? DetailChartTableViewCell else { return UITableViewCell() }
+                
+                cell.configureData(data: item)
+                
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailPriceTableViewCell.rawValue, for: indexPath) as? DetailPriceTableViewCell else { return UITableViewCell() }
+                
+                cell.configureData(data: item)
+                
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailInvestmentTableViewCell.rawValue, for: indexPath) as? DetailInvestmentTableViewCell else { return UITableViewCell() }
+                
+                cell.configureData(data: item)
+                
+                return cell
+            default:
+                return UITableViewCell()
+            }
+        }
+        
+        output.detailInfoData
+            .drive(coinDetailView.detailTableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
         
         Driver.zip(output.imageUrl, output.symbolText)
             .drive(with: self) { owner, value in
@@ -44,17 +75,18 @@ final class CoinDetailViewController: BaseViewController {
                 print(owner.viewModel.id.value, "starButtonTapped")
             }
             .disposed(by: disposeBag)
-        
-        // TODO: TableView에 표시
-        output.detailData
-            .drive(with: self) { owner, data in
-                dump(data)
-            }
-            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView
     override func loadView() {
         view = coinDetailView
+    }
+    
+    override func configureData() {
+        coinDetailView.detailTableView.register(DetailChartTableViewCell.self, forCellReuseIdentifier: Identifier.DetailChartTableViewCell.rawValue)
+        
+        coinDetailView.detailTableView.register(DetailPriceTableViewCell.self, forCellReuseIdentifier: Identifier.DetailPriceTableViewCell.rawValue)
+        
+        coinDetailView.detailTableView.register(DetailInvestmentTableViewCell.self, forCellReuseIdentifier: Identifier.DetailInvestmentTableViewCell.rawValue)
     }
 }

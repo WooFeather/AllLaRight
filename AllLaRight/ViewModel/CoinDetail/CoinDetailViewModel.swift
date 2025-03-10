@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 final class CoinDetailViewModel: BaseViewModel {
     var disposBag = DisposeBag()
@@ -17,6 +18,22 @@ final class CoinDetailViewModel: BaseViewModel {
     var symbolText = BehaviorRelay(value: "")
     
     private let detailData = PublishRelay<[DetailData]>()
+    private var detailInfoData: Observable<[CoinDetailSectionModel]> {
+        return detailData
+            .map{
+                var sections: [CoinDetailSectionModel] = []
+                
+                let chartSection = CoinDetailSectionModel.detailChart(items: $0)
+                
+                let priceSection = CoinDetailSectionModel.detailChart(items: $0)
+                
+                let investmentSection = CoinDetailSectionModel.detailChart(items: $0)
+                
+                sections.append(contentsOf: [chartSection, priceSection, investmentSection])
+                
+                return sections
+            }
+    }
     
     struct Input {
         let backButtonTapped: ControlEvent<Void>
@@ -29,7 +46,7 @@ final class CoinDetailViewModel: BaseViewModel {
         let backButtonTapped: Driver<Void>
         let starButtonTapped: Driver<Void>
         let errorMessage: Driver<String>
-        let detailData: Driver<[DetailData]>
+        let detailInfoData: Driver<[CoinDetailSectionModel]>
     }
     
     func transform(input: Input) -> Output {
@@ -82,7 +99,41 @@ final class CoinDetailViewModel: BaseViewModel {
             backButtonTapped: input.backButtonTapped.asDriver(),
             starButtonTapped: input.starButtonTapped.asDriver(),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
-            detailData: detailData.asDriver(onErrorJustReturn: [])
+            detailInfoData: detailInfoData.asDriver(onErrorJustReturn: [])
         )
+    }
+}
+
+// MARK: - RxDataSource Setting
+
+enum CoinDetailSectionModel {
+    case detailChart(items: [Item])
+    case detailPrice(items: [Item])
+    case detailInvestment(items: [Item])
+}
+
+extension CoinDetailSectionModel: SectionModelType {
+    typealias Item = DetailData
+    
+    var items: [DetailData] {
+        switch self {
+        case .detailChart(let items):
+            return items.map{ $0 }
+        case .detailPrice(let items):
+            return items.map{ $0 }
+        case .detailInvestment(let items):
+            return items.map{ $0 }
+        }
+    }
+    
+    init(original: CoinDetailSectionModel, items: [DetailData]) {
+        switch original {
+        case .detailChart(let items):
+            self = .detailChart(items: items)
+        case .detailPrice(let items):
+            self = .detailPrice(items: items)
+        case .detailInvestment(let items):
+            self = .detailInvestment(items: items)
+        }
     }
 }

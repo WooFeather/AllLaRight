@@ -16,17 +16,17 @@ final class CoinInfoViewModel: BaseViewModel {
     private let trendingCoinData = PublishRelay<[TrendingCoinItem]>()
     private let trendingNFTData = PublishRelay<[TrendingNFTItem]>()
     
-    private var trendingData: Observable<[MultipleSectionModel]> {
+    private var trendingData: Observable<[CoinInfoSectionModel]> {
         return Observable.combineLatest(trendingCoinData, trendingNFTData)
             .map { coin, nft in
-                var sections: [MultipleSectionModel] = []
+                var sections: [CoinInfoSectionModel] = []
                 
                 let coinItems = coin.map { SectionItem.trendingCoin(trendingCoin: $0) }
-                let coinSection = MultipleSectionModel.trendingCoin(items: coinItems)
+                let coinSection = CoinInfoSectionModel.trendingCoin(items: coinItems)
                 sections.append(coinSection)
                 
                 let nftItems = nft.map { SectionItem.trendingNFT(trendingNFT: $0) }
-                let nftSection = MultipleSectionModel.trendingNFT(items: nftItems)
+                let nftSection = CoinInfoSectionModel.trendingNFT(items: nftItems)
                 sections.append(nftSection)
                 
                 return sections
@@ -40,7 +40,7 @@ final class CoinInfoViewModel: BaseViewModel {
     }
     
     struct Output {
-        let trendingData: Driver<[MultipleSectionModel]>
+        let trendingData: Driver<[CoinInfoSectionModel]>
         let errorMessage: Driver<String>
         let modelSelected: Driver<SectionItem>
         let queryText: Driver<String>
@@ -125,7 +125,7 @@ final class CoinInfoViewModel: BaseViewModel {
 
 // MARK: - RxDataSource Setting
 
-enum MultipleSectionModel {
+enum CoinInfoSectionModel {
     case trendingCoin(items: [SectionItem])
     case trendingNFT(items: [SectionItem])
 }
@@ -135,7 +135,7 @@ enum SectionItem {
     case trendingNFT(trendingNFT: TrendingNFTItem)
 }
 
-extension MultipleSectionModel: SectionModelType {
+extension CoinInfoSectionModel: SectionModelType {
     typealias Item = SectionItem
     
     var items: [SectionItem] {
@@ -147,7 +147,7 @@ extension MultipleSectionModel: SectionModelType {
         }
     }
     
-    init(original: MultipleSectionModel, items: [SectionItem]) {
+    init(original: CoinInfoSectionModel, items: [SectionItem]) {
         switch original {
         case .trendingCoin(let items):
             self = .trendingCoin(items: items)
