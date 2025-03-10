@@ -17,19 +17,24 @@ final class CoinDetailViewModel: BaseViewModel {
     var symbolText = BehaviorRelay(value: "")
     
     struct Input {
-        
+        let backButtonTapped: ControlEvent<Void>
+        let starButtonTapped: ControlEvent<Void>
     }
     
     struct Output {
         let imageUrl: Driver<String>
         let symbolText: Driver<String>
+        let backButtonTapped: Driver<Void>
+        let starButtonTapped: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
         
         return Output(
             imageUrl: imageUrl.asDriver(),
-            symbolText: symbolText.asDriver()
+            symbolText: symbolText.asDriver(),
+            backButtonTapped: input.backButtonTapped.asDriver(),
+            starButtonTapped: input.starButtonTapped.asDriver()
         )
     }
 }

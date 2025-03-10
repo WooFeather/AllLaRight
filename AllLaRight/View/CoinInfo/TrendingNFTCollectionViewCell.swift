@@ -17,7 +17,7 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
     
     override func configureHierarchy() {
         [symbolImageView, nameLabel, priceLabel, changePercentageView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
     }
     

@@ -17,7 +17,7 @@ final class MarketTableViewCell: BaseTableViewCell {
     
     override func configureHierarchy() {
         [coinNameLabel, currentPriceLabel, changeRateLabel, changePriceLabel, tradePriceLabel].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
     }
     

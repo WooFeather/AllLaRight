@@ -13,10 +13,14 @@ import RxCocoa
 final class CoinDetailViewController: BaseViewController {
     
     private let coinDetailView = CoinDetailView()
+    private let disposeBag = DisposeBag()
     let viewModel = CoinDetailViewModel()
     
     override func bind() {
-        let input = CoinDetailViewModel.Input()
+        let input = CoinDetailViewModel.Input(
+            backButtonTapped: coinDetailView.navigationView.backButton.rx.tap,
+            starButtonTapped: coinDetailView.navigationView.starButton.rx.tap
+        )
         let output = viewModel.transform(input: input)
         
         Driver.zip(output.imageUrl, output.symbolText)
@@ -26,18 +30,20 @@ final class CoinDetailViewController: BaseViewController {
                 
                 owner.coinDetailView.navigationView.symbolLabel.text = value.1
             }
-            .disposed(by: DisposeBag())
-    }
-    
-    // TODO: ViewModel로 이동
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func bookmarkButtonTapped() {
-        print("bookmarkButtonTapped")
+            .disposed(by: disposeBag)
+        
+        output.backButtonTapped
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        // TODO: 즐겨찾기 로직 수정
+        output.starButtonTapped
+            .drive(with: self) { owner, _ in
+                print(owner.viewModel.id.value, "starButtonTapped")
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView

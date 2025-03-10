@@ -37,6 +37,14 @@ final class CoinSearchViewController: BaseViewController {
             .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: SearchTableViewCell.id, cellType: SearchTableViewCell.self)) { row, element, cell in
                 
                 cell.configureData(data: element)
+                
+                // TODO: 즐겨찾기 로직 수정
+                cell.starButton.rx.tap
+                    .asDriver()
+                    .drive(with: self) { owner, _ in
+                        print(element.id, "starButtonTapped")
+                    }
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         

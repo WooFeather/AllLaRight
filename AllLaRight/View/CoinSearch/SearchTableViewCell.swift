@@ -8,17 +8,28 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
+import RxCocoa
 
-class SearchTableViewCell: BaseTableViewCell {
+final class SearchTableViewCell: BaseTableViewCell {
+    var disposeBag = DisposeBag()
+    
     private let iconImageView = UIImageView()
     private let symbolLabel = UILabel()
     private let nameLabel = UILabel()
     private let rankView = RankView()
-    private let starButton = UIButton()
+    let starButton = UIButton()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        starButton.isSelected = false
+        disposeBag = DisposeBag()
+    }
     
     override func configureHierarchy() {
         [iconImageView, symbolLabel, nameLabel, rankView, starButton].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
@@ -30,7 +41,7 @@ class SearchTableViewCell: BaseTableViewCell {
         }
         
         symbolLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
+            make.top.equalToSuperview().offset(12)
             make.leading.equalTo(iconImageView.snp.trailing).offset(16)
             make.height.equalTo(15)
         }
@@ -39,7 +50,7 @@ class SearchTableViewCell: BaseTableViewCell {
             make.top.equalTo(symbolLabel.snp.bottom).offset(4)
             make.leading.equalTo(iconImageView.snp.trailing).offset(16)
             make.height.equalTo(12)
-            make.bottom.equalToSuperview().offset(-8)
+            make.bottom.equalToSuperview().offset(-16)
         }
         
         rankView.snp.makeConstraints { make in
@@ -51,7 +62,7 @@ class SearchTableViewCell: BaseTableViewCell {
         
         starButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-16)
+            make.trailing.equalToSuperview().offset(-12)
             make.size.equalTo(26)
         }
     }
@@ -73,6 +84,7 @@ class SearchTableViewCell: BaseTableViewCell {
         let starIcon = UIImage(systemName: "star")
         starButton.setImage(starIcon, for: .normal)
         starButton.tintColor = .themePrimary
+        starButton.isSelected = false
     }
     
     func configureData(data: CoinData) {

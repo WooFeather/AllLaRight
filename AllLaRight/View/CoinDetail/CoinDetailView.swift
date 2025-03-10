@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CoinDetailView: BaseView {
+final class CoinDetailView: BaseView {
     let navigationView = NavigationDetailView()
     let detailTableView = UITableView()
     

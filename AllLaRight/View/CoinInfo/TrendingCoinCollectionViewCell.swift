@@ -18,7 +18,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
     
     override func configureHierarchy() {
         [rankScoreLabel, symbolImageView, symbolLabel, nameLabel, changePercentageView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
