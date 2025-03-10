@@ -39,4 +39,9 @@ extension Double {
             return Double(String(format: "%.2f", self))?.formatted() ?? "0.0"
         }
     }
+    
+    func toWonString() -> String {
+        let intNum = Int(self)
+        return "￦" + intNum.formatted()
+    }
 }

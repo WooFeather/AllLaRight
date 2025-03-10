@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CoinDetail: Decodable {
+struct DetailData: Decodable {
     let id: String
     let currentPrice: Double // 현재가
     let marketCap: Double // 시가총액

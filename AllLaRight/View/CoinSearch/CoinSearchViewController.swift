@@ -35,7 +35,7 @@ final class CoinSearchViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.searchData
-            .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: SearchTableViewCell.id, cellType: SearchTableViewCell.self)) { row, element, cell in
+            .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { row, element, cell in
                 
                 cell.configureData(data: element)
                 
@@ -73,6 +73,6 @@ final class CoinSearchViewController: BaseViewController {
     }
     
     override func configureData() {
-        coinSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.id)
+        coinSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: Identifier.SearchTableViewCell.rawValue)
     }
 }

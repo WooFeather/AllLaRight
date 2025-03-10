@@ -32,5 +32,6 @@ final class CoinDetailView: BaseView {
     
     override func configureView() {
         detailTableView.backgroundColor = .lightGray
+        detailTableView.separatorStyle = .none
     }
 }

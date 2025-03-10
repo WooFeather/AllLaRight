@@ -32,13 +32,13 @@ final class CoinInfoViewController: BaseViewController {
         let dataSource = RxCollectionViewSectionedReloadDataSource<MultipleSectionModel> { dataSource, collectionView, indexPath, item in
             switch item {
             case let .trendingCoin(trendingCoin):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCoinCollectionViewCell.id, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.TrendingCoinCollectionViewCell.rawValue, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
                 
                 cell.configureData(data: trendingCoin.item)
                 
                 return cell
             case let .trendingNFT(trendingNFT):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingNFTCollectionViewCell.id, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.TrendingNFTCollectionViewCell.rawValue, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
                 
                 cell.configureData(data: trendingNFT)
                 
@@ -46,12 +46,12 @@ final class CoinInfoViewController: BaseViewController {
             }
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             switch kind {
-            case SectionHeader.elementKind:
-                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.id, for: indexPath) as? SectionHeader else { return SectionHeader() }
+            case Identifier.SectionHeader.rawValue:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifier.SectionHeader.rawValue, for: indexPath) as? SectionHeader else { return SectionHeader() }
                         
                         switch dataSource[indexPath.section] {
                         case .trendingCoin(items: _):
-                            header.configureData(sectionTitle: "인기 검색어", dateString: Date().toString())
+                            header.configureData(sectionTitle: "인기 검색어", dateString: Date().toString(dateFormat: "MM.dd HH:mm 기준"))
                         case .trendingNFT(items: _):
                             header.configureData(sectionTitle: "인기 NFT", dateString: "")
                         }
@@ -111,10 +111,10 @@ final class CoinInfoViewController: BaseViewController {
     }
     
     override func configureData() {
-        coinInfoView.infoCollectionView.register(TrendingCoinCollectionViewCell.self, forCellWithReuseIdentifier: TrendingCoinCollectionViewCell.id)
+        coinInfoView.infoCollectionView.register(TrendingCoinCollectionViewCell.self, forCellWithReuseIdentifier: Identifier.TrendingCoinCollectionViewCell.rawValue)
         
-        coinInfoView.infoCollectionView.register(TrendingNFTCollectionViewCell.self, forCellWithReuseIdentifier: TrendingNFTCollectionViewCell.id)
+        coinInfoView.infoCollectionView.register(TrendingNFTCollectionViewCell.self, forCellWithReuseIdentifier: Identifier.TrendingNFTCollectionViewCell.rawValue)
         
-        coinInfoView.infoCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: SectionHeader.elementKind, withReuseIdentifier: SectionHeader.id)
+        coinInfoView.infoCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: Identifier.SectionHeader.rawValue, withReuseIdentifier: Identifier.SectionHeader.rawValue)
     }
 }

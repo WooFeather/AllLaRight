@@ -86,7 +86,11 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         nameLabel.text = data.name
         
         // 등락뷰 세팅
-        guard let changeRate = data.data.priceChangePercentage24h["krw"] else { return }
+        guard let changeRate = data.data.priceChangePercentage24h["krw"] else {
+            changePercentageView.iconImageView.image = UIImage()
+            changePercentageView.changeRateLabel.text = ""
+            return
+        }
         
         let riseIcon = UIImage(systemName: "arrowtriangle.up.fill")
         let fallIcon = UIImage(systemName: "arrowtriangle.down.fill")

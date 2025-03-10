@@ -31,7 +31,7 @@ final class MarketViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.marketList
-            .drive(marketView.marketTableView.rx.items(cellIdentifier: MarketTableViewCell.id, cellType: MarketTableViewCell.self)) { row, element, cell in
+            .drive(marketView.marketTableView.rx.items(cellIdentifier: Identifier.MarketTableViewCell.rawValue, cellType: MarketTableViewCell.self)) { row, element, cell in
                 cell.configureData(data: element)
             }
             .disposed(by: disposeBag)
@@ -97,6 +97,6 @@ final class MarketViewController: BaseViewController {
     }
     
     override func configureData() {
-        marketView.marketTableView.register(MarketTableViewCell.self, forCellReuseIdentifier: MarketTableViewCell.id)
+        marketView.marketTableView.register(MarketTableViewCell.self, forCellReuseIdentifier: Identifier.MarketTableViewCell.rawValue)
     }
 }

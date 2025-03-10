@@ -16,7 +16,7 @@ final class CoinDetailViewModel: BaseViewModel {
     var imageUrl = BehaviorRelay(value: "")
     var symbolText = BehaviorRelay(value: "")
     
-    private let detailData = PublishRelay<[CoinDetail]>()
+    private let detailData = PublishRelay<[DetailData]>()
     
     struct Input {
         let backButtonTapped: ControlEvent<Void>
@@ -29,7 +29,7 @@ final class CoinDetailViewModel: BaseViewModel {
         let backButtonTapped: Driver<Void>
         let starButtonTapped: Driver<Void>
         let errorMessage: Driver<String>
-        let detailData: Driver<[CoinDetail]>
+        let detailData: Driver<[DetailData]>
     }
     
     func transform(input: Input) -> Output {
@@ -38,7 +38,7 @@ final class CoinDetailViewModel: BaseViewModel {
         
         id
             .flatMap {
-                NetworkManager.shared.callAPI(api: .coingeckoMarket(id: $0), type: [CoinDetail].self)
+                NetworkManager.shared.callAPI(api: .coingeckoMarket(id: $0), type: [DetailData].self)
                     .retry(3)
                     .catch { error in
                         switch error as? APIError {

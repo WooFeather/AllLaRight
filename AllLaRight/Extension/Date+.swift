@@ -8,10 +8,10 @@
 import Foundation
 
 extension Date {
-    func toString() -> String {
+    func toString(dateFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "MM.dd HH:mm 기준"
+        dateFormatter.dateFormat = dateFormat
         return dateFormatter.string(from: self)
     }
 }

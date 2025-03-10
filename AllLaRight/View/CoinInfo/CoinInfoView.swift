@@ -95,7 +95,7 @@ final class CoinInfoView: BaseView {
             heightDimension: .estimated(20))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SectionHeader.elementKind,
+            elementKind: Identifier.SectionHeader.rawValue,
             alignment: .top)
         
         return header
