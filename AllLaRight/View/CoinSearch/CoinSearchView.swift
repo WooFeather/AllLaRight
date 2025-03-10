@@ -31,6 +31,6 @@ final class CoinSearchView: BaseView {
     }
     
     override func configureView() {
-        searchTableView.backgroundColor = .lightGray
+        searchTableView.separatorStyle = .none
     }
 }

@@ -27,6 +27,16 @@ final class CoinSearchViewController: BaseViewController {
                 owner.coinSearchView.navigationView.searchTextField.text = text
             }
             .disposed(by: disposeBag)
+        
+        output.searchData
+            .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: SearchTableViewCell.id, cellType: SearchTableViewCell.self)) { row, element, cell in
+                
+                cell.configureData(data: element)
+            }
+            .disposed(by: disposeBag)
+        
+        // TODO: Error반환시 AlertView 띄우기
+        // output.errorMessage
     }
     
     // TODO: ViewModel로 이동
@@ -37,5 +47,9 @@ final class CoinSearchViewController: BaseViewController {
     
     override func configureAction() {
         coinSearchView.navigationView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    override func configureData() {
+        coinSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.id)
     }
 }

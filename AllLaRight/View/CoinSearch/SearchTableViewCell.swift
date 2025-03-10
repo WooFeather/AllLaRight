@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SearchTableViewCell: BaseTableViewCell {
     private let iconImageView = UIImageView()
@@ -49,7 +50,7 @@ class SearchTableViewCell: BaseTableViewCell {
         }
         
         starButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-16)
             make.size.equalTo(26)
         }
@@ -74,7 +75,12 @@ class SearchTableViewCell: BaseTableViewCell {
         starButton.tintColor = .themePrimary
     }
     
-    func configureData() {
+    func configureData(data: CoinData) {
+        let urlString = data.thumb
+        iconImageView.kf.setImage(with: URL(string: urlString))
         
+        symbolLabel.text = data.symbol
+        
+        nameLabel.text = data.name
     }
 }
