@@ -20,6 +20,7 @@ final class CoinSearchViewModel: BaseViewModel {
         let backButtonTapped: ControlEvent<Void>
         let textFieldReturnTapped: ControlEvent<Void>
         let textFieldText: ControlProperty<String>
+        let modelSelected: ControlEvent<CoinData>
     }
     
     struct Output {
@@ -27,6 +28,7 @@ final class CoinSearchViewModel: BaseViewModel {
         let errorMessage: Driver<String>
         let searchData: Driver<[CoinData]>
         let backButtonTapped: Driver<Void>
+        let modelSelected: Driver<CoinData>
     }
     
     func transform(input: Input) -> Output {
@@ -99,7 +101,8 @@ final class CoinSearchViewModel: BaseViewModel {
             queryText: queryText.asDriver(),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
             searchData: searchData.asDriver(onErrorJustReturn: []),
-            backButtonTapped: input.backButtonTapped.asDriver()
+            backButtonTapped: input.backButtonTapped.asDriver(),
+            modelSelected: input.modelSelected.asDriver()
         )
     }
 }

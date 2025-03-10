@@ -22,7 +22,8 @@ final class CoinSearchViewController: BaseViewController {
         let input = CoinSearchViewModel.Input(
             backButtonTapped: coinSearchView.navigationView.backButton.rx.tap,
             textFieldReturnTapped: coinSearchView.navigationView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
-            textFieldText: coinSearchView.navigationView.searchTextField.rx.text.orEmpty
+            textFieldText: coinSearchView.navigationView.searchTextField.rx.text.orEmpty,
+            modelSelected: coinSearchView.searchTableView.rx.modelSelected(CoinData.self)
         )
         let output = viewModel.transform(input: input)
         
@@ -41,6 +42,14 @@ final class CoinSearchViewController: BaseViewController {
         
         // TODO: Error반환시 AlertView 띄우기
         // output.errorMessage
+        
+        output.modelSelected
+            .drive(with: self) { owner, data in
+                print(data.id)
+                let vc = CoinDetailViewController()
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
         
         output.backButtonTapped
             .drive(with: self) { owner, _ in
