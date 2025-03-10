@@ -46,7 +46,12 @@ final class CoinSearchViewController: BaseViewController {
         output.modelSelected
             .drive(with: self) { owner, data in
                 print(data.id)
+                
                 let vc = CoinDetailViewController()
+                vc.viewModel.id.accept(data.id)
+                vc.viewModel.imageUrl.accept(data.large)
+                vc.viewModel.symbolText.accept(data.symbol)
+                
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

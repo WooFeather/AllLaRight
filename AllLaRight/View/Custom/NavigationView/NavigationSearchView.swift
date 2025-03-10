@@ -10,9 +10,9 @@ import SnapKit
 
 final class NavigationSearchView: BaseView {
 
+    private let separatorView = UIView()
     let backButton = UIButton()
     let searchTextField = UITextField()
-    private let separatorView = UIView()
     
     override func configureHierarchy() {
         addSubview(backButton)
