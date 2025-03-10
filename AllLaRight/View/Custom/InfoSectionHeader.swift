@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-final class SectionHeader: UICollectionReusableView {
+final class InfoSectionHeader: UICollectionReusableView {
     
-    private let sectionLabel = UILabel()
+    private let titleLabel = UILabel()
     private let dateLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -22,12 +22,12 @@ final class SectionHeader: UICollectionReusableView {
     }
     
     private func configureHierarchy() {
-        addSubview(sectionLabel)
+        addSubview(titleLabel)
         addSubview(dateLabel)
     }
     
     private func configureLayout() {
-        sectionLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalToSuperview()
             make.height.equalTo(17)
@@ -41,15 +41,15 @@ final class SectionHeader: UICollectionReusableView {
     }
     
     private func configureView() {
-        sectionLabel.font = .boldSystemFont(ofSize: 15)
-        sectionLabel.textColor = .themePrimary
+        titleLabel.font = .boldSystemFont(ofSize: 15)
+        titleLabel.textColor = .themePrimary
         
         dateLabel.font = ALRFont.headline.font
         dateLabel.textColor = .themeSecondary
     }
     
     func configureData(sectionTitle: String, dateString: String) {
-        sectionLabel.text = sectionTitle
+        titleLabel.text = sectionTitle
         
         dateLabel.text = dateString
     }

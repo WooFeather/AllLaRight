@@ -9,12 +9,14 @@ import UIKit
 import SnapKit
 
 final class DetailInvestmentTableViewCell: BaseTableViewCell {
+    let headerView = DetailSectionHeader(title: "투자지표")
     private let roundedBackgroundView = UIView()
     private let marketCapView = InfoTwoLineView()
     private let fdvView = InfoTwoLineView()
     private let totalVolumeView = InfoTwoLineView()
     
     override func configureHierarchy() {
+        contentView.addSubview(headerView)
         contentView.addSubview(roundedBackgroundView)
         [marketCapView, fdvView, totalVolumeView].forEach {
             roundedBackgroundView.addSubview($0)
@@ -22,10 +24,17 @@ final class DetailInvestmentTableViewCell: BaseTableViewCell {
     }
     
     override func configureLayout() {
+        headerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        
         roundedBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(12)
             make.height.greaterThanOrEqualTo(20)
-            make.horizontalEdges.bottom.equalToSuperview().inset(16)
-            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().offset(-16)
         }
         
         marketCapView.snp.makeConstraints { make in

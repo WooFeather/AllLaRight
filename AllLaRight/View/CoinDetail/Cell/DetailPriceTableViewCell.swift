@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class DetailPriceTableViewCell: BaseTableViewCell {
+    let headerView = DetailSectionHeader(title: "종목정보")
     private let roundedBackgroundView = UIView()
     private let high24hView = InfoTwoLineView()
     private let low24hView = InfoTwoLineView()
@@ -16,6 +17,7 @@ final class DetailPriceTableViewCell: BaseTableViewCell {
     private let atlView = InfoThreeLineView()
     
     override func configureHierarchy() {
+        contentView.addSubview(headerView)
         contentView.addSubview(roundedBackgroundView)
         [high24hView, low24hView, athView, atlView].forEach {
             roundedBackgroundView.addSubview($0)
@@ -23,10 +25,17 @@ final class DetailPriceTableViewCell: BaseTableViewCell {
     }
     
     override func configureLayout() {
+        headerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        
         roundedBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(12)
             make.height.greaterThanOrEqualTo(20)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
         }
         
         high24hView.snp.makeConstraints { make in

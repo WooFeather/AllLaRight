@@ -50,17 +50,6 @@ final class CoinDetailViewController: BaseViewController {
             }
         }
         
-        dataSource.titleForHeaderInSection = { dataSource, index in
-            switch dataSource.sectionModels[index] {
-            case .detailChart(header: let header, items: _):
-                return header
-            case .detailPrice(header: let header, items: _):
-                return header
-            case .detailInvestment(header: let header, items: _):
-                return header
-            }
-        }
-        
         output.detailInfoData
             .drive(coinDetailView.detailTableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)

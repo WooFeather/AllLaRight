@@ -48,7 +48,7 @@ final class CoinInfoViewController: BaseViewController {
         } configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             switch kind {
             case Identifier.SectionHeader.rawValue:
-                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifier.SectionHeader.rawValue, for: indexPath) as? SectionHeader else { return SectionHeader() }
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifier.SectionHeader.rawValue, for: indexPath) as? InfoSectionHeader else { return InfoSectionHeader() }
                         
                         switch dataSource[indexPath.section] {
                         case .trendingCoin(items: _):
@@ -116,6 +116,6 @@ final class CoinInfoViewController: BaseViewController {
         
         coinInfoView.infoCollectionView.register(TrendingNFTCollectionViewCell.self, forCellWithReuseIdentifier: Identifier.TrendingNFTCollectionViewCell.rawValue)
         
-        coinInfoView.infoCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: Identifier.SectionHeader.rawValue, withReuseIdentifier: Identifier.SectionHeader.rawValue)
+        coinInfoView.infoCollectionView.register(InfoSectionHeader.self, forSupplementaryViewOfKind: Identifier.SectionHeader.rawValue, withReuseIdentifier: Identifier.SectionHeader.rawValue)
     }
 }
