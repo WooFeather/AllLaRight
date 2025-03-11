@@ -11,9 +11,20 @@ import RxCocoa
 
 final class InfoPopupViewController: BaseViewController {
     
-    private let infoPopupView = InfoPopupView()
-    private let viewModel = InfoPopupViewModel()
+    let infoPopupView = InfoPopupView()
     private let disposeBag = DisposeBag()
+    let viewModel = InfoPopupViewModel()
+    
+    override func bind() {
+        let input = InfoPopupViewModel.Input(
+            retryButtonTapped: infoPopupView.retryButton.rx.tap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.errorMessage
+            .drive(infoPopupView.descriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
     
     override func loadView() {
         view = infoPopupView

@@ -90,9 +90,11 @@ final class MarketViewController: BaseViewController {
         output.errorMessage
            .drive(with: self) { owner, value in
                LoadingIndicator.hideLoading()
-               owner.showAlert(title: "오류발생", message: value, button: "확인") {
-                   owner.dismiss(animated: true)
-               }
+               
+               let vc = InfoPopupViewController()
+               vc.viewModel.errorMessage.accept(value)
+               vc.modalPresentationStyle = .currentContext
+               owner.present(vc, animated: true)
            }
            .disposed(by: disposeBag)
     }
