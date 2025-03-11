@@ -8,7 +8,6 @@
 import Foundation
 
 enum APIError: Error {
-    case disconnection // 네트워크 단절
     case badRequest // 400
     case unauthorized // 401 => 여기까지 업비트, Coingeckco 동일
     case forbidden // 403 => 여기부터 Coingecko에서만 사용
@@ -23,8 +22,6 @@ enum APIError: Error {
     
     var errorMessage: String {
         switch self {
-        case .disconnection:
-            return "네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요."
         case .badRequest:
             return "잘못된 API요청입니다. 파라미터 값을 확인해주세요."
         case .unauthorized:

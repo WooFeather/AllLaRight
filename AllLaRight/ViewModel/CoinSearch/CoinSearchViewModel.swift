@@ -49,8 +49,6 @@ final class CoinSearchViewModel: BaseViewModel {
                     .retry(3)
                     .catch { error in
                         switch error as? APIError {
-                        case .disconnection:
-                            errorMessage.accept(APIError.disconnection.errorMessage)
                         case .badRequest:
                             errorMessage.accept(APIError.badRequest.errorMessage)
                         case .unauthorized:

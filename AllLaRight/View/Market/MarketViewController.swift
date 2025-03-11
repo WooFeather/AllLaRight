@@ -86,9 +86,13 @@ final class MarketViewController: BaseViewController {
         
         // TODO: 통신이 되기 전에는 인디케이터 표시
         
-        // TODO: Error반환시 AlertView 띄우기
-        // output.errorMessage
-        
+        output.errorMessage
+           .drive(with: self) { owner, value in
+               owner.showAlert(title: "오류발생", message: value, button: "확인") {
+                   owner.dismiss(animated: true)
+               }
+           }
+           .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView

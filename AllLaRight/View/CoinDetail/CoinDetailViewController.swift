@@ -96,7 +96,13 @@ final class CoinDetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        
+        output.errorMessage
+            .drive(with: self) { owner, value in
+                owner.showAlert(title: "오류발생", message: value, button: "확인") {
+                    owner.navigationController?.popViewController(animated: true)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - ConfigureView
