@@ -86,6 +86,7 @@ final class CoinDetailViewController: BaseViewController {
         output.starButtonTapped
             .drive(with: self) { owner, _ in
                 print(owner.viewModel.id.value, "starButtonTapped")
+                owner.coinDetailView.navigationView.starButton.isSelected.toggle()
             }
             .disposed(by: disposeBag)
     }

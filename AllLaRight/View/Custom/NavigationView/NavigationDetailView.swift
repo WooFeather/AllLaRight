@@ -68,10 +68,12 @@ final class NavigationDetailView: BaseView {
         backButton.setImage(backIcon, for: .normal)
         backButton.tintColor = .themePrimary
         
-        // TODO: 밖에서 분기처리
         let starIcon = UIImage(systemName: "star")
+        let starFillIcon = UIImage(systemName: "star.fill")
         starButton.setImage(starIcon, for: .normal)
+        starButton.setImage(starFillIcon, for: .selected)
         starButton.tintColor = .themePrimary
+        starButton.isSelected = false
         
         DispatchQueue.main.async { [weak self] in
             self?.iconImageView.layer.cornerRadius = (self?.iconImageView.frame.height ?? 0) / 2

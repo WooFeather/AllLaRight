@@ -8,10 +8,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 final class CoinSearchViewController: BaseViewController {
     private let coinSearchView = CoinSearchView()
     private let disposeBag = DisposeBag()
+    
+    private let repository: StarItemRepository = StarItemTableRepository()
+    
     let viewModel = CoinSearchViewModel()
     
     override func loadView() {
@@ -26,7 +30,6 @@ final class CoinSearchViewController: BaseViewController {
             modelSelected: coinSearchView.searchTableView.rx.modelSelected(CoinData.self)
         )
         let output = viewModel.transform(input: input)
-        
         output.queryText
             .drive(with: self) { owner, text in
                 owner.coinSearchView.navigationView.searchTextField.text = text
@@ -43,6 +46,31 @@ final class CoinSearchViewController: BaseViewController {
                     .asDriver()
                     .drive(with: self) { owner, _ in
                         print(element.id, "starButtonTapped")
+                        
+//                        let realmArray = Array(owner.repository.fetchAll())
+//                        
+//                        if realmArray.contains(StarItem(id: element.id)) {
+//                            owner.repository.deleteItem(data: StarItem(id: element.id))
+//                        } else {
+//                            owner.repository.createItem(id: element.id)
+//                        }
+//                        print(realmArray)
+                        
+                        
+                        // element의 id가 realmList의 coinId와 일치하는게 있다면?
+                        // 이미 realm에 있다는 말 => 해당 레코드를 realm에서 제거
+                        // 없다면? => realm에 데이터 추가
+                        cell.starButton.isSelected.toggle()
+                        
+                        if cell.starButton.isSelected {
+                            owner.viewModel.saveData?(element.id)
+                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기되었습니다.")
+                        } else {
+                            owner.viewModel.deleteData?(element.id)
+                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기에서 제거되었습니다.")
+                        }
+                        
+                        
                     }
                     .disposed(by: cell.disposeBag)
             }
@@ -69,7 +97,6 @@ final class CoinSearchViewController: BaseViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
-        
     }
     
     // TODO: PageControl VM으로 이동 및 스와이프 기능 추가

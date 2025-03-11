@@ -14,6 +14,8 @@ import RxCocoa
 final class SearchTableViewCell: BaseTableViewCell {
     var disposeBag = DisposeBag()
     
+    private let repository: StarItemRepository = StarItemTableRepository()
+    
     private let iconImageView = UIImageView()
     private let symbolLabel = UILabel()
     private let nameLabel = UILabel()
@@ -23,7 +25,6 @@ final class SearchTableViewCell: BaseTableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        starButton.isSelected = false
         disposeBag = DisposeBag()
     }
     
@@ -80,9 +81,10 @@ final class SearchTableViewCell: BaseTableViewCell {
         nameLabel.font = ALRFont.headline.font
         nameLabel.textColor = .themeSecondary
         
-        // TODO: configureData에서 분기처리
         let starIcon = UIImage(systemName: "star")
+        let starFillIcon = UIImage(systemName: "star.fill")
         starButton.setImage(starIcon, for: .normal)
+        starButton.setImage(starFillIcon, for: .selected)
         starButton.tintColor = .themePrimary
         starButton.isSelected = false
     }

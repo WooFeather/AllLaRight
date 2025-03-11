@@ -11,10 +11,13 @@ import RxCocoa
 
 final class CoinSearchViewModel: BaseViewModel {
     
+    var saveData: ((String) -> Void)?
+    var deleteData: ((String) -> Void)?
     var disposBag = DisposeBag()
     var queryText = BehaviorRelay(value: "")
     
     private let searchData = PublishRelay<[CoinData]>()
+    private let repository: StarItemRepository = StarItemTableRepository()
     
     struct Input {
         let backButtonTapped: ControlEvent<Void>
@@ -32,6 +35,8 @@ final class CoinSearchViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+        
+        repository.getFileURL()
         
         let errorMessage = PublishRelay<String>()
         
@@ -96,6 +101,20 @@ final class CoinSearchViewModel: BaseViewModel {
                 }
             }
             .disposed(by: disposBag)
+        
+        saveData = { [weak self] id in
+            self?.repository.createItem(id: id)
+        }
+        
+        deleteData = { [weak self] id in
+            let data = self?.repository.fetchAll()
+            let sameData = data?.filter {
+                $0.id == id
+            }
+            let deleteData = sameData?.first
+            
+            self?.repository.deleteItem(data: deleteData ?? StarItem(id: ""))
+        }
         
         return Output(
             queryText: queryText.asDriver(),
