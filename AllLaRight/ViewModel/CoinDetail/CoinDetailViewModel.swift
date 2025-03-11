@@ -13,6 +13,8 @@ import RxDataSources
 final class CoinDetailViewModel: BaseViewModel {
     var disposBag = DisposeBag()
     
+    private let repository: StarItemRepository = StarItemTableRepository()
+    
     var id = BehaviorRelay(value: "")
     var imageUrl = BehaviorRelay(value: "")
     var symbolText = BehaviorRelay(value: "")
@@ -36,6 +38,7 @@ final class CoinDetailViewModel: BaseViewModel {
     }
     
     struct Input {
+        let viewWillAppear: Observable<Bool>
         let backButtonTapped: ControlEvent<Void>
         let starButtonTapped: ControlEvent<Void>
     }
@@ -44,14 +47,16 @@ final class CoinDetailViewModel: BaseViewModel {
         let imageUrl: Driver<String>
         let symbolText: Driver<String>
         let backButtonTapped: Driver<Void>
-        let starButtonTapped: Driver<Void>
+//        let starButtonTapped: Driver<Void>
         let errorMessage: Driver<String>
         let detailInfoData: Driver<[CoinDetailSectionModel]>
+        let isStared: Driver<Bool>
     }
     
     func transform(input: Input) -> Output {
         
         let errorMessage = PublishRelay<String>()
+        let isStared = PublishRelay<Bool>()
         
         id
             .flatMap {
@@ -93,13 +98,45 @@ final class CoinDetailViewModel: BaseViewModel {
             }
             .disposed(by: disposBag)
         
+        input.starButtonTapped
+            .bind(with: self) { owner, _ in
+                let data = Array(owner.repository.fetchAll())
+                let existingData = data.filter {
+                    $0.id == owner.id.value
+                }
+                
+                if existingData.count > 0 {
+                    owner.repository.deleteItem(data: existingData.first ?? existingData[0])
+                    isStared.accept(false)
+                } else {
+                    owner.repository.createItem(id: owner.id.value)
+                    isStared.accept(true)
+                }
+            }
+            .disposed(by: disposBag)
+        
+        input.viewWillAppear
+            .bind(with: self) { owner, _ in
+                let data = Array(owner.repository.fetchAll())
+                let existingData = data.filter {
+                    $0.id == owner.id.value
+                }
+                
+                if existingData.count > 0 {
+                    isStared.accept(true) // DB에 이미 추가돼있는 상태
+                } else {
+                    isStared.accept(false) // DB에 없는 상태
+                }
+            }
+            .disposed(by: disposBag)
+        
         return Output(
             imageUrl: imageUrl.asDriver(),
             symbolText: symbolText.asDriver(),
             backButtonTapped: input.backButtonTapped.asDriver(),
-            starButtonTapped: input.starButtonTapped.asDriver(),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
-            detailInfoData: detailInfoData.asDriver(onErrorJustReturn: [])
+            detailInfoData: detailInfoData.asDriver(onErrorJustReturn: []),
+            isStared: isStared.asDriver(onErrorJustReturn: false)
         )
     }
 }

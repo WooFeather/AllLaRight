@@ -20,6 +20,7 @@ final class CoinDetailViewController: BaseViewController {
     
     override func bind() {
         let input = CoinDetailViewModel.Input(
+            viewWillAppear: rx.viewWillAppear,
             backButtonTapped: coinDetailView.navigationView.backButton.rx.tap,
             starButtonTapped: coinDetailView.navigationView.starButton.rx.tap
         )
@@ -82,13 +83,20 @@ final class CoinDetailViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: 즐겨찾기 로직 수정
-        output.starButtonTapped
-            .drive(with: self) { owner, _ in
-                print(owner.viewModel.id.value, "starButtonTapped")
-                owner.coinDetailView.navigationView.starButton.isSelected.toggle()
+        output.isStared
+            .drive(with: self) { owner, isStared in
+                if isStared { // 추가돼있는 상태
+                    owner.coinDetailView.navigationView.starButton.isSelected = true
+                    owner.view.makeToast("\(owner.viewModel.symbolText.value)이(가) 즐겨찾기에 추가되었습니다.")
+                } else { // 없는상태
+                    owner.coinDetailView.navigationView.starButton.isSelected = false
+                    owner.view.makeToast("\(owner.viewModel.symbolText.value)이(가) 즐겨찾기에서 제거되었습니다.")
+                    
+                }
             }
             .disposed(by: disposeBag)
+        
+        
     }
     
     // MARK: - ConfigureView

@@ -24,6 +24,7 @@ final class CoinSearchViewController: BaseViewController {
     
     override func bind() {
         let input = CoinSearchViewModel.Input(
+            viewWillAppear: rx.viewWillAppear,
             backButtonTapped: coinSearchView.navigationView.backButton.rx.tap,
             textFieldReturnTapped: coinSearchView.navigationView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
             textFieldText: coinSearchView.navigationView.searchTextField.rx.text.orEmpty,
@@ -37,42 +38,53 @@ final class CoinSearchViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.searchData
-            .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { row, element, cell in
+            .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { [weak self] row, element, cell in
+                
+                guard let self = self else { return }
                 
                 cell.configureData(data: element)
                 
-                // TODO: 즐겨찾기 로직 수정
+                let data = Array(self.repository.fetchAll())
+                
+                let existingData = data.filter {
+                    $0.id == element.id
+                }
+                
+                if existingData.count > 0 {
+                    cell.starButton.isSelected = true
+                } else {
+                    cell.starButton.isSelected = false
+                }
+                
                 cell.starButton.rx.tap
                     .asDriver()
                     .drive(with: self) { owner, _ in
                         print(element.id, "starButtonTapped")
                         
-//                        let realmArray = Array(owner.repository.fetchAll())
-//                        
-//                        if realmArray.contains(StarItem(id: element.id)) {
-//                            owner.repository.deleteItem(data: StarItem(id: element.id))
-//                        } else {
-//                            owner.repository.createItem(id: element.id)
-//                        }
-//                        print(realmArray)
+                        let data = Array(owner.repository.fetchAll())
                         
-                        
-                        // element의 id가 realmList의 coinId와 일치하는게 있다면?
-                        // 이미 realm에 있다는 말 => 해당 레코드를 realm에서 제거
-                        // 없다면? => realm에 데이터 추가
-                        cell.starButton.isSelected.toggle()
-                        
-                        if cell.starButton.isSelected {
-                            owner.viewModel.saveData?(element.id)
-                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기되었습니다.")
-                        } else {
-                            owner.viewModel.deleteData?(element.id)
-                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기에서 제거되었습니다.")
+                        let existingData = data.filter {
+                            $0.id == element.id
                         }
                         
+                        if existingData.count > 0 {
+                            owner.repository.deleteItem(data: existingData.first ?? existingData[0])
+                            cell.starButton.isSelected = false
+                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기에서 제거되었습니다.")
+                        } else {
+                            owner.repository.createItem(id: element.id)
+                            cell.starButton.isSelected = true
+                            owner.view.makeToast("\(element.name)이(가) 즐겨찾기에 추가되었습니다.")
+                        }
                         
                     }
                     .disposed(by: cell.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        output.viewWillAppear
+            .drive(with: self) { owner, _ in
+                owner.coinSearchView.searchTableView.reloadData()
             }
             .disposed(by: disposeBag)
         

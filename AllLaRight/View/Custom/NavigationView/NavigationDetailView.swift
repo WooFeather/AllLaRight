@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class NavigationDetailView: BaseView {
+    private let repository: StarItemRepository = StarItemTableRepository()
     private let titleView = UIView()
     private let separatorView = UIView()
     let backButton = UIButton()

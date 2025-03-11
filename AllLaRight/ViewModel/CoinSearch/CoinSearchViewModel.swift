@@ -20,6 +20,7 @@ final class CoinSearchViewModel: BaseViewModel {
     private let repository: StarItemRepository = StarItemTableRepository()
     
     struct Input {
+        let viewWillAppear: Observable<Bool>
         let backButtonTapped: ControlEvent<Void>
         let textFieldReturnTapped: ControlEvent<Void>
         let textFieldText: ControlProperty<String>
@@ -27,6 +28,7 @@ final class CoinSearchViewModel: BaseViewModel {
     }
     
     struct Output {
+        let viewWillAppear: Driver<Bool>
         let queryText: Driver<String>
         let errorMessage: Driver<String>
         let searchData: Driver<[CoinData]>
@@ -102,21 +104,8 @@ final class CoinSearchViewModel: BaseViewModel {
             }
             .disposed(by: disposBag)
         
-        saveData = { [weak self] id in
-            self?.repository.createItem(id: id)
-        }
-        
-        deleteData = { [weak self] id in
-            let data = self?.repository.fetchAll()
-            let sameData = data?.filter {
-                $0.id == id
-            }
-            let deleteData = sameData?.first
-            
-            self?.repository.deleteItem(data: deleteData ?? StarItem(id: ""))
-        }
-        
         return Output(
+            viewWillAppear: input.viewWillAppear.asDriver(onErrorJustReturn: true),
             queryText: queryText.asDriver(),
             errorMessage: errorMessage.asDriver(onErrorJustReturn: ""),
             searchData: searchData.asDriver(onErrorJustReturn: []),
