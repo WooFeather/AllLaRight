@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoadingIndicator {
+final class LoadingIndicator {
     static func showLoading() {
         DispatchQueue.main.async {
             
