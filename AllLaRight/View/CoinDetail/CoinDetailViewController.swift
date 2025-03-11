@@ -26,17 +26,23 @@ final class CoinDetailViewController: BaseViewController {
         )
         let output = viewModel.transform(input: input)
         
+        LoadingIndicator.showLoading()
+        
         let dataSource = RxTableViewSectionedReloadDataSource<CoinDetailSectionModel> { dataSource, tableView, indexPath, item in
             
             switch indexPath.section {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailChartTableViewCell.rawValue, for: indexPath) as? DetailChartTableViewCell else { return UITableViewCell() }
                 
+                LoadingIndicator.hideLoading()
+                
                 cell.configureData(data: item)
                 
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailPriceTableViewCell.rawValue, for: indexPath) as? DetailPriceTableViewCell else { return UITableViewCell() }
+                
+                LoadingIndicator.hideLoading()
                 
                 cell.configureData(data: item)
                 cell.headerView.moreButton.rx.tap
@@ -49,6 +55,8 @@ final class CoinDetailViewController: BaseViewController {
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.DetailInvestmentTableViewCell.rawValue, for: indexPath) as? DetailInvestmentTableViewCell else { return UITableViewCell() }
+                
+                LoadingIndicator.hideLoading()
                 
                 cell.configureData(data: item)
                 cell.headerView.moreButton.rx.tap
@@ -98,6 +106,8 @@ final class CoinDetailViewController: BaseViewController {
         
         output.errorMessage
             .drive(with: self) { owner, value in
+                LoadingIndicator.hideLoading()
+                
                 owner.showAlert(title: "오류발생", message: value, button: "확인") {
                     owner.navigationController?.popViewController(animated: true)
                 }

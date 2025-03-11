@@ -37,8 +37,12 @@ final class CoinSearchViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        LoadingIndicator.showLoading()
+        
         output.searchData
             .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { [weak self] row, element, cell in
+                
+                LoadingIndicator.hideLoading()
                 
                 guard let self = self else { return }
                 
@@ -92,6 +96,9 @@ final class CoinSearchViewController: BaseViewController {
         
         output.errorMessage
            .drive(with: self) { owner, value in
+               
+               LoadingIndicator.hideLoading()
+               
                owner.showAlert(title: "오류발생", message: value, button: "확인") {
                    owner.navigationController?.popViewController(animated: true)
                }

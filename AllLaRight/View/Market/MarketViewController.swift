@@ -30,8 +30,11 @@ final class MarketViewController: BaseViewController {
         )
         let output = viewModel.transform(input: input)
         
+        LoadingIndicator.showLoading()
+        
         output.marketList
             .drive(marketView.marketTableView.rx.items(cellIdentifier: Identifier.MarketTableViewCell.rawValue, cellType: MarketTableViewCell.self)) { row, element, cell in
+                LoadingIndicator.hideLoading()
                 cell.configureData(data: element)
             }
             .disposed(by: disposeBag)
@@ -84,10 +87,9 @@ final class MarketViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: 통신이 되기 전에는 인디케이터 표시
-        
         output.errorMessage
            .drive(with: self) { owner, value in
+               LoadingIndicator.hideLoading()
                owner.showAlert(title: "오류발생", message: value, button: "확인") {
                    owner.dismiss(animated: true)
                }

@@ -29,17 +29,23 @@ final class CoinInfoViewController: BaseViewController {
         )
         let output = viewModel.transform(input: input)
         
+        LoadingIndicator.showLoading()
+        
         let dataSource = RxCollectionViewSectionedReloadDataSource<CoinInfoSectionModel> { dataSource, collectionView, indexPath, item in
             
             switch item {
             case .trendingCoin(let trendingCoin):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.TrendingCoinCollectionViewCell.rawValue, for: indexPath) as? TrendingCoinCollectionViewCell else { return UICollectionViewCell() }
                 
+                LoadingIndicator.hideLoading()
+                
                 cell.configureData(data: trendingCoin.item)
                 
                 return cell
             case .trendingNFT(let trendingNFT):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.TrendingNFTCollectionViewCell.rawValue, for: indexPath) as? TrendingNFTCollectionViewCell else { return UICollectionViewCell() }
+                
+                LoadingIndicator.hideLoading()
                 
                 cell.configureData(data: trendingNFT)
                 
@@ -66,10 +72,9 @@ final class CoinInfoViewController: BaseViewController {
             .drive(coinInfoView.infoCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        // TODO: 통신이 되기 전에는 인디케이터 표시
-        
          output.errorMessage
             .drive(with: self) { owner, value in
+                LoadingIndicator.hideLoading()
                 owner.showAlert(title: "오류발생", message: value, button: "확인") {
                     owner.dismiss(animated: true)
                 }
