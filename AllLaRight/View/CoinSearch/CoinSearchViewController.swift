@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// TODO: TapPageController 구현
 final class CoinSearchViewController: BaseViewController {
     private let coinSearchView = CoinSearchView()
     private let disposeBag = DisposeBag()
@@ -70,9 +69,28 @@ final class CoinSearchViewController: BaseViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+    }
+    
+    // TODO: PageControl VM으로 이동 및 스와이프 기능 추가
+    @objc private func didChangeValue(segment: UISegmentedControl) {
+        switch segment.selectedSegmentIndex {
+        case 1:
+            coinSearchView.showSecondView = true
+        case 2:
+            coinSearchView.showThirdView = true
+        default:
+            coinSearchView.showFirstView = true
+        }
     }
     
     override func configureData() {
         coinSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: Identifier.SearchTableViewCell.rawValue)
+    }
+    
+    override func configureAction() {
+        coinSearchView.segmentControl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
+        coinSearchView.segmentControl.selectedSegmentIndex = 0
+        didChangeValue(segment: coinSearchView.segmentControl)
     }
 }

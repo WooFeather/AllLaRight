@@ -10,11 +10,42 @@ import SnapKit
 
 final class CoinSearchView: BaseView {
     let navigationView = NavigationSearchView()
+    let segmentControl = UnderlineSegmentControl(items: ["코인", "NFT", "거래소"])
     let searchTableView = UITableView()
+    let nftSearchView = UIView()
+    let marketSearchView = UIView()
+    
+    var showFirstView: Bool? {
+        didSet {
+            guard let showFirstView = self.showFirstView else { return }
+            searchTableView.isHidden = !showFirstView
+            nftSearchView.isHidden = showFirstView
+            marketSearchView.isHidden = showFirstView
+        }
+    }
+    
+    var showSecondView: Bool? {
+        didSet {
+            guard let showSecondView = self.showSecondView else { return }
+            searchTableView.isHidden = showSecondView
+            nftSearchView.isHidden = !showSecondView
+            marketSearchView.isHidden = showSecondView
+        }
+    }
+    
+    var showThirdView: Bool? {
+        didSet {
+            guard let showThirdView = self.showThirdView else { return }
+            searchTableView.isHidden = showThirdView
+            nftSearchView.isHidden = showThirdView
+            marketSearchView.isHidden = !showThirdView
+        }
+    }
     
     override func configureHierarchy() {
-        addSubview(navigationView)
-        addSubview(searchTableView)
+        [navigationView, segmentControl, searchTableView, nftSearchView, marketSearchView].forEach {
+            addSubview($0)
+        }
     }
     
     override func configureLayout() {
@@ -24,13 +55,30 @@ final class CoinSearchView: BaseView {
             make.height.equalTo(44)
         }
         
-        searchTableView.snp.makeConstraints { make in
+        segmentControl.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(44)
+        }
+        
+        searchTableView.snp.makeConstraints { make in
+            make.top.equalTo(segmentControl.snp.bottom)
+            make.horizontalEdges.equalTo(segmentControl.snp.horizontalEdges)
+            make.bottom.equalToSuperview()
+        }
+        
+        nftSearchView.snp.makeConstraints { make in
+            make.edges.equalTo(searchTableView.snp.edges)
+        }
+        
+        marketSearchView.snp.makeConstraints { make in
+            make.edges.equalTo(searchTableView.snp.edges)
         }
     }
     
     override func configureView() {
         searchTableView.separatorStyle = .none
+        nftSearchView.backgroundColor = .chartFall
+        marketSearchView.backgroundColor = .chartRise
     }
 }

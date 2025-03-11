@@ -19,7 +19,7 @@ final class NetworkManager {
         return Single.create { value in
             
             AF.request(api.endpoint, method: api.method)
-                .validate(statusCode: 200..<499)
+                .validate(statusCode: 200..<299)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case .success(let data):
