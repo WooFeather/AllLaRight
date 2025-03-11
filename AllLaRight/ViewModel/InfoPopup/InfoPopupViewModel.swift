@@ -21,12 +21,16 @@ final class InfoPopupViewModel: BaseViewModel {
     
     struct Output {
         let errorMessage: Driver<String>
+        let retryButtonTapped: Driver<Void>
     }
     
     func transform(input: Input) -> Output {
         
         // TODO: retryButtonTap시 네트워크 재시도
         
-        return Output(errorMessage: errorMessage.asDriver())
+        return Output(
+            errorMessage: errorMessage.asDriver(),
+            retryButtonTapped: input.retryButtonTapped.asDriver()
+        )
     }
 }

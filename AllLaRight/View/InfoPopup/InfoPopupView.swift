@@ -26,7 +26,7 @@ final class InfoPopupView: BaseView {
     override func configureLayout() {
         backgroundView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
-            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(240)
+            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(260)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -60,7 +60,7 @@ final class InfoPopupView: BaseView {
         titleLabel.font = ALRFont.headlineBold.font
         titleLabel.textColor = .themePrimary
         
-        descriptionLabel.text = "테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트테스트"
+        descriptionLabel.text = "네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요."
         descriptionLabel.font = ALRFont.headline.font
         descriptionLabel.textColor = .themePrimary
         descriptionLabel.numberOfLines = 0

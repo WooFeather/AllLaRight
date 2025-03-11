@@ -24,6 +24,12 @@ final class InfoPopupViewController: BaseViewController {
         output.errorMessage
             .drive(infoPopupView.descriptionLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.retryButtonTapped
+            .drive(with: self) { owner, _ in
+                owner.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func loadView() {
