@@ -9,13 +9,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class InfoPopupViewController: BaseViewController {
+final class InfoPopupViewController: UIViewController {
     
     let infoPopupView = InfoPopupView()
     private let disposeBag = DisposeBag()
     let viewModel = InfoPopupViewModel()
     
-    override func bind() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bind()
+        configureView()
+    }
+    
+    func bind() {
         let input = InfoPopupViewModel.Input(
             retryButtonTapped: infoPopupView.retryButton.rx.tap
         )
@@ -36,7 +43,7 @@ final class InfoPopupViewController: BaseViewController {
         view = infoPopupView
     }
     
-    override func configureView() {
+    func configureView() {
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
     }
 }

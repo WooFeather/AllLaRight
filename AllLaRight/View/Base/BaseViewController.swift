@@ -36,24 +36,22 @@ class BaseViewController: UIViewController {
     
     func startMonitoring() {
         
-        // alert이 아니라 vc를 띄우면 무한으로 올라오는 문제 발생
-//        let vc = InfoPopupViewController()
-//        vc.modalPresentationStyle = .currentContext
+        let vc = InfoPopupViewController()
+        vc.modalPresentationStyle = .currentContext
         
         monitor.start(queue: .global())
-        monitor.pathUpdateHandler = { path in
+        monitor.pathUpdateHandler = { [weak self] path in
             if path.status == .satisfied {
 
                 return
                 
             } else {
-                DispatchQueue.main.async {
-                    self.showAlert(title: "네트워크 오류", message: "네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요.", button: "닫기", isCancelButton: false) {
-                        self.dismiss(animated: true)
-                    }
+                DispatchQueue.main.async { [weak self] in
+                    // TODO: 닫기버튼을 눌렀을 때 네트워크 재요청
+                    vc.viewModel.errorMessage.accept("네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요.")
+                    self?.present(vc, animated: true)
                 }
             }
-            
         }
         
     }
