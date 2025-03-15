@@ -5,7 +5,7 @@
 //  Created by 조우현 on 3/11/25.
 //
 
-import Foundation
+import UIKit
 import Network
 
 final class NetworkMonitor{
@@ -29,20 +29,20 @@ final class NetworkMonitor{
         monitor = NWPathMonitor()
     }
     
-    public func startMonitoring(){
-        print("startMonitoring 호출")
-        monitor.start(queue: queue)
-        monitor.pathUpdateHandler = { [weak self] path in
-            print("path :\(path)")
-
-            self?.isConnected = path.status == .satisfied
-            self?.getConenctionType(path)
-            
-            if self?.isConnected == true{
-                print("연결이된 상태임!")
-            }else{
-                print("연결 안된 상태임!")
-
+    public func startMonitoring(viewController: UIViewController) {
+        let vc = InfoPopupViewController()
+        vc.modalPresentationStyle = .currentContext
+        
+        monitor.start(queue: .global())
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                return
+            } else {
+                    // TODO: 닫기버튼을 눌렀을 때 네트워크 재요청
+                    vc.viewModel.errorMessage.accept("네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요.")
+                DispatchQueue.main.async {
+                    viewController.present(vc, animated: true)
+                }
             }
         }
     }
