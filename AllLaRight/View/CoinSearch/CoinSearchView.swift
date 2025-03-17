@@ -15,32 +15,32 @@ final class CoinSearchView: BaseView {
     let nftSearchView = UIView()
     let marketSearchView = UIView()
     
-    var showFirstView: Bool? {
-        didSet {
-            guard let showFirstView = self.showFirstView else { return }
-            searchTableView.isHidden = !showFirstView
-            nftSearchView.isHidden = showFirstView
-            marketSearchView.isHidden = showFirstView
-        }
-    }
-    
-    var showSecondView: Bool? {
-        didSet {
-            guard let showSecondView = self.showSecondView else { return }
-            searchTableView.isHidden = showSecondView
-            nftSearchView.isHidden = !showSecondView
-            marketSearchView.isHidden = showSecondView
-        }
-    }
-    
-    var showThirdView: Bool? {
-        didSet {
-            guard let showThirdView = self.showThirdView else { return }
-            searchTableView.isHidden = showThirdView
-            nftSearchView.isHidden = showThirdView
-            marketSearchView.isHidden = !showThirdView
-        }
-    }
+//    var showFirstView: Bool? {
+//        didSet {
+//            guard let showFirstView = self.showFirstView else { return }
+//            searchTableView.isHidden = !showFirstView
+//            nftSearchView.isHidden = showFirstView
+//            marketSearchView.isHidden = showFirstView
+//        }
+//    }
+//    
+//    var showSecondView: Bool? {
+//        didSet {
+//            guard let showSecondView = self.showSecondView else { return }
+//            searchTableView.isHidden = showSecondView
+//            nftSearchView.isHidden = !showSecondView
+//            marketSearchView.isHidden = showSecondView
+//        }
+//    }
+//    
+//    var showThirdView: Bool? {
+//        didSet {
+//            guard let showThirdView = self.showThirdView else { return }
+//            searchTableView.isHidden = showThirdView
+//            nftSearchView.isHidden = showThirdView
+//            marketSearchView.isHidden = !showThirdView
+//        }
+//    }
     
     override func configureHierarchy() {
         [navigationView, segmentControl, searchTableView, nftSearchView, marketSearchView].forEach {
@@ -77,8 +77,19 @@ final class CoinSearchView: BaseView {
     }
     
     override func configureView() {
+        segmentControl.selectedSegmentIndex = 0
         searchTableView.separatorStyle = .none
         nftSearchView.backgroundColor = .chartFall
         marketSearchView.backgroundColor = .chartRise
+    }
+    
+    func controlContentView(with segmentIndex: Int) {
+        [searchTableView, nftSearchView, marketSearchView].enumerated().forEach { index, view in
+            if segmentIndex == index {
+                view.isHidden = false
+            } else {
+                view.isHidden = true
+            }
+        }
     }
 }
