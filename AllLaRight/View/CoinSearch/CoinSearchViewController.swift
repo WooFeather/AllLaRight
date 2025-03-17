@@ -28,7 +28,8 @@ final class CoinSearchViewController: BaseViewController {
             backButtonTapped: coinSearchView.navigationView.backButton.rx.tap,
             textFieldReturnTapped: coinSearchView.navigationView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
             textFieldText: coinSearchView.navigationView.searchTextField.rx.text.orEmpty,
-            modelSelected: coinSearchView.searchTableView.rx.modelSelected(CoinData.self)
+            modelSelected: coinSearchView.searchTableView.rx.modelSelected(CoinData.self),
+            segmentIndexTapped: coinSearchView.segmentControl.rx.selectedSegmentIndex
         )
         let output = viewModel.transform(input: input)
         output.queryText
@@ -38,6 +39,8 @@ final class CoinSearchViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         LoadingIndicator.showLoading()
+        
+        configureSwipeGestureHandler()
         
         output.searchData
             .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { [weak self] row, element, cell in
@@ -121,27 +124,43 @@ final class CoinSearchViewController: BaseViewController {
                 owner.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
-    }
-    
-    // TODO: PageControl VM으로 이동 및 스와이프 기능 추가
-    @objc private func didChangeValue(segment: UISegmentedControl) {
-        switch segment.selectedSegmentIndex {
-        case 1:
-            coinSearchView.showSecondView = true
-        case 2:
-            coinSearchView.showThirdView = true
-        default:
-            coinSearchView.showFirstView = true
-        }
+        
+        output.segmentIndexTapped
+            .drive(with: self) { owner, value in
+                owner.coinSearchView.controlContentView(with: value)
+            }
+            .disposed(by: disposeBag)
+        
     }
     
     override func configureData() {
         coinSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: Identifier.SearchTableViewCell.rawValue)
     }
+}
+
+extension CoinSearchViewController {
+    private func configureSwipeGestureHandler() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+    }
     
-    override func configureAction() {
-        coinSearchView.segmentControl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
-        coinSearchView.segmentControl.selectedSegmentIndex = 0
-        didChangeValue(segment: coinSearchView.segmentControl)
+    @objc
+    private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        let index = coinSearchView.segmentControl.selectedSegmentIndex
+        let maxIndex = coinSearchView.segmentControl.numberOfSegments - 1
+        
+        if gesture.direction == .left, index < maxIndex {
+            coinSearchView.segmentControl.selectedSegmentIndex += 1
+            coinSearchView.segmentControl.sendActions(for: .valueChanged)
+            
+        } else if gesture.direction == .right, index > 0 {
+            coinSearchView.segmentControl.selectedSegmentIndex -= 1
+            coinSearchView.segmentControl.sendActions(for: .valueChanged)
+        }
     }
 }
