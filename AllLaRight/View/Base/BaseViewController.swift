@@ -13,7 +13,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkMonitor.shared.startMonitoring(viewController: self)
+//        NetworkMonitor.shared.startMonitoring(self)
         configureView()
         configureData()
         configureAction()

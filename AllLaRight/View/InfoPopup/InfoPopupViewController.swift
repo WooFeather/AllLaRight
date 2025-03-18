@@ -8,12 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 final class InfoPopupViewController: UIViewController {
     
     let infoPopupView = InfoPopupView()
-    private let disposeBag = DisposeBag()
     let viewModel = InfoPopupViewModel()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,11 @@ final class InfoPopupViewController: UIViewController {
         
         output.retryButtonTapped
             .drive(with: self) { owner, _ in
-                owner.dismiss(animated: true)
+                if NetworkMonitor.shared.isConnected {
+                    owner.dismiss(animated: true)
+                } else {
+                    owner.infoPopupView.makeToast("네트워크 통신이 원활하지 않습니다")
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -43,7 +48,7 @@ final class InfoPopupViewController: UIViewController {
         view = infoPopupView
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
     }
 }
