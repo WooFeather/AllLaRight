@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         let initialViewController = TabBarController()
+        NetworkMonitor.shared.startMonitoring(initialViewController)
         window?.rootViewController = initialViewController
         window?.makeKeyAndVisible()
     }
