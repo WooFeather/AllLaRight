@@ -36,7 +36,7 @@ final class DetailChartTableViewCell: BaseTableViewCell {
         
         lineChartView.snp.makeConstraints { make in
             make.top.equalTo(changePercentageView.snp.bottom).offset(12)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview()
             make.height.equalTo(260)
         }
         
@@ -98,9 +98,9 @@ final class DetailChartTableViewCell: BaseTableViewCell {
             dataEntities.append(value)
         }
         
-        let line = ChartDatasetFactory().makeChartDataset(colorAsset: .chartFall, entries: dataEntities)
+        let line = ChartDatasetFactory().makeChartDataset(colorAsset: .chartRise, entries: dataEntities)
         
-        line.colors = [UIColor.chartFall]
+        line.colors = [UIColor.chartRise]
         
         line.drawValuesEnabled = false
         
@@ -140,7 +140,7 @@ struct ChartDatasetFactory {
         var dataSet = LineChartDataSet(entries: entries, label: "")
         
         // chart main settings
-        dataSet.setColor(.chartFall)
+        dataSet.setColor(.chartRise)
         dataSet.lineWidth = 3
         dataSet.mode = .cubicBezier // 부드러운 곡선
         dataSet.drawValuesEnabled = false // 값 비활성화
@@ -158,9 +158,9 @@ private extension ChartDatasetFactory {
     func addGradient(
         to dataSet: inout LineChartDataSet
     ) {
-        let mainColor = UIColor.chartFall.withAlphaComponent(1)
-        let secondaryColor = UIColor.chartFall.withAlphaComponent(0.7)
-        let tertiaryColor = UIColor.chartFall.withAlphaComponent(0.3)
+        let mainColor = UIColor.chartRise.withAlphaComponent(1)
+        let secondaryColor = UIColor.chartRise.withAlphaComponent(0.7)
+        let tertiaryColor = UIColor.chartRise.withAlphaComponent(0.3)
         let colors = [
             mainColor.cgColor,
             secondaryColor.cgColor,

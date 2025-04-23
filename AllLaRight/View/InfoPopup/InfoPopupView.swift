@@ -54,7 +54,7 @@ final class InfoPopupView: BaseView {
     }
     
     override func configureView() {
-        backgroundView.backgroundColor = .themeTertiary
+        backgroundView.backgroundColor = .themeBackground
         
         titleLabel.text = "안내"
         titleLabel.font = ALRFont.headlineBold.font
