@@ -44,9 +44,9 @@ final class MarketViewController: BaseViewController {
                 switch state {
                 case .desc:
                     owner.marketView.currentPriceView.upperImageView.tintColor = .themeSecondary
-                    owner.marketView.currentPriceView.lowerImageView.tintColor = .themePrimary
+                    owner.marketView.currentPriceView.lowerImageView.tintColor = .textPrimary
                 case .asc:
-                    owner.marketView.currentPriceView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.currentPriceView.upperImageView.tintColor = .textPrimary
                     owner.marketView.currentPriceView.lowerImageView.tintColor = .themeSecondary
                 case .none:
                     owner.marketView.currentPriceView.upperImageView.tintColor = .themeSecondary
@@ -60,9 +60,9 @@ final class MarketViewController: BaseViewController {
                 switch state {
                 case .desc:
                     owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themeSecondary
-                    owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .themePrimary
+                    owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .textPrimary
                 case .asc:
-                    owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .textPrimary
                     owner.marketView.compareToPreviousDayView.lowerImageView.tintColor = .themeSecondary
                 case .none:
                     owner.marketView.compareToPreviousDayView.upperImageView.tintColor = .themeSecondary
@@ -76,9 +76,9 @@ final class MarketViewController: BaseViewController {
                 switch state {
                 case .desc:
                     owner.marketView.tradePriceView.upperImageView.tintColor = .themeSecondary
-                    owner.marketView.tradePriceView.lowerImageView.tintColor = .themePrimary
+                    owner.marketView.tradePriceView.lowerImageView.tintColor = .textPrimary
                 case .asc:
-                    owner.marketView.tradePriceView.upperImageView.tintColor = .themePrimary
+                    owner.marketView.tradePriceView.upperImageView.tintColor = .textPrimary
                     owner.marketView.tradePriceView.lowerImageView.tintColor = .themeSecondary
                 case .none:
                     owner.marketView.tradePriceView.upperImageView.tintColor = .themeSecondary

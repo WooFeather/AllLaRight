@@ -43,7 +43,7 @@ final class InfoThreeLineView: BaseView {
         upperLabel.textColor = .themeSecondary
         
         valueLabel.font = ALRFont.headlineBold.font
-        valueLabel.textColor = .themePrimary
+        valueLabel.textColor = .textPrimary
         
         lowerLabel.font = ALRFont.bodyBold.font
         lowerLabel.textColor = .themeSecondary

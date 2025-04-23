@@ -35,6 +35,6 @@ final class InfoTwoLineView: BaseView {
         upperLabel.textColor = .themeSecondary
         
         valueLabel.font = ALRFont.headlineBold.font
-        valueLabel.textColor = .themePrimary
+        valueLabel.textColor = .textPrimary
     }
 }

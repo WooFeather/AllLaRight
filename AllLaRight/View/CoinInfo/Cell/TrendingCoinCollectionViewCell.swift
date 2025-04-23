@@ -57,7 +57,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
     
     override func configureView() {
         rankScoreLabel.font = ALRFont.headline.font
-        rankScoreLabel.textColor = .themePrimary
+        rankScoreLabel.textColor = .textPrimary
         rankScoreLabel.textAlignment = .right
         
         DispatchQueue.main.async { [weak self] in
@@ -67,7 +67,7 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         symbolImageView.clipsToBounds = true
         
         symbolLabel.font = ALRFont.headlineBold.font
-        symbolLabel.textColor = .themePrimary
+        symbolLabel.textColor = .textPrimary
         symbolLabel.textAlignment = .left
         
         nameLabel.font = ALRFont.body.font
@@ -106,8 +106,8 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
             changePercentageView.changeRateLabel.textColor = .chartFall
         } else {
             changePercentageView.iconImageView.image = UIImage()
-            changePercentageView.iconImageView.tintColor = .themePrimary
-            changePercentageView.changeRateLabel.textColor = .themePrimary
+            changePercentageView.iconImageView.tintColor = .textPrimary
+            changePercentageView.changeRateLabel.textColor = .textPrimary
         }
     }
 }

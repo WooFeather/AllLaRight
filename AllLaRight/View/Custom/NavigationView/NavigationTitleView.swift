@@ -36,9 +36,9 @@ final class NavigationTitleView: BaseView {
     }
     
     override func configureView() {
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         titleLabel.font = .boldSystemFont(ofSize: 21)
         
-        separatorView.backgroundColor = .themeTertiary
+        separatorView.backgroundColor = .black
     }
 }

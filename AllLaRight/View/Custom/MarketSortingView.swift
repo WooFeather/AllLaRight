@@ -47,7 +47,7 @@ final class MarketSortingView: BaseView {
     }
     
     override func configureView() {
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         titleLabel.font = ALRFont.headlineBold.font
         
         upperImageView.image = UIImage(systemName: "arrowtriangle.up.fill")

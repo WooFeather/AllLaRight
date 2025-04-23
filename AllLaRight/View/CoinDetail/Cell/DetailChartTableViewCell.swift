@@ -50,7 +50,7 @@ final class DetailChartTableViewCell: BaseTableViewCell {
     
     override func configureView() {
         currentPriceLabel.font = .boldSystemFont(ofSize: 21)
-        currentPriceLabel.textColor = .themePrimary
+        currentPriceLabel.textColor = .textPrimary
         
         updateLabel.font = ALRFont.body.font
         updateLabel.textColor = .themeSecondary
@@ -85,8 +85,8 @@ final class DetailChartTableViewCell: BaseTableViewCell {
             changePercentageView.changeRateLabel.textColor = .chartFall
         } else {
             changePercentageView.iconImageView.image = UIImage()
-            changePercentageView.iconImageView.tintColor = .themePrimary
-            changePercentageView.changeRateLabel.textColor = .themePrimary
+            changePercentageView.iconImageView.tintColor = .textPrimary
+            changePercentageView.changeRateLabel.textColor = .textPrimary
         }
     }
     

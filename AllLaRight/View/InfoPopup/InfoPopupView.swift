@@ -58,18 +58,18 @@ final class InfoPopupView: BaseView {
         
         titleLabel.text = "안내"
         titleLabel.font = ALRFont.headlineBold.font
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         
         descriptionLabel.text = "네트워크 연결이 일시적으로 원활하지 않습니다. 데이터 또는 Wi-Fi 연결 상태를 확인해주세요."
         descriptionLabel.font = ALRFont.headline.font
-        descriptionLabel.textColor = .themePrimary
+        descriptionLabel.textColor = .textPrimary
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
         
         dividerView.backgroundColor = .themeSecondary
         
         retryButton.setTitle("다시 시도하기", for: .normal)
-        retryButton.setTitleColor(.themePrimary, for: .normal)
+        retryButton.setTitleColor(.textPrimary, for: .normal)
         retryButton.titleLabel?.font = ALRFont.headlineBold.font
         retryButton.titleLabel?.textAlignment = .center
     }

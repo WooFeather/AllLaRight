@@ -56,7 +56,7 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
         symbolImageView.clipsToBounds = true
         
         nameLabel.font = ALRFont.bodyBold.font
-        nameLabel.textColor = .themePrimary
+        nameLabel.textColor = .textPrimary
         nameLabel.textAlignment = .center
         
         priceLabel.font = ALRFont.body.font
@@ -90,8 +90,8 @@ final class TrendingNFTCollectionViewCell: BaseCollectionViewCell {
             changePercentageView.changeRateLabel.textColor = .chartFall
         } else {
             changePercentageView.iconImageView.image = UIImage()
-            changePercentageView.iconImageView.tintColor = .themePrimary
-            changePercentageView.changeRateLabel.textColor = .themePrimary
+            changePercentageView.iconImageView.tintColor = .textPrimary
+            changePercentageView.changeRateLabel.textColor = .textPrimary
         }
     }
 }

@@ -58,18 +58,18 @@ final class MarketTableViewCell: BaseTableViewCell {
     
     override func configureView() {
         coinNameLabel.font = ALRFont.headlineBold.font
-        coinNameLabel.textColor = .themePrimary
+        coinNameLabel.textColor = .textPrimary
         coinNameLabel.textAlignment = .left
         
         tradePriceLabel.font = ALRFont.headline.font
-        tradePriceLabel.textColor = .themePrimary
+        tradePriceLabel.textColor = .textPrimary
         
         changeRateLabel.font = ALRFont.headline.font
         
         changePriceLabel.font = ALRFont.body.font
         
         currentPriceLabel.font = ALRFont.headline.font
-        currentPriceLabel.textColor = .themePrimary
+        currentPriceLabel.textColor = .textPrimary
         
         [tradePriceLabel, changeRateLabel, changePriceLabel, currentPriceLabel].forEach {
             $0.textAlignment = .right
@@ -86,7 +86,7 @@ final class MarketTableViewCell: BaseTableViewCell {
         
         [changeRateLabel, changePriceLabel].forEach {
             if data.change == "EVEN" {
-                $0.textColor = .themePrimary
+                $0.textColor = .textPrimary
             } else if data.change == "RISE" {
                 $0.textColor = .chartRise
             } else {

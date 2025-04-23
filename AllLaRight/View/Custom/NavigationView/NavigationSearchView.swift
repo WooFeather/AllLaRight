@@ -43,11 +43,11 @@ final class NavigationSearchView: BaseView {
     override func configureView() {
         let backIcon = UIImage(systemName: "arrow.left")
         backButton.setImage(backIcon, for: .normal)
-        backButton.tintColor = .themePrimary
+        backButton.tintColor = .textPrimary
         
         searchTextField.tintColor = .themeSecondary
-        searchTextField.textColor = .themePrimary
+        searchTextField.textColor = .textPrimary
         
-        separatorView.backgroundColor = .themeTertiary
+        separatorView.backgroundColor = .black
     }
 }
