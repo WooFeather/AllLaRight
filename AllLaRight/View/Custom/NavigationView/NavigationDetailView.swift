@@ -60,7 +60,7 @@ final class NavigationDetailView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
@@ -85,6 +85,6 @@ final class NavigationDetailView: BaseView {
         symbolLabel.font = ALRFont.headlineBold.font
         symbolLabel.textColor = .textPrimary
         
-        separatorView.backgroundColor = .black
+        separatorView.backgroundColor = .textPrimary
     }
 }

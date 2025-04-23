@@ -31,7 +31,7 @@ final class NavigationTitleView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
@@ -39,6 +39,6 @@ final class NavigationTitleView: BaseView {
         titleLabel.textColor = .textPrimary
         titleLabel.font = .boldSystemFont(ofSize: 21)
         
-        separatorView.backgroundColor = .black
+        separatorView.backgroundColor = .textPrimary
     }
 }

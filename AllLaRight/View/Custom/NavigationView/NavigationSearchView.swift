@@ -36,7 +36,7 @@ final class NavigationSearchView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
@@ -48,6 +48,6 @@ final class NavigationSearchView: BaseView {
         searchTextField.tintColor = .themeSecondary
         searchTextField.textColor = .textPrimary
         
-        separatorView.backgroundColor = .black
+        separatorView.backgroundColor = .textPrimary
     }
 }
