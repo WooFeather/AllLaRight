@@ -39,6 +39,6 @@ final class NavigationTitleView: BaseView {
         titleLabel.textColor = .textPrimary
         titleLabel.font = .boldSystemFont(ofSize: 21)
         
-        separatorView.backgroundColor = .textPrimary
+        separatorView.backgroundColor = .themeSecondary
     }
 }

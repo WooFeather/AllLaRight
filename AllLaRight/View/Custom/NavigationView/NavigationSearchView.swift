@@ -48,6 +48,6 @@ final class NavigationSearchView: BaseView {
         searchTextField.tintColor = .themeSecondary
         searchTextField.textColor = .textPrimary
         
-        separatorView.backgroundColor = .textPrimary
+        separatorView.backgroundColor = .themeSecondary
     }
 }

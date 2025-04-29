@@ -85,6 +85,6 @@ final class NavigationDetailView: BaseView {
         symbolLabel.font = ALRFont.headlineBold.font
         symbolLabel.textColor = .textPrimary
         
-        separatorView.backgroundColor = .textPrimary
+        separatorView.backgroundColor = .themeSecondary
     }
 }
