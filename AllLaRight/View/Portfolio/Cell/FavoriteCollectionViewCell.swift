@@ -26,12 +26,12 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
     
     override func configureLayout() {
         roundedBackgroundView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.edges.equalToSuperview()
         }
 
         symbolImageView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(12)
-            make.size.equalTo(24)
+            make.size.equalTo(26)
         }
 
         nameLabel.snp.makeConstraints { make in
@@ -52,9 +52,9 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
         }
 
         changePercentageView.snp.makeConstraints { make in
-            make.centerY.equalTo(currentPriceLabel)
-            make.trailing.equalToSuperview().inset(12)
-            make.leading.greaterThanOrEqualTo(currentPriceLabel.snp.trailing).offset(8)
+            make.top.equalTo(currentPriceLabel.snp.bottom).offset(4)
+            make.leading.equalTo(currentPriceLabel)
+            make.trailing.lessThanOrEqualToSuperview().inset(12)
             make.bottom.lessThanOrEqualToSuperview().inset(12)
         }
     }
@@ -70,12 +70,12 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
         symbolImageView.contentMode = .scaleAspectFill
         symbolImageView.clipsToBounds = true
         
-        nameLabel.font = ALRFont.body.font
-        nameLabel.textColor = .themeSecondary
+        nameLabel.font = ALRFont.headlineBold.font
+        nameLabel.textColor = .textPrimary
         nameLabel.textAlignment = .left
         
-        symbolLabel.font = ALRFont.headlineBold.font
-        symbolLabel.textColor = .textPrimary
+        symbolLabel.font = ALRFont.body.font
+        symbolLabel.textColor = .themeSecondary
         symbolLabel.textAlignment = .left
         
         currentPriceLabel.font = .boldSystemFont(ofSize: 21)
