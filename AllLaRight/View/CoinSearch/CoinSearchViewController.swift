@@ -38,14 +38,14 @@ final class CoinSearchViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        LoadingIndicator.showLoading()
+//        LoadingIndicator.showLoading()
         
 //        configureSwipeGestureHandler()
         
         output.searchData
             .drive(coinSearchView.searchTableView.rx.items(cellIdentifier: Identifier.SearchTableViewCell.rawValue, cellType: SearchTableViewCell.self)) { [weak self] row, element, cell in
                 
-                LoadingIndicator.hideLoading()
+//                LoadingIndicator.hideLoading()
                 
                 guard let self = self else { return }
                 

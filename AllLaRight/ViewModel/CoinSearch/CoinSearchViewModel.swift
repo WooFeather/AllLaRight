@@ -79,7 +79,13 @@ final class CoinSearchViewModel: BaseViewModel {
                     }
             }
             .bind(with: self) { owner, data in
-                owner.searchData.accept(data.coins)
+                LoadingIndicator.showLoading()
+                if !data.coins.isEmpty {
+                    owner.searchData.accept(data.coins)
+                } else {
+                    owner.searchData.accept([])
+                }
+                LoadingIndicator.hideLoading()
             }
             .disposed(by: disposBag)
         

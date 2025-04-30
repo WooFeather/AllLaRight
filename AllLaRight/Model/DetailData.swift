@@ -9,6 +9,9 @@ import Foundation
 
 struct DetailData: Decodable {
     let id: String
+    let symbol: String
+    let name: String
+    let image: String
     let currentPrice: Double // 현재가
     let marketCap: Double // 시가총액
     let fullyDilutedValuation: Double? // 완전희석가치
@@ -25,6 +28,9 @@ struct DetailData: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id
+        case symbol
+        case name
+        case image
         case currentPrice = "current_price"
         case marketCap = "market_cap"
         case fullyDilutedValuation = "fully_diluted_valuation"
