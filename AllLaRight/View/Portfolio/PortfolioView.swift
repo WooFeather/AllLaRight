@@ -31,6 +31,10 @@ final class PortfolioView: BaseView {
         }
     }
     
+    override func configureView() {
+        favoriteCollectionView.backgroundColor = .clear
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 16

@@ -16,4 +16,5 @@ enum Identifier: String {
     case DetailPriceTableViewCell
     case DetailInvestmentTableViewCell
     case SectionHeader // elementKind에도 함께 사용
+    case FavoriteCollectionViewCell
 }
