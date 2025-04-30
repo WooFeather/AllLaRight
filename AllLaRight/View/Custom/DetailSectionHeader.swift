@@ -39,7 +39,7 @@ final class DetailSectionHeader: BaseView {
     
     override func configureView() {
         titleLabel.font = .boldSystemFont(ofSize: 15)
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         
         moreButton.configuration = .moreButtonStyle()
         moreButton.setTitle("더보기", for: .normal)

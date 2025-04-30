@@ -42,7 +42,7 @@ final class InfoSectionHeader: UICollectionReusableView {
     
     private func configureView() {
         titleLabel.font = .boldSystemFont(ofSize: 15)
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         
         dateLabel.font = ALRFont.headline.font
         dateLabel.textColor = .themeSecondary

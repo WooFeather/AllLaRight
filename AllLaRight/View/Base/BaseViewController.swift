@@ -13,7 +13,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        NetworkMonitor.shared.startMonitoring(self)
+        enableSwipeBackGesture()
         configureView()
         configureData()
         configureAction()
@@ -21,7 +21,7 @@ class BaseViewController: UIViewController {
     }
     
     func configureView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .themeBackground
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -30,4 +30,19 @@ class BaseViewController: UIViewController {
     func configureAction() { }
     
     func bind() { }
+}
+
+// 뒤로가기 제스처
+extension BaseViewController: UIGestureRecognizerDelegate {
+    private func enableSwipeBackGesture() {
+        if let navigationController = navigationController,
+           navigationController.viewControllers.count > 1 {
+            navigationController.interactivePopGestureRecognizer?.delegate = self
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+        }
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
 }

@@ -31,14 +31,14 @@ final class NavigationTitleView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
     override func configureView() {
-        titleLabel.textColor = .themePrimary
+        titleLabel.textColor = .textPrimary
         titleLabel.font = .boldSystemFont(ofSize: 21)
         
-        separatorView.backgroundColor = .themeTertiary
+        separatorView.backgroundColor = .themeSecondary
     }
 }

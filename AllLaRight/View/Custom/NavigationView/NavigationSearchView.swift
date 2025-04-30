@@ -36,18 +36,18 @@ final class NavigationSearchView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
     override func configureView() {
         let backIcon = UIImage(systemName: "arrow.left")
         backButton.setImage(backIcon, for: .normal)
-        backButton.tintColor = .themePrimary
+        backButton.tintColor = .textPrimary
         
         searchTextField.tintColor = .themeSecondary
-        searchTextField.textColor = .themePrimary
+        searchTextField.textColor = .textPrimary
         
-        separatorView.backgroundColor = .themeTertiary
+        separatorView.backgroundColor = .themeSecondary
     }
 }

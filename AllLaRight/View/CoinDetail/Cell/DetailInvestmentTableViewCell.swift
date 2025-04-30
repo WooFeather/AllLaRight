@@ -68,7 +68,7 @@ final class DetailInvestmentTableViewCell: BaseTableViewCell {
     }
     
     override func configureView() {
-        roundedBackgroundView.backgroundColor = .themeTertiary
+        roundedBackgroundView.backgroundColor = .backgroundSecondary
         roundedBackgroundView.layer.cornerRadius = 10
         roundedBackgroundView.clipsToBounds = true
         

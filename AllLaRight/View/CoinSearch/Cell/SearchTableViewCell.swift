@@ -76,7 +76,7 @@ final class SearchTableViewCell: BaseTableViewCell {
         iconImageView.contentMode = .scaleAspectFill
         
         symbolLabel.font = ALRFont.headlineBold.font
-        symbolLabel.textColor = .themePrimary
+        symbolLabel.textColor = .textPrimary
         
         nameLabel.font = ALRFont.headline.font
         nameLabel.textColor = .themeSecondary
@@ -85,7 +85,7 @@ final class SearchTableViewCell: BaseTableViewCell {
         let starFillIcon = UIImage(systemName: "star.fill")
         starButton.setImage(starIcon, for: .normal)
         starButton.setImage(starFillIcon, for: .selected)
-        starButton.tintColor = .themePrimary
+        starButton.tintColor = .textPrimary
         starButton.isSelected = false
     }
     

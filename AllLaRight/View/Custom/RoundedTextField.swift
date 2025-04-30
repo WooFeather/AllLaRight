@@ -49,6 +49,6 @@ final class RoundedTextField: BaseView {
         
         textField.placeholder = "검색어를 입력해주세요."
         textField.tintColor = .themeSecondary
-        textField.textColor = .themePrimary
+        textField.textColor = .textPrimary
     }
 }

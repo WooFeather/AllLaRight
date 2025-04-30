@@ -60,20 +60,20 @@ final class NavigationDetailView: BaseView {
         
         separatorView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(2)
         }
     }
     
     override func configureView() {
         let backIcon = UIImage(systemName: "arrow.left")
         backButton.setImage(backIcon, for: .normal)
-        backButton.tintColor = .themePrimary
+        backButton.tintColor = .textPrimary
         
         let starIcon = UIImage(systemName: "star")
         let starFillIcon = UIImage(systemName: "star.fill")
         starButton.setImage(starIcon, for: .normal)
         starButton.setImage(starFillIcon, for: .selected)
-        starButton.tintColor = .themePrimary
+        starButton.tintColor = .textPrimary
         starButton.isSelected = false
         
         DispatchQueue.main.async { [weak self] in
@@ -83,8 +83,8 @@ final class NavigationDetailView: BaseView {
         iconImageView.contentMode = .scaleAspectFill
         
         symbolLabel.font = ALRFont.headlineBold.font
-        symbolLabel.textColor = .themePrimary
+        symbolLabel.textColor = .textPrimary
         
-        separatorView.backgroundColor = .themeTertiary
+        separatorView.backgroundColor = .themeSecondary
     }
 }

@@ -1,64 +1,68 @@
 //
-//  HotKeywordCollectionViewCell.swift
+//  FavoriteCollectionViewCell.swift
 //  AllLaRight
 //
-//  Created by 조우현 on 3/7/25.
+//  Created by 조우현 on 4/30/25.
 //
 
 import UIKit
 import SnapKit
 import Kingfisher
 
-final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
-    private let rankScoreLabel = UILabel()
+final class FavoriteCollectionViewCell: BaseCollectionViewCell {
+    private let roundedBackgroundView = UIView()
     private let symbolImageView = UIImageView()
-    private let symbolLabel = UILabel()
     private let nameLabel = UILabel()
+    private let symbolLabel = UILabel()
+    private let currentPriceLabel = UILabel()
     private let changePercentageView = ChangePercentageView()
     
     override func configureHierarchy() {
-        [rankScoreLabel, symbolImageView, symbolLabel, nameLabel, changePercentageView].forEach {
-            contentView.addSubview($0)
+        contentView.addSubview(roundedBackgroundView)
+        [symbolImageView, nameLabel, symbolLabel, currentPriceLabel, changePercentageView].forEach {
+            roundedBackgroundView.addSubview($0)
         }
     }
     
     override func configureLayout() {
-        rankScoreLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(8)
-            make.size.equalTo(15)
+        roundedBackgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8)
         }
-        
+
         symbolImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(rankScoreLabel.snp.trailing).offset(8)
-            make.size.equalTo(26)
+            make.top.leading.equalToSuperview().inset(12)
+            make.size.equalTo(24)
         }
-        
-        symbolLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
-            make.height.equalTo(15)
-        }
-        
+
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(symbolLabel.snp.bottom)
-            make.leading.equalTo(symbolImageView.snp.trailing).offset(4)
-            make.height.equalTo(12)
-            make.width.equalTo(60)
+            make.top.equalTo(symbolImageView)
+            make.leading.equalTo(symbolImageView.snp.trailing).offset(8)
+            make.trailing.lessThanOrEqualToSuperview().inset(12)
         }
-        
+
+        symbolLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.leading.equalTo(nameLabel)
+            make.trailing.lessThanOrEqualToSuperview().inset(12)
+        }
+
+        currentPriceLabel.snp.makeConstraints { make in
+            make.top.equalTo(symbolLabel.snp.bottom).offset(8)
+            make.leading.equalTo(nameLabel)
+        }
+
         changePercentageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.height.equalTo(12)
-            make.trailing.equalToSuperview()
+            make.centerY.equalTo(currentPriceLabel)
+            make.trailing.equalToSuperview().inset(12)
+            make.leading.greaterThanOrEqualTo(currentPriceLabel.snp.trailing).offset(8)
+            make.bottom.lessThanOrEqualToSuperview().inset(12)
         }
     }
     
     override func configureView() {
-        rankScoreLabel.font = ALRFont.headline.font
-        rankScoreLabel.textColor = .textPrimary
-        rankScoreLabel.textAlignment = .right
+        roundedBackgroundView.backgroundColor = .backgroundSecondary
+        roundedBackgroundView.layer.cornerRadius = 10
+        roundedBackgroundView.clipsToBounds = true
         
         DispatchQueue.main.async { [weak self] in
             self?.symbolImageView.layer.cornerRadius = (self?.symbolImageView.frame.height ?? 0) / 2
@@ -66,26 +70,30 @@ final class TrendingCoinCollectionViewCell: BaseCollectionViewCell {
         symbolImageView.contentMode = .scaleAspectFill
         symbolImageView.clipsToBounds = true
         
+        nameLabel.font = ALRFont.body.font
+        nameLabel.textColor = .themeSecondary
+        nameLabel.textAlignment = .left
+        
         symbolLabel.font = ALRFont.headlineBold.font
         symbolLabel.textColor = .textPrimary
         symbolLabel.textAlignment = .left
         
-        nameLabel.font = ALRFont.body.font
-        nameLabel.textColor = .themeSecondary
-        nameLabel.textAlignment = .left
+        currentPriceLabel.font = .boldSystemFont(ofSize: 21)
+        currentPriceLabel.textColor = .textPrimary
     }
     
-    func configureData(data: TrendingCoinDetails) {
-        rankScoreLabel.text = "\(data.score + 1)"
+    func configureData(data: DetailData) {
         
-        let urlString = data.thumb
+        let urlString = data.image
         symbolImageView.kf.setImage(with: URL(string: urlString))
         
         symbolLabel.text = data.symbol
         nameLabel.text = data.name
         
+        currentPriceLabel.text = data.currentPrice.toWonString()
+        
         // 등락뷰 세팅
-        guard let changeRate = data.data.priceChangePercentage24h["krw"] else {
+        guard let changeRate = data.priceChangePercentage24h else {
             changePercentageView.iconImageView.image = UIImage()
             changePercentageView.changeRateLabel.text = ""
             return

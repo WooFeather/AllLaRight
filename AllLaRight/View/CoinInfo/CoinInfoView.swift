@@ -40,6 +40,7 @@ final class CoinInfoView: BaseView {
     }
     
     override func configureView() {
+        infoCollectionView.backgroundColor = .themeBackground
         infoCollectionView.isScrollEnabled = false
     }
     
