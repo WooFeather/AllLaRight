@@ -70,7 +70,7 @@ final class MarketView: BaseView {
     }
     
     override func configureView() {
-        headerView.backgroundColor = .backgroundSecondary
+        headerView.backgroundColor = .themeAccent
         
         coinNameLabel.text = "코인"
         coinNameLabel.font = ALRFont.headlineBold.font

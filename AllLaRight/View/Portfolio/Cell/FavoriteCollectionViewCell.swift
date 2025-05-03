@@ -58,7 +58,8 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        roundedBackgroundView.backgroundColor = .backgroundSecondary
+        roundedBackgroundView.layer.borderColor = UIColor.backgroundSecondary.cgColor
+        roundedBackgroundView.layer.borderWidth = 1
         roundedBackgroundView.layer.cornerRadius = 10
         roundedBackgroundView.clipsToBounds = true
         

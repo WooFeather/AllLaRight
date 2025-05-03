@@ -30,7 +30,8 @@ final class RankView: BaseView {
     }
     
     override func configureView() {
-        backgroundView.backgroundColor = .themeTertiary
+        backgroundView.layer.borderColor = UIColor.backgroundSecondary.cgColor
+        backgroundView.layer.borderWidth = 1
         backgroundView.layer.cornerRadius = 4
         backgroundView.clipsToBounds = true
         
