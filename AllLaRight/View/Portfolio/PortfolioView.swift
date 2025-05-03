@@ -50,7 +50,7 @@ final class PortfolioView: BaseView {
         let totalSpacing = sideInset * 2 + spacing
         let itemWidth = (UIScreen.main.bounds.width - totalSpacing) / 2
         // 높이는 필요에 따라 조절 (여기선 너비의 1.0 배)
-        layout.itemSize = .init(width: itemWidth, height: itemWidth * 1.0)
+        layout.itemSize = .init(width: itemWidth, height: itemWidth * 0.75)
 
         return layout
     }

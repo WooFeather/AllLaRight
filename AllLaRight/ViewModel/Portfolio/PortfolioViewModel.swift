@@ -28,7 +28,7 @@ final class PortfolioViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         let errorMessage = PublishRelay<String>()
         let mockData: [DetailData] = [
-            DetailData(id: "movement", symbol: "move", name: "Movement", image: "https://coin-images.coingecko.com/coins/images/39345/large/movement-testnet-token.png?1721878759", currentPrice: 342.49, marketCap: 854705803052, fullyDilutedValuation: nil, totalVolume: 159106567899, high24h: 357.69, low24h: nil, priceChangePercentage24h: -11.908640033547613, ath: 2068.98, athDate: "2024-12-10T04:05:51.093Z", atl: 309.32, atlDate: "2025-04-20T18:40:54.556Z", lastUpdated:  "2025-04-30T14:59:20.080Z", sparklineIn7d: nil)
+            DetailData(id: "movement", symbol: "move", name: "Movement", image: "https://coin-images.coingecko.com/coins/images/39345/large/movement-testnet-token.png?1721878759", currentPrice: 134844709, marketCap: 854705803052, fullyDilutedValuation: nil, totalVolume: 159106567899, high24h: 357.69, low24h: nil, priceChangePercentage24h: -11.908640033547613, ath: 2068.98, athDate: "2024-12-10T04:05:51.093Z", atl: 309.32, atlDate: "2025-04-20T18:40:54.556Z", lastUpdated:  "2025-04-30T14:59:20.080Z", sparklineIn7d: nil)
         ]
         
         input.viewWillAppear

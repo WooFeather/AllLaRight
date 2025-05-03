@@ -47,15 +47,13 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
         }
 
         currentPriceLabel.snp.makeConstraints { make in
-            make.top.equalTo(symbolLabel.snp.bottom).offset(8)
-            make.leading.equalTo(nameLabel)
+            make.bottom.equalTo(changePercentageView.snp.top).offset(-12)
+            make.horizontalEdges.equalToSuperview().inset(12)
         }
 
         changePercentageView.snp.makeConstraints { make in
-            make.top.equalTo(currentPriceLabel.snp.bottom).offset(4)
-            make.leading.equalTo(currentPriceLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(12)
-            make.bottom.lessThanOrEqualToSuperview().inset(12)
+            make.bottom.equalToSuperview().inset(20)
+            make.trailing.equalTo(currentPriceLabel)
         }
     }
     
@@ -78,7 +76,8 @@ final class FavoriteCollectionViewCell: BaseCollectionViewCell {
         symbolLabel.textColor = .themeSecondary
         symbolLabel.textAlignment = .left
         
-        currentPriceLabel.font = .boldSystemFont(ofSize: 21)
+        currentPriceLabel.font = .boldSystemFont(ofSize: 20)
+        currentPriceLabel.textAlignment = .right
         currentPriceLabel.textColor = .textPrimary
     }
     
