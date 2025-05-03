@@ -24,7 +24,7 @@ final class StarItemTableRepository: StarItemRepository {
     
     func fetchAll() -> Results<StarItem> {
         let data = realm.objects(StarItem.self)
-            // .sorted(byKeyPath: "likeDate", ascending: false)
+             .sorted(byKeyPath: "likeDate", ascending: false)
         
         return data
     }

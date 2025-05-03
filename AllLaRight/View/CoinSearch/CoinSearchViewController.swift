@@ -111,7 +111,7 @@ final class CoinSearchViewController: BaseViewController {
                 print(data.id)
                 
                 let vc = CoinDetailViewController()
-                vc.viewModel.id.accept(data.id)
+                vc.viewModel.id.accept([data.id])
                 vc.viewModel.imageUrl.accept(data.large)
                 vc.viewModel.symbolText.accept(data.symbol)
                 

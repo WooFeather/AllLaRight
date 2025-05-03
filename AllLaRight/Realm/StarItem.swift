@@ -10,8 +10,9 @@ import RealmSwift
 
 final class StarItem: Object {
     @Persisted(primaryKey: true) var id: String
+    @Persisted var likeDate: Date
     
-    convenience init(id: String) {
+    convenience init(id: String, likeDate: Date = Date()) {
         self.init()
         self.id = id
     }

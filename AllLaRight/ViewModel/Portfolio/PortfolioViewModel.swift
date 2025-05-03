@@ -15,7 +15,7 @@ final class PortfolioViewModel: BaseViewModel {
     private let repository: StarItemRepository = StarItemTableRepository()
     private let portfolioData = PublishRelay<[DetailData]>()
     
-    var id = BehaviorRelay(value: "") // TODO: id를 배열로 받도록 수정
+    var ids = BehaviorRelay<[String]>(value: [])
     
     struct Input {
         let viewWillAppear: Observable<Bool>
@@ -33,51 +33,48 @@ final class PortfolioViewModel: BaseViewModel {
         
         input.viewWillAppear
             .bind(with: self) { owner, _ in
-//                let data = Array(owner.repository.fetchAll())
-//                for element in data {
-//                    element.id // TODO: 배열에 추가
-//                }
-                owner.portfolioData.accept(mockData)
+                let likeIds = Array(owner.repository.fetchAll().map(\.id))
+                owner.ids.accept(likeIds)
             }
             .disposed(by: disposBag)
         
-        // TODO: Market 라우터 수정 후 적용
-//        id.flatMap {
-//            NetworkManager.shared.callAPI(api: .coingeckoMarket(id: $0), type: [DetailData].self)
-//                .retry(3)
-//                .catch { error in
-//                    switch error as? APIError {
-//                    case .badRequest:
-//                        errorMessage.accept(APIError.badRequest.errorMessage)
-//                    case .unauthorized:
-//                        errorMessage.accept(APIError.unauthorized.errorMessage)
-//                    case .forbidden:
-//                        errorMessage.accept(APIError.forbidden.errorMessage)
-//                    case .tooManyRequests:
-//                        errorMessage.accept(APIError.tooManyRequests.errorMessage)
-//                    case .internalServerError:
-//                        errorMessage.accept(APIError.internalServerError.errorMessage)
-//                    case .serviceUnavailable:
-//                        errorMessage.accept(APIError.serviceUnavailable.errorMessage)
-//                    case .accessDenied:
-//                        errorMessage.accept(APIError.accessDenied.errorMessage)
-//                    case .apiKeyMissing:
-//                        errorMessage.accept(APIError.apiKeyMissing.errorMessage)
-//                    case .planError:
-//                        errorMessage.accept(APIError.planError.errorMessage)
-//                    case .corsError:
-//                        errorMessage.accept(APIError.planError.errorMessage)
-//                    default:
-//                        errorMessage.accept(APIError.unknownError.errorMessage)
-//                    }
-//                    
-//                    return Single.just([])
-//                }
-//        }
-//        .bind(with: self) { owner, data in
-//            owner.portfolioData.accept(data)
-//        }
-//        .disposed(by: disposBag)
+        ids
+            .filter { !$0.isEmpty }
+            .flatMapLatest {
+                NetworkManager.shared.callAPI(api: .coingeckoMarket(ids: $0), type: [DetailData].self)
+                    .retry(3)
+                    .catch { error in
+                        switch error as? APIError {
+                        case .badRequest:
+                            errorMessage.accept(APIError.badRequest.errorMessage)
+                        case .unauthorized:
+                            errorMessage.accept(APIError.unauthorized.errorMessage)
+                        case .forbidden:
+                            errorMessage.accept(APIError.forbidden.errorMessage)
+                        case .tooManyRequests:
+                            errorMessage.accept(APIError.tooManyRequests.errorMessage)
+                        case .internalServerError:
+                            errorMessage.accept(APIError.internalServerError.errorMessage)
+                        case .serviceUnavailable:
+                            errorMessage.accept(APIError.serviceUnavailable.errorMessage)
+                        case .accessDenied:
+                            errorMessage.accept(APIError.accessDenied.errorMessage)
+                        case .apiKeyMissing:
+                            errorMessage.accept(APIError.apiKeyMissing.errorMessage)
+                        case .planError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        case .corsError:
+                            errorMessage.accept(APIError.planError.errorMessage)
+                        default:
+                            errorMessage.accept(APIError.unknownError.errorMessage)
+                        }
+                        return Single.just([])
+                    }
+            }
+            .bind(with: self) { owner, data in
+                owner.portfolioData.accept(data)
+            }
+            .disposed(by: disposBag)
         
         
         return Output(

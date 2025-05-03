@@ -15,7 +15,7 @@ final class CoinDetailViewModel: BaseViewModel {
     
     private let repository: StarItemRepository = StarItemTableRepository()
     
-    var id = BehaviorRelay(value: "")
+    var id = BehaviorRelay(value: [""])
     var imageUrl = BehaviorRelay(value: "")
     var symbolText = BehaviorRelay(value: "")
     
@@ -60,7 +60,7 @@ final class CoinDetailViewModel: BaseViewModel {
         
         id
             .flatMap {
-                NetworkManager.shared.callAPI(api: .coingeckoMarket(id: $0), type: [DetailData].self)
+                NetworkManager.shared.callAPI(api: .coingeckoMarket(ids: $0), type: [DetailData].self)
                     .retry(3)
                     .catch { error in
                         switch error as? APIError {
@@ -100,14 +100,14 @@ final class CoinDetailViewModel: BaseViewModel {
             .bind(with: self) { owner, _ in
                 let data = Array(owner.repository.fetchAll())
                 let existingData = data.filter {
-                    $0.id == owner.id.value
+                    $0.id == owner.id.value.first
                 }
                 
                 if existingData.count > 0 {
                     owner.repository.deleteItem(data: existingData.first ?? existingData[0])
                     isStared.accept(false)
                 } else {
-                    owner.repository.createItem(id: owner.id.value)
+                    owner.repository.createItem(id: owner.id.value.first!)
                     isStared.accept(true)
                 }
             }
@@ -117,7 +117,7 @@ final class CoinDetailViewModel: BaseViewModel {
             .bind(with: self) { owner, _ in
                 let data = Array(owner.repository.fetchAll())
                 let existingData = data.filter {
-                    $0.id == owner.id.value
+                    $0.id == owner.id.value.first
                 }
                 
                 if existingData.count > 0 {

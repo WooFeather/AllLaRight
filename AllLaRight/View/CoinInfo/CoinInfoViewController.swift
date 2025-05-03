@@ -90,7 +90,7 @@ final class CoinInfoViewController: BaseViewController {
                     print(trendingCoin.item.id)
                     
                     let vc = CoinDetailViewController()
-                    vc.viewModel.id.accept(trendingCoin.item.id)
+                    vc.viewModel.id.accept([trendingCoin.item.id])
                     vc.viewModel.imageUrl.accept(trendingCoin.item.thumb)
                     vc.viewModel.symbolText.accept(trendingCoin.item.symbol)
                     

@@ -27,7 +27,7 @@ final class NetworkManager {
                         print("🙋‍♀️ STATUS CODE \(response.response?.statusCode ?? 000)")
                         value(.success(data))
                     case .failure(let error):
-                        print("❌ FAILURE \(error)")
+                        print("❌ FAILURE \(error) \(api.endpoint)")
                         print("🙋‍♀️ STATUS CODE \(response.response?.statusCode ?? 000)")
                         
                         let errorStatusCode = response.response?.statusCode
